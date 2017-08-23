@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#000" >
+
+        <ImageButton
+            android:id="@+id/btnPreMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/selector_arrow_left" />
+
+        <ImageButton
+            android:id="@+id/btnNextMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/selector_arrow_right" />
+
+        <TextView
+            android:id="@+id/tvCurrentMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="12月 16日"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <cn.lzh.ui.view.RoundLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutRadius="@dimen/view_corners_radius" >
+
+        <cn.lzh.ui.view.CalendarCard
+            android:id="@+id/calendar_card"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#6666"
+            android:padding="10dp"
+            app:colorDivider="#333"
+            app:colorNormal="#000"
+            app:colorOtherMonth="#888"
+            app:colorSelectedBg="#209b54"
+            app:colorSelectedText="#fff"
+            app:colorShadowLine="#0000"
+            app:colorTableLine="#666"
+            app:colorToday="#ff0000"
+            app:colorWeek="#000"
+            app:enableClickUnreachDay="true"
+            app:enableDrawOhterMonth="false"
+            app:enableDrawTableLine="false"
+            app:endableChangePage="true" />
+    </cn.lzh.ui.view.RoundLinearLayout>
+
+</LinearLayout>

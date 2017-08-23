@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ListView
+        android:id="@+id/lv_contacts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <cn.lzh.ui.view.QuickIndexBar
+        android:id="@+id/quickIndexBar"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="#668e8e8e"
+        android:textColor="@color/choose_car_type_text" />
+
+    <TextView
+        android:id="@+id/tv_current_letter"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_shape_gray"
+        android:gravity="center"
+        tools:text="A" />
+
+</RelativeLayout>

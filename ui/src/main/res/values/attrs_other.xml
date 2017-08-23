@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+      <!-- 圆形图片视图-->
+    <declare-styleable name="RoundedImageView"> 
+        <attr name="border_thickness" format="dimension" /> 
+        <attr name="border_inside_color" format="color" /> 
+        <attr name="border_outside_color" format="color"></attr> 
+    </declare-styleable> 
+    <!-- 自定义ImageView -->
+    <declare-styleable name="CustomImageView">
+        <attr name="borderRadius" format="dimension" />
+        <attr name="type">
+            <!-- 普通 -->
+            <enum name="normal" value="0" />
+            <!-- 圆角 -->
+            <enum name="round" value="1" />
+            <!-- 圆形 -->
+            <enum name="circle" value="2" />
+        </attr>
+        <attr name="src" format="reference"></attr>
+    </declare-styleable>
+    <!-- 圆形进度条 -->
+    <declare-styleable name="RingProgressBar">
+        <attr name="max" format="integer" />
+        <attr name="progress" format="integer" />
+        <attr name="progressStartAngle" format="integer" />
+        <attr name="progressColor" format="color" />
+        <attr name="progressRingWidth" format="dimension" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="backgroundRingWidth" format="dimension" />
+        <attr name="textVisibility" format="boolean" />
+        <attr name="centerTextColor" format="color" />
+        <attr name="centerTextSize" format="dimension" />
+        <attr name="centerText" format="string" />
+        <attr name="paintStyle">
+            <enum name="STROKE" value="0" />
+            <enum name="FILL" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <!-- 组合控件：标题栏 -->
+    <declare-styleable name="TitleBar">
+        <attr name="titleBarTitle" format="string"/>
+        <attr name="titleBarLeftImage" format="reference"/>
+        <attr name="titleBarRightImage" format="reference"/>
+        <attr name="titleBarBackground" format="reference|color"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomVolumControlBar">
+        <attr name="firstColor" format="color" />
+        <attr name="secondColor" format="color"/>
+        <attr name="circleWidth" format="dimension" />
+        <attr name="dotCount" format="integer" />
+        <attr name="splitSize" format="integer" />
+        <attr name="bg" format="reference"/>
+    </declare-styleable>
+    <!-- 分割线 -->
+    <declare-styleable name="DividerPadding">
+        <attr name="dividerPaddingLeft" format="dimension" />
+        <attr name="dividerPaddingRight" format="dimension" />
+        <attr name="dividerPaddingTop" format="dimension" />
+        <attr name="dividerPaddingBottom" format="dimension" />
+    </declare-styleable>
+    <!-- 圆角矩形布局的属性 -->
+    <declare-styleable name="RoundLayout">
+        <attr name="layoutRadius" format="dimension" />
+        <attr name="topLeftRadius" format="dimension" />
+        <attr name="topRightRadius" format="dimension" />
+        <attr name="bottomLeftRadius" format="dimension" />
+        <attr name="bottomRightRadius" format="dimension" />
+    </declare-styleable>
+</resources>

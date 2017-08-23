@@ -1,0 +1,47 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          
+    package="cn.lzh.commonlibrary"
+    >
+
+    <application android:allowBackup="true"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="cn.lzh.commonlibrary.activity.DemoMainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="cn.lzh.commonlibrary.activity.CustomImageViewActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="cn.lzh.commonlibrary.activity.CustomVolumControlBarActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="cn.lzh.commonlibrary.activity.ParallaxListViewActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="cn.lzh.commonlibrary.activity.FlowLayoutActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="cn.lzh.commonlibrary.activity.QuickIndexBarActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="cn.lzh.commonlibrary.activity.ScaleImageViewActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="cn.lzh.commonlibrary.activity.CalendarActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="cn.lzh.commonlibrary.activity.RoundProgressBarActivity"
+            android:launchMode="singleTop" />
+    </application>
+
+</manifest>

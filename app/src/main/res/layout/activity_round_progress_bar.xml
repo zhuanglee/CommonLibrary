@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <cn.lzh.ui.view.RingProgressBar
+        android:id="@+id/roundProgressBar2"
+        android:layout_width="80dip"
+        android:layout_height="80dip"
+        android:layout_alignLeft="@+id/roundProgressBar1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="78dp"
+        app:backgroundColor="#D1D1D1"
+        app:progressColor="@android:color/black"
+        app:centerTextColor="#9A32CD"
+        app:progressRingWidth="10dip"
+        app:centerTextSize="18sp" />
+
+    <cn.lzh.ui.view.RingProgressBar
+        android:id="@+id/roundProgressBar4"
+        android:layout_width="80dip"
+        android:layout_height="80dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/roundProgressBar1"
+        android:layout_marginRight="32dp"
+        app:progressRingWidth="1dip"
+        app:progressColor="#C2C2C2"
+        app:paintStyle="FILL" />
+
+    <cn.lzh.ui.view.RingProgressBar
+        android:id="@+id/roundProgressBar3"
+        android:layout_width="80dip"
+        android:layout_height="80dip"
+        android:layout_alignLeft="@+id/roundProgressBar4"
+        android:layout_alignTop="@+id/roundProgressBar2"
+        app:backgroundColor="#C6E2FF"
+        app:progressRingWidth="10dip"
+        app:progressColor="#CD3333"
+        app:textVisibility="false" />
+
+    <cn.lzh.ui.view.RingProgressBar
+        android:id="@+id/roundProgressBar5"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:layout_below="@+id/roundProgressBar1"
+        android:layout_marginLeft="22dp"
+        android:layout_toRightOf="@+id/roundProgressBar1" />
+    
+    
+        <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Button" />
+
+    <cn.lzh.ui.view.RingProgressBar
+        android:id="@+id/roundProgressBar1"
+        android:layout_width="80dip"
+        android:layout_height="80dip"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button1"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp" />
+    
+
+</RelativeLayout>

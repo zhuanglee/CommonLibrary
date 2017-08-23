@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0873e6</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="red">#f00</color>
+    <color name="green">#0f0</color>
+    <color name="blue">#00f</color>
+    <color name="gold">#b89766</color>
+    <color name="blue_color">#3399ff</color>
+    <color name="text_black_color">#5B5B5B</color>
+    <color name="top_bar_normal_bg">#00acff</color>
+
+    <drawable name="page1">#888</drawable>
+    <drawable name="page2">#888</drawable>
+
+    <drawable name="white">#fff</drawable>
+    <drawable name="ripple">#0f000000</drawable>
+
+
+</resources>
