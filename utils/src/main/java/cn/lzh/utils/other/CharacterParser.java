@@ -6,17 +6,11 @@
  */
 package cn.lzh.utils.other;
 
-import net.sourceforge.pinyin4j.PinyinHelper;
-import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
-import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
-import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
-import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
-
 /**
  * Java汉字转换为拼音
  * 
  */
-public class CharacterParser {
+public final class CharacterParser {
 	private static int[] pyvalue = new int[] { -20319, -20317, -20304, -20295,
 			-20292, -20283, -20265, -20257, -20242, -20230, -20051, -20036,
 			-20032, -20026, -20002, -19990, -19986, -19982, -19976, -19805,
@@ -190,37 +184,6 @@ public class CharacterParser {
 
 	public String getSpelling() {
 		return this.getSelling(this.getResource());
-	}
-
-	/**
-	 * 获取汉字串拼音首字母，英文字符不变
-	 * 
-	 * @param chinese
-	 *            汉字串
-	 * @return 汉语拼音首字母
-	 */
-	public static String getFirstSpell(String chinese) {
-		StringBuffer pybf = new StringBuffer();
-		char[] arr = chinese.toCharArray();
-		HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
-		defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);
-		defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
-		for (int i = 0; i < arr.length; i++) {
-			if (arr[i] > 128) {
-				try {
-					String[] temp = PinyinHelper.toHanyuPinyinStringArray(
-							arr[i], defaultFormat);
-					if (temp != null) {
-						pybf.append(temp[0].charAt(0));
-					}
-				} catch (BadHanyuPinyinOutputFormatCombination e) {
-					e.printStackTrace();
-				}
-			} else {
-				pybf.append(arr[i]);
-			}
-		}
-		return pybf.toString().replaceAll("\\W", "").trim().toUpperCase();
 	}
 
 }

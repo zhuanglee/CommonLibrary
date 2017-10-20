@@ -1,4 +1,4 @@
-package cn.lzh.utils.other;
+package cn.lzh.utils;
 
 import android.util.Log;
 
@@ -15,12 +15,19 @@ import java.nio.charset.Charset;
  * @author guolin
  * @since 2015/12/7
  */
-public class SilentInstall {
-	  /** 
+public final class SilentInstall {
+
+
+    private SilentInstall() {
+        throw new UnsupportedOperationException("Cannot be instantiated");
+    }
+
+
+    /**
      * 判断手机是否拥有Root权限。 
      * @return 有root权限返回true，否则返回false。 
      */  
-    public boolean isRoot() {  
+    public static boolean isRoot() {
         boolean bool = false;  
         try {  
             bool = new File("/system/bin/su").exists() || new File("/system/xbin/su").exists();  
@@ -35,7 +42,7 @@ public class SilentInstall {
      *          要安装的apk文件的路径
      * @return 安装成功返回true，安装失败返回false。
      */
-    public boolean install(String apkPath) {
+    public static boolean install(String apkPath) {
         boolean result = false;
         DataOutputStream dataOutputStream = null;
         BufferedReader errorStream = null;

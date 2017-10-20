@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.lzh.utils.ScreenUtils;
+import cn.lzh.utils.DeviceUtil;
 
 /**
  * 自定义流式布局
@@ -48,7 +48,7 @@ public class FlowLayout extends ViewGroup {
 	public FlowLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		mLines=new ArrayList<Line>();//存储所有行
-		mVerticalSpace=mHorizontalSpace= ScreenUtils.dip2px(context, DEFAULT_SPACE);
+		mVerticalSpace=mHorizontalSpace= DeviceUtil.dip2px(context, DEFAULT_SPACE);
 		setPadding(mVerticalSpace, mVerticalSpace, mVerticalSpace, mVerticalSpace);
 	}
 	

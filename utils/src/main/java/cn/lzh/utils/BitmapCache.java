@@ -9,6 +9,7 @@ import android.support.v4.util.LruCache;
  * @author lzh
  *
  */
+@Deprecated
 public class BitmapCache {
 
 	private static BitmapCache mInstance = null;

@@ -1,4 +1,4 @@
-package cn.lzh.utils.other;
+package cn.lzh.utils;
 
 import android.app.Activity;
 import android.app.KeyguardManager;

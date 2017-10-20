@@ -1,68 +1,65 @@
-
 package cn.lzh.ui.utils;
 
-
 import android.content.Context;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.TextView;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
+import android.util.Log;
 import android.widget.Toast;
 
-import cn.lzh.ui.R;
-
-public class ToastUtil {
-    private Toast mToastInstance;
-    private Context mContext;
-    private  static ToastUtil sInstance;
-    public static ToastUtil getInstance(Context appContext){
-    	if(sInstance==null){
-    		sInstance=new ToastUtil(appContext);
-    	}
-    	return sInstance;
-    }
-    private ToastUtil(Context context) {
-        mContext = context;
+/**
+ * last modify date is 2017-10-20<br/>
+ * 可以连续弹吐司，不用等上个吐司消失
+ */
+public final class ToastUtil {
+    private static final String TAG = "ToastUtil";
+    private static Toast toast;
+    private static Context mAppContext;
+    private ToastUtil() {
     }
 
-    public void showToast(String message) {
-        makeText(mContext, message, Toast.LENGTH_SHORT,false).show();
-    }
-    
-    public void showToastCenter(String message) {
-        makeText(mContext, message, Toast.LENGTH_SHORT,true).show();
+    public static void init(@NonNull Context context){
+        mAppContext = context;
     }
 
-    public void showToast(String message, int showTime) {
-        makeText(mContext, message, showTime,false).show();
-    }
-
-   
-
-    private Toast makeText(Context context, String message, int showTime,boolean isCenter) {
-        if (mToastInstance == null) {
-
-            mToastInstance = new Toast(context);
-
-            LayoutInflater inflate = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            View v = inflate.inflate(R.layout.toast_content_view, null);
-            mToastInstance.setView(v);
-
+    public static void show(@NonNull String text, int duration) {
+        if (toast == null) {
+            if(mAppContext == null){
+                Log.e(TAG, "mAppContext is null, must be invoke init method");
+            }
+            toast = Toast.makeText(mAppContext, text, duration);
         }
-
-        ((TextView) mToastInstance.getView().findViewById(R.id.tv_message))
-                .setText(message);
-
-        mToastInstance.setDuration(showTime);
-        if(isCenter){
-        	mToastInstance.setGravity(Gravity.CENTER, 0, 0);
-        }
-
-        return mToastInstance;
+        toast.setText(text);
+        toast.show();
     }
-    
-    
+
+    public static void show(@NonNull String text) {
+        show(text, Toast.LENGTH_SHORT);
+    }
+
+    public static void show(@StringRes int resId) {
+        if(mAppContext == null){
+            Log.e(TAG, "mAppContext is null, must be invoke init method");
+        }
+        show(mAppContext.getString(resId));
+    }
+
+    /**
+     * 显示长时间的提示
+     * @param text
+     */
+    public static void showLong(@NonNull String text) {
+        show(text, Toast.LENGTH_LONG);
+    }
+
+    /**
+     * 显示长时间的提示
+     * @param text
+     */
+    public static void showLong(@StringRes int text) {
+        if(mAppContext == null){
+            Log.e(TAG, "mAppContext is null, must be invoke init method");
+        }
+        show(mAppContext.getString(text), Toast.LENGTH_LONG);
+    }
 
 }

@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import cn.lzh.commonlibrary.R;
 import cn.lzh.commonlibrary.base.BaseWatermarkActivity;
 import cn.lzh.ui.view.FlowLayout;
-import cn.lzh.utils.DrawableUtils;
-import cn.lzh.ui.utils.ToastUtils;
+import cn.lzh.utils.DrawableUtil;
+import cn.lzh.ui.utils.ToastUtil;
 
 /**
  * 流式布局
@@ -53,11 +53,11 @@ public class FlowLayoutActivity extends BaseWatermarkActivity {
 			tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 			tv.setPadding(mTextPaddingH,mTextPaddingV, mTextPaddingH, mTextPaddingV);
 			tv.setGravity(Gravity.CENTER);
-			tv.setBackgroundDrawable(DrawableUtils.getBtnSelectorRandomColor(mHotRadius));
+			tv.setBackgroundDrawable(DrawableUtil.getBtnSelectorRandomColor(mHotRadius));
 			tv.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					ToastUtils.show(mContext, string);
+					ToastUtil.show(string);
 				}
 			});
 			flowLayout.addView(tv);

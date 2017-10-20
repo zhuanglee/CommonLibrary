@@ -7,14 +7,13 @@ import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 
 /**
- * 获得屏幕相关的辅助类
+ * 设备工具类
  */
-public class ScreenUtils {
-	private ScreenUtils() {
+public class DeviceUtil {
+	private DeviceUtil() {
 		/* cannot be instantiated */
 		throw new UnsupportedOperationException("cannot be instantiated");
 	}
@@ -112,44 +111,6 @@ public class ScreenUtils {
 				- statusBarHeight);
 		view.destroyDrawingCache();
 		return bp;
-	}
-
-	/**
-	 * 获取控件宽
-	 */
-	public static int getWidth(View view) {
-		int w = View.MeasureSpec.makeMeasureSpec(0,
-				View.MeasureSpec.UNSPECIFIED);
-		int h = View.MeasureSpec.makeMeasureSpec(0,
-				View.MeasureSpec.UNSPECIFIED);
-		view.measure(w, h);
-		return (view.getMeasuredWidth());
-	}
-
-	/**
-	 * 获取控件高
-	 */
-	public static int getHeight(View view) {
-		int w = View.MeasureSpec.makeMeasureSpec(0,
-				View.MeasureSpec.UNSPECIFIED);
-		int h = View.MeasureSpec.makeMeasureSpec(0,
-				View.MeasureSpec.UNSPECIFIED);
-		view.measure(w, h);
-		return (view.getMeasuredHeight());
-	}
-
-	/**
-	 * 从父View中移除子View
-	 * 
-	 * @param child
-	 */
-	public static void removeFromParentView(View child) {
-		if (child != null) {
-			ViewGroup parent = (ViewGroup) child.getParent();
-			if (parent != null) {
-				parent.removeView(child);
-			}
-		}
 	}
 
 	public static int dip2px(Context context, float dpValue) {

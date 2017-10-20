@@ -24,6 +24,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import cn.lzh.utils.io.IOUtils;
+
 /**
  * File Utils
  * <ul>
@@ -58,8 +60,8 @@ import java.util.List;
  */
 public class FileUtils {
 
-    public final static String FILE_EXTENSION_SEPARATOR = ".";
 
+    public final static String FILE_EXTENSION_SEPARATOR = ".";
     private static final String LOG_TAG = "FileUtils";
     private static final String FILE_SEPARATOR = "/";
     private static final String FILE_SEPARATOR_2 = "\\";
@@ -718,7 +720,7 @@ public class FileUtils {
      * @see
      */
     public static String getFileNameWithoutExtension(String filePath) {
-        if (StringUtils.isEmpty(filePath)) {
+        if (StringUtil.isEmpty(filePath)) {
             return filePath;
         }
 
@@ -755,7 +757,7 @@ public class FileUtils {
      * @return file name from path, include suffix
      */
     public static String getFileName(String filePath) {
-        if (StringUtils.isEmpty(filePath)) {
+        if (StringUtil.isEmpty(filePath)) {
             return filePath;
         }
 
@@ -787,7 +789,7 @@ public class FileUtils {
      */
     public static String getFolderName(String filePath) {
 
-        if (StringUtils.isEmpty(filePath)) {
+        if (StringUtil.isEmpty(filePath)) {
             return filePath;
         }
 
@@ -851,7 +853,7 @@ public class FileUtils {
      */
     public static boolean makeDirs(String filePath) {
         String folderName = getFolderName(filePath);
-        if (StringUtils.isEmpty(folderName)) {
+        if (StringUtil.isEmpty(folderName)) {
             return false;
         }
 
@@ -875,7 +877,7 @@ public class FileUtils {
      * @return
      */
     public static boolean isFileExist(String filePath) {
-        if (StringUtils.isEmpty(filePath)) {
+        if (StringUtil.isEmpty(filePath)) {
             return false;
         }
 
@@ -890,7 +892,7 @@ public class FileUtils {
      * @return
      */
     public static boolean isFolderExist(String directoryPath) {
-        if (StringUtils.isEmpty(directoryPath)) {
+        if (StringUtil.isEmpty(directoryPath)) {
             return false;
         }
 
@@ -910,7 +912,7 @@ public class FileUtils {
      * @return
      */
     public static boolean deleteFile(String path) {
-        if (StringUtils.isEmpty(path)) {
+        if (StringUtil.isEmpty(path)) {
             return true;
         }
 
@@ -945,7 +947,7 @@ public class FileUtils {
      * @return returns the length of this file in bytes. returns -1 if the file does not exist.
      */
     public static long getFileSize(String path) {
-        if (StringUtils.isEmpty(path)) {
+        if (StringUtil.isEmpty(path)) {
             return -1;
         }
 

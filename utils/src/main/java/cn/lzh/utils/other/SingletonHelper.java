@@ -1,5 +1,9 @@
 package cn.lzh.utils.other;
 
+import android.text.TextUtils;
+
+import java.util.Collection;
+
 /**
  * Singleton helper class for lazily initialization.
  * 
@@ -7,7 +11,7 @@ package cn.lzh.utils.other;
  * 
  * @param <T>
  */
-public abstract class SingletonUtils<T> {
+public abstract class SingletonHelper<T> {
 
     private T instance;
 
@@ -15,7 +19,7 @@ public abstract class SingletonUtils<T> {
 
     public final T getInstance() {
         if (instance == null) {
-            synchronized (SingletonUtils.class) {
+            synchronized (SingletonHelper.class) {
                 if (instance == null) {
                     instance = newInstance();
                 }
@@ -23,4 +27,5 @@ public abstract class SingletonUtils<T> {
         }
         return instance;
     }
+
 }

@@ -1,6 +1,8 @@
-package cn.lzh.utils;
+package cn.lzh.utils.logger;
 
 import android.util.Log;
+
+import cn.lzh.utils.BuildConfig;
 
 /**
  * 
@@ -10,7 +12,7 @@ import android.util.Log;
  * 
  */
 public class LogUtils {
-	public static final String TAG = LogUtils.class.getName();
+	private static final String TAG = "LogUtils";
 
 	public static void d(String msg) {
 		debug(null, msg);

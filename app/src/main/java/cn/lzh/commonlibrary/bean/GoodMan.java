@@ -1,7 +1,7 @@
 package cn.lzh.commonlibrary.bean;
 
 
-import cn.lzh.utils.other.PinyinUtils;
+import cn.lzh.commonlibrary.utils.PinyinUtils;
 
 public class GoodMan implements Comparable<GoodMan>{
 

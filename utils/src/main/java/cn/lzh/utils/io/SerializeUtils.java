@@ -1,4 +1,4 @@
-package cn.lzh.utils;
+package cn.lzh.utils.io;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

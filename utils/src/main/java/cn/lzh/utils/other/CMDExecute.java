@@ -1,4 +1,4 @@
-package cn.lzh.utils;
+package cn.lzh.utils.other;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,15 +6,15 @@ import java.io.InputStream;
 
 public class CMDExecute {
 
-	public synchronized String run(String[] cmd, String workdirectory)
+	public synchronized String run(String[] cmd, String dir)
 			throws IOException {
 		String result = "";
 
 		try {
 			ProcessBuilder builder = new ProcessBuilder(cmd);
 			// set working directory
-			if (workdirectory != null)
-				builder.directory(new File(workdirectory));
+			if (dir != null)
+				builder.directory(new File(dir));
 			builder.redirectErrorStream(true);
 			Process process = builder.start();
 			InputStream in = process.getInputStream();
@@ -33,9 +33,9 @@ public class CMDExecute {
 
 	public static void main(String[] args) {
 		String result = null;
-		CMDExecute cmdexe = new CMDExecute();
+		CMDExecute cmdExecute = new CMDExecute();
 		try {
-			result = cmdexe.run(args, "D:\\MyProject\\colimas\\axis_c");
+			result = cmdExecute.run(args, "D:\\MyProject\\colimas\\axis_c");
 			System.out.println(result);
 		} catch (IOException ex) {
 			ex.printStackTrace();

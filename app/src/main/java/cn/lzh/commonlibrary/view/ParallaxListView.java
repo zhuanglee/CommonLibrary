@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import cn.lzh.utils.EvaluateUtil;
-
 /**
  * @author lzh
  * 
@@ -96,12 +94,10 @@ public class ParallaxListView extends ListView {
 					public void onAnimationUpdate(ValueAnimator animator) {
 						float fraction = animator.getAnimatedFraction();// 获取百分比
 						// 根据动画百分比计算当前头部的高度
-						Integer currentHeight = EvaluateUtil.evaluateInt(
-								fraction, mIvHeader.getHeight(),
-								mIvHeaderheight);
+						float currentHeight = mIvHeader.getHeight() + fraction * (mIvHeaderheight - mIvHeader.getHeight());
 						LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mIvHeader
 								.getLayoutParams();
-						layoutParams.height = currentHeight;
+						layoutParams.height = (int) currentHeight;
 						mIvHeader.setLayoutParams(layoutParams);
 					}
 				});

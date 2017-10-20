@@ -15,6 +15,7 @@ import java.net.URL;
  * @author zhy
  * 
  */
+@Deprecated
 public class HttpUtils {
 
 	private static final int TIMEOUT_IN_MILLIONS = 5000;

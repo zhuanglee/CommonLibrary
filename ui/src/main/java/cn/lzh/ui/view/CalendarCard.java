@@ -14,10 +14,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import cn.lzh.ui.R;
-import cn.lzh.utils.CalendarUtil;
-import cn.lzh.utils.CalendarUtil.CustomDate;
-import cn.lzh.ui.utils.ToastUtils;
+import cn.lzh.ui.utils.ToastUtil;
 
 
 /**
@@ -118,7 +120,7 @@ public class CalendarCard extends View {
 	/**
 	 * 记录当前显示的哪年哪月
 	 */
-	private CalendarUtil.CustomDate mShowDate;
+	private CustomDate mShowDate;
 
 	/**
 	 * 不能采用CustomDate记录
@@ -241,16 +243,16 @@ public class CalendarCard extends View {
 	 * 更新日期，并填充到行列对象中
 	 */
 	private void fillDate() {
-		int monthDay = CalendarUtil.getDayOfMonth(); // 今天
+		int monthDay = CustomDate.getDayOfMonth(); // 今天
 		// 上个月的天数
-		int daysOfLastMonth = CalendarUtil.getDaysOfMonth(mShowDate.year,
+		int daysOfLastMonth = CustomDate.getDaysOfMonth(mShowDate.year,
 				mShowDate.month - 1);
 		// 本月天数
-		int daysOfCurrentMonth = CalendarUtil.getDaysOfMonth(mShowDate.year,
+		int daysOfCurrentMonth = CustomDate.getDaysOfMonth(mShowDate.year,
 				mShowDate.month);
-		int mFirstDayWeek = CalendarUtil.getWeekDayOfMonthFirstDay(
+		int mFirstDayWeek = CustomDate.getWeekDayOfMonthFirstDay(
 				mShowDate.year, mShowDate.month);
-		boolean isCurrentMonth = CalendarUtil.isCurrentMonth(mShowDate);
+		boolean isCurrentMonth = CustomDate.isCurrentMonth(mShowDate);
 		int day = 0;
 		for (int i = 1; i < TOTAL_ROW; i++) {// 行,i=0是日历标题（星期几）
 			for (int j = 0; j < TOTAL_COL; j++) {// 列
@@ -519,7 +521,7 @@ public class CalendarCard extends View {
 			}
 			update(true);
 		} else {
-			ToastUtils.show(getContext(), "最后一页了");
+			ToastUtil.show("最后一页了");
 		}
 	}
 
@@ -774,4 +776,118 @@ public class CalendarCard extends View {
 		RIGHT, LEFT, NO_SILDE;
 	}
 
+	/**
+	 * 自定义的日期，包括year,month,day
+	 *
+	 * @author lzh
+	 *
+	 */
+	public static class CustomDate implements Serializable {
+
+		private static final long serialVersionUID = 1L;
+		public int year;
+		public int month;
+		public int day;
+		public int week;
+
+		public CustomDate() {
+			Calendar calendar = Calendar.getInstance();
+			this.year = calendar.get(Calendar.YEAR);
+			this.month = calendar.get(Calendar.MONTH) + 1;
+			this.day = calendar.get(Calendar.DAY_OF_MONTH);
+		}
+
+		public CustomDate(Calendar calendar) {
+			this.year = calendar.get(Calendar.YEAR);
+			this.month = calendar.get(Calendar.MONTH) + 1;
+			this.day = calendar.get(Calendar.DAY_OF_MONTH);
+		}
+
+		public CustomDate(int year, int month, int day) {
+			if (month > 12) {
+				month = 1;
+				year++;
+			} else if (month < 1) {
+				month = 12;
+				year--;
+			}
+			this.year = year;
+			this.month = month;
+			this.day = day;
+		}
+
+		public CustomDate(CustomDate date) {
+			this.year = date.year;
+			this.month = date.month;
+			this.day = date.day;
+		}
+
+		/*
+		 * public static CustomDate modifiDayForObject(CustomDate date,int day){
+		 * CustomDate modifiDate = new CustomDate(date.year,date.month,day);
+		 * return modifiDate; }
+		 */
+
+		@Override
+		public String toString() {
+			return year + "-" + (month > 9 ? "" : "0") + month + "-"
+					+ (day > 9 ? "" : "0") + day;
+		}
+
+
+		/**
+		 * 判断指定日期是否是当前月份的日期
+		 *
+		 * @param date
+		 * @return
+		 */
+		public static boolean isCurrentMonth(CustomDate date) {
+			Calendar calendar = Calendar.getInstance();
+			return (date.year == calendar.get(Calendar.YEAR)
+					&& date.month == calendar.get(Calendar.MONTH) + 1);
+		}
+
+		public static int getDayOfMonth() {
+			return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		}
+
+		/**
+		 * 获取指定年月份的天数
+		 *
+		 * @param year
+		 * @param month
+		 *            实际月份
+		 * @return
+		 */
+		public static int getDaysOfMonth(int year, int month) {
+			// 日历中的月份=实际月份-1
+			GregorianCalendar calendar = new GregorianCalendar(year, month - 1, 1);
+			return getDaysOfMonth(calendar);
+		}
+
+		/**
+		 * 获取指定月历的天数
+		 *
+		 * @param calendar
+		 * @return
+		 */
+		public static int getDaysOfMonth(Calendar calendar) {
+			return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		}
+
+		/**
+		 * 获取指定年月的第一天是星期几
+		 *
+		 * @param year
+		 * @param month
+		 *            实际月份
+		 * @return
+		 */
+		public static int getWeekDayOfMonthFirstDay(int year, int month) {
+			// 日历中的月份=实际月份-1
+			GregorianCalendar calendar = new GregorianCalendar(year, month - 1, 1);
+			int currentWeekDay = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+			return currentWeekDay;
+		}
+	}
 }

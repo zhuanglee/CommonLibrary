@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.lzh.utils.ScreenUtils;
+import cn.lzh.utils.DeviceUtil;
 
 public class CloudViewGroup extends ViewGroup {
 	private static final int DEFAULT_VIEW_MARGIN=16;
@@ -19,7 +19,7 @@ public class CloudViewGroup extends ViewGroup {
 	}
     public CloudViewGroup(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		mViewMargin = ScreenUtils.dip2px(context, DEFAULT_VIEW_MARGIN);
+		mViewMargin = DeviceUtil.dip2px(context, DEFAULT_VIEW_MARGIN);
 	}
 
 	@Override
