@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ResourceUtils
+ * ResourceUtil
  * 
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2012-5-26
  */
-public class ResourceUtils {
+public class ResourceUtil {
 
-    private ResourceUtils() {
+    private ResourceUtil() {
         throw new AssertionError();
     }
 
@@ -78,7 +78,7 @@ public class ResourceUtils {
     }
 
     /**
-     * same to {@link ResourceUtils#geFileFromAssets(Context, String)}, but return type is List<String>
+     * same to {@link ResourceUtil#geFileFromAssets(Context, String)}, but return type is List<String>
      * 
      * @param context
      * @param fileName
@@ -106,7 +106,7 @@ public class ResourceUtils {
     }
 
     /**
-     * same to {@link ResourceUtils#geFileFromRaw(Context, int)}, but return type is List<String>
+     * same to {@link ResourceUtil#geFileFromRaw(Context, int)}, but return type is List<String>
      * 
      * @param context
      * @param resId

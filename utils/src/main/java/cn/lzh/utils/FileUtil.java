@@ -58,15 +58,15 @@ import cn.lzh.utils.io.IOUtils;
  * 
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2012-5-12
  */
-public class FileUtils {
+public class FileUtil {
 
 
     public final static String FILE_EXTENSION_SEPARATOR = ".";
-    private static final String LOG_TAG = "FileUtils";
+    private static final String LOG_TAG = "FileUtil";
     private static final String FILE_SEPARATOR = "/";
     private static final String FILE_SEPARATOR_2 = "\\";
 
-    private FileUtils() {
+    private FileUtil() {
         throw new AssertionError();
     }
 
@@ -846,7 +846,7 @@ public class FileUtils {
      * @return true if the necessary directories have been created or the target directory already exists, false one of
      *         the directories can not be created.
      *         <ul>
-     *         <li>if {@link FileUtils#getFolderName(String)} return null, return false</li>
+     *         <li>if {@link FileUtil#getFolderName(String)} return null, return false</li>
      *         <li>if target directory already exists, return true</li>
      *         <li>return {@link File#mkdir()}</li>
      *         </ul>

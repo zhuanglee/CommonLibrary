@@ -1,8 +1,4 @@
-package cn.lzh.utils.other;
-
-import android.text.TextUtils;
-
-import java.util.Collection;
+package cn.lzh.utils;
 
 /**
  * Singleton helper class for lazily initialization.

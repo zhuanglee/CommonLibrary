@@ -92,7 +92,7 @@ public class SystemUtil {
                 tmSerial = "" + tm.getSimSerialNumber();
                 androidId = "" + android.provider.Settings.Secure.getString(context.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
             } catch (Exception e) {
-                Log.e("AppUtils", "exception:" + e.getMessage());
+                Log.e("AppUtil", "exception:" + e.getMessage());
             }
         } else {
             Log.e(TAG, "没有 android.permission.READ_PHONE_STATE 权限");

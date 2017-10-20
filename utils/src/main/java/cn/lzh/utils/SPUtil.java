@@ -13,12 +13,12 @@ import java.util.Map;
  * @author lzh
  *
  */
-public class SPUtils {
+public class SPUtil {
 	/**
 	 * 保存在手机里面的文件名
 	 */
 	public static final String FILE_NAME = "share_data";
-	private SPUtils() {
+	private SPUtil() {
 		throw new AssertionError("Cannot be instantiated");
 	}
 	/**

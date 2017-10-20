@@ -10,9 +10,9 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-public final class AssetUtils {
+public final class AssetUtil {
 
-	private AssetUtils() {
+	private AssetUtil() {
 		throw new UnsupportedOperationException("Cannot be instantiated");
 	}
 

@@ -19,9 +19,9 @@ import android.text.TextUtils;
  * 
  * @author from open source
  */
-public final class NetWorkUtils {
+public final class NetWorkUtil {
 
-    private static final String TAG = "NetWorkUtils";
+    private static final String TAG = "NetWorkUtil";
     public static final String NETWORK_TYPE_WIFI       = "wifi";
     public static final String NETWORK_TYPE_3G         = "eg";
     public static final String NETWORK_TYPE_2G         = "2g";
@@ -30,7 +30,7 @@ public final class NetWorkUtils {
     public static final String NETWORK_TYPE_DISCONNECT = "disconnect";
 
 
-    private NetWorkUtils() {
+    private NetWorkUtil() {
         throw new UnsupportedOperationException("Cannot be instantiated");
     }
 

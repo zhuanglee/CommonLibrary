@@ -1,11 +1,5 @@
 package cn.lzh.utils;
 
-import android.Manifest;
-import android.annotation.TargetApi;
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningAppProcessInfo;
-import android.app.ActivityManager.RunningTaskInfo;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -13,51 +7,27 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
-import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.graphics.drawable.animated.BuildConfig;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
-import android.telephony.TelephonyManager;
-import android.text.TextUtils;
-import android.text.format.Formatter;
-import android.util.Log;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.security.MessageDigest;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.regex.Pattern;
 
 import javax.security.auth.x500.X500Principal;
 
 /**
- * AppUtils
+ * AppUtil
  * @author open source
  */
-public final class AppUtils {
+public final class AppUtil {
 
     private final static X500Principal DEBUG_DN = new X500Principal(
             "CN=Android Debug,O=Android,C=US");
 
-    private AppUtils() {
+    private AppUtil() {
         throw new UnsupportedOperationException("Cannot be instantiated");
     }
 

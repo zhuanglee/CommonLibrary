@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-import cn.lzh.utils.other.CMDExecute;
-
 public class FetchData {
 	private static StringBuffer buffer;
 

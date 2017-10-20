@@ -13,9 +13,9 @@ import java.util.Date;
 import java.util.TimeZone;
 
 @SuppressLint("SimpleDateFormat")
-public class DateUtils {
+public class DateUtil {
 
-	private static final String LOG_TAG = DateUtils.class.getSimpleName();
+	private static final String LOG_TAG = DateUtil.class.getSimpleName();
 	
 	private static final String PATTERN_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
 
@@ -47,7 +47,7 @@ public class DateUtils {
 		}
 	};
 
-	private DateUtils() {
+	private DateUtil() {
 		throw new UnsupportedOperationException("Cannot be instantiated");
 	}
 

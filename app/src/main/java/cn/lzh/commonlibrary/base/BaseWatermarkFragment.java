@@ -16,7 +16,7 @@ import android.view.WindowManager;
 import java.io.File;
 
 import cn.lzh.utils.BitmapUtil;
-import cn.lzh.utils.WatermarkTools;
+import cn.lzh.utils.WatermarkUtil;
 
 public abstract class BaseWatermarkFragment extends Fragment {
 	private static final String DIR_DEBUG = "/debug/";
@@ -58,10 +58,10 @@ public abstract class BaseWatermarkFragment extends Fragment {
 				Environment.MEDIA_MOUNTED)) {
 			String dir = Environment.getExternalStorageDirectory()
 					+ DIR_DEBUG;
-			file = new File(String.format(WatermarkTools.WATERMARK_FILE_FORMAT,
+			file = new File(String.format(WatermarkUtil.WATERMARK_FILE_FORMAT,
 					dir, text));
 		}
-		WatermarkTools.Watermark watermark = new WatermarkTools.Watermark();
+		WatermarkUtil.Watermark watermark = new WatermarkUtil.Watermark();
 		watermark.width = outMetrics.widthPixels;
 		watermark.height = outMetrics.heightPixels;
 		if (file != null && file.exists()) {
@@ -74,7 +74,7 @@ public abstract class BaseWatermarkFragment extends Fragment {
 				if (scaledBitmap != null) {
 					bitmap = scaledBitmap;
 				}
-				mWatermarkDrawable = WatermarkTools.getWatermarkDrawable(
+				mWatermarkDrawable = WatermarkUtil.getWatermarkDrawable(
 						bitmap, watermark);
 			}
 		}
@@ -83,7 +83,7 @@ public abstract class BaseWatermarkFragment extends Fragment {
 			watermark.text = mWatermarkText;
 			watermark.textColor = WATERMARK_TEXT_COLOR;
 			watermark.textSize = WATERMARK_TEXT_SZIE;
-			mWatermarkDrawable = WatermarkTools.getWatermarkDrawable(watermark);
+			mWatermarkDrawable = WatermarkUtil.getWatermarkDrawable(watermark);
 		}
 	}
 

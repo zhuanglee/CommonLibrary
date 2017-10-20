@@ -4,7 +4,7 @@
  * @author	
  * @version	0.1
  */
-package cn.lzh.utils.other;
+package cn.lzh.utils;
 
 /**
  * Java汉字转换为拼音

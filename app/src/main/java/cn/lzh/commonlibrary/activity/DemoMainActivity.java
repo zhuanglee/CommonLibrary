@@ -82,37 +82,6 @@ public class DemoMainActivity extends BaseWatermarkActivity {
 				}
 			}
 		});
-//		mListView
-//				.setOnPullDownRefreshListener(new OnPullDownRefreshListener() {
-//					@Override
-//					public void onRefresh() {
-//						LogUtils.debug(mContext, "onRefresh");
-//						new Handler().postDelayed(new Runnable() {
-//							@Override
-//							public void run() {
-//								datas.add(0, new ActvityBean("onRefresh:"
-//										+ DateUtils.formatDate(new Date())));
-//								myAdapter.notifyDataSetChanged();
-//								mListView.onFinishRefresh();
-//							}
-//						}, 3000);
-//					}
-//				});
-//		mListView.setOnLoadingMoreListener(new OnLoadingMoreListener() {
-//			@Override
-//			public void onLoadingMore() {
-//				LogUtils.debug(mContext, "onLoadingMore");
-//				new Handler().postDelayed(new Runnable() {
-//					@Override
-//					public void run() {
-//						datas.add(new ActvityBean("onLoadingMore:"
-//								+ DateUtils.formatDate(new Date())));
-//						myAdapter.notifyDataSetChanged();
-//						mListView.onFinishLoadingMore();
-//					}
-//				}, 3000);
-//			}
-//		});
 	}
 
 }

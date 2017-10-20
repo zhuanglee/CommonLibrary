@@ -14,7 +14,7 @@ import java.io.File;
 
 import cn.lzh.commonlibrary.R;
 import cn.lzh.utils.BitmapUtil;
-import cn.lzh.utils.WatermarkTools;
+import cn.lzh.utils.WatermarkUtil;
 
 /**
  * 添加水印效果的基类
@@ -94,10 +94,10 @@ public class BaseWatermarkActivity extends FragmentActivity {
                 Environment.MEDIA_MOUNTED)) {
             String dir = Environment.getExternalStorageDirectory()
                     + DIR_DEBUG;
-            file = new File(String.format(WatermarkTools.WATERMARK_FILE_FORMAT,
+            file = new File(String.format(WatermarkUtil.WATERMARK_FILE_FORMAT,
                     dir, text));
         }
-        WatermarkTools.Watermark watermark = new WatermarkTools.Watermark();
+        WatermarkUtil.Watermark watermark = new WatermarkUtil.Watermark();
         watermark.width = outMetrics.widthPixels;
         watermark.height = outMetrics.heightPixels;
         watermark.offsetY = (int) this.getResources().getDimension(
@@ -111,7 +111,7 @@ public class BaseWatermarkActivity extends FragmentActivity {
                 if (scaledBitmap != null) {
                     bitmap = scaledBitmap;
                 }
-                mWatermarkDrawable = WatermarkTools.getWatermarkDrawable(
+                mWatermarkDrawable = WatermarkUtil.getWatermarkDrawable(
                         bitmap, watermark);
             }
         }
@@ -120,7 +120,7 @@ public class BaseWatermarkActivity extends FragmentActivity {
             watermark.text = mWatermarkText;
 //			watermark.textColor=WATERMARK_TEXT_COLOR;
 //			watermark.textSize=WATERMARK_TEXT_SZIE;
-            mWatermarkDrawable = WatermarkTools.getWatermarkDrawable(watermark);
+            mWatermarkDrawable = WatermarkUtil.getWatermarkDrawable(watermark);
         }
     }
 

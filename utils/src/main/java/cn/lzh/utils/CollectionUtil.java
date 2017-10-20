@@ -1,4 +1,4 @@
-package cn.lzh.utils.other;
+package cn.lzh.utils;
 
 import android.text.TextUtils;
 
@@ -7,18 +7,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * CollectionUtils
+ * CollectionUtil
  *
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2012-7-22
  */
-public class CollectionUtils {
+public class CollectionUtil {
 
     /**
      * default join separator
      **/
     public static final CharSequence DEFAULT_JOIN_SEPARATOR = ",";
 
-    private CollectionUtils() {
+    private CollectionUtil() {
         throw new AssertionError();
     }
 

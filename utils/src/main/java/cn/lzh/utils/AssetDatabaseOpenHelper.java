@@ -1,5 +1,4 @@
 package cn.lzh.utils;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -78,7 +77,7 @@ public class AssetDatabaseOpenHelper {
 
     private void copyDatabase(File dbFile) throws IOException {
         InputStream stream = context.getAssets().open(databaseName);
-        FileUtils.writeFile(dbFile, stream);
+        FileUtil.writeFile(dbFile, stream);
         stream.close();
     }
 }

@@ -16,11 +16,11 @@ import java.net.URL;
  * 
  */
 @Deprecated
-public class HttpUtils {
+public class HttpUtil {
 
 	private static final int TIMEOUT_IN_MILLIONS = 5000;
 
-	private HttpUtils() {
+	private HttpUtil() {
 		throw new UnsupportedOperationException("Cannot be instantiated");
 	}
 

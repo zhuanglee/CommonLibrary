@@ -1,4 +1,4 @@
-package cn.lzh.utils.other;
+package cn.lzh.utils;
 
 import java.io.File;
 import java.io.IOException;
