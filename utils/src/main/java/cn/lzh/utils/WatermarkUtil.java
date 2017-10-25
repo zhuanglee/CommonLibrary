@@ -165,6 +165,7 @@ public class WatermarkUtil {
 	 * @param url
 	 * @param filename
 	 */
+	@Deprecated
 	public static void downloadWatermarkImage(final Context context,final URL url,String filename) {
 		if(context==null||url==null||TextUtils.isEmpty(filename)){
 			throw new IllegalArgumentException("参数不可为空");
@@ -182,7 +183,7 @@ public class WatermarkUtil {
 		new Thread(){
 			public void run() {
 				try {
-					Bitmap bitmap = BitmapUtil.getBitmap(context, url);
+					Bitmap bitmap = BitmapUtil.getBitmap(url);
 					if(bitmap!=null){
 						BitmapUtil.saveImage(bitmap, file, CompressFormat.PNG);
 					}
