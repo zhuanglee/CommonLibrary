@@ -1,23 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0873e6</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorControlNormal">#88FF4081</color>
+
+    <color name="white">#fff</color>
+    <color name="white_pressed">#0f000000</color>
+    <color name="white_disable">#8fff</color>
+
+    <color name="gray_normal">#cbcbcb</color>
+    <color name="gray_pressed">#bbcbcbcb</color>
+    <color name="gray_disable">#66cbcbcb</color>
+
+    <!-- 红色 -->
+    <color name="red_normal">#eb485b</color>
+    <color name="red_pressed">#bbeb485b</color>
+    <color name="red_disable">#66eb485b</color>
+
+    <!-- 橙色 -->
+    <color name="orange_normal">#f0a53d</color>
+    <color name="orange_pressed">#bbf0a53d</color>
+    <color name="orange_disable">#66f0a53d</color>
+
+    <!-- 绿色 -->
+    <color name="green_normal">#47a35b</color>
+    <color name="green_pressed">#bb47a35b</color>
+    <color name="green_disable">#6647a35b</color>
+
+    <!-- 蓝色 -->
+    <color name="blue_normal">#68b8ff</color>
+    <color name="blue_pressed">#bb68b8ff</color>
+    <color name="blue_disable">#6668b8ff</color>
+
+    <!-- 字体颜色 -->
+    <color name="text_color_primary">#333</color>
+    <color name="text_color_primary_disable">#3333</color>
+    <color name="text_color_secondary">#666</color>
+
+    <!-- 水波纹颜色 -->
+    <color name="rippleColor">#20000000</color>
+
+    <!--背景颜色-->
+    <color name="window_bg">#efeff4</color>
+
+    <!--分割线颜色-->
+    <color name="divider">#d5d5d5</color>
+
 
     <color name="transparent">#00000000</color>
-    <color name="white">#fff</color>
-    <color name="black">#000</color>
-    <color name="red">#f00</color>
-    <color name="green">#0f0</color>
-    <color name="blue">#00f</color>
     <color name="gold">#b89766</color>
-    <color name="blue_color">#3399ff</color>
-    <color name="text_black_color">#5B5B5B</color>
-    <color name="top_bar_normal_bg">#00acff</color>
-
-    <drawable name="page1">#888</drawable>
-    <drawable name="page2">#888</drawable>
-
-    <drawable name="white">#fff</drawable>
-    <drawable name="ripple">#0f000000</drawable>
-
 
 </resources>

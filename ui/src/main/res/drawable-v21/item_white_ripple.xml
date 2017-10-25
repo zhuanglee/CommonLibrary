@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#0f000000">
+    <!--
+    这里指定id为@android:id/mask，
+    那么默认是不会显示该drawable，而是在点击的时候出现;
+    如果不指定，那么在显示的时候会显示出item指定的drawable
+    -->
+    <!-- android:id="@android:id/mask" -->
+    <item android:drawable="@color/white" />
+</ripple>

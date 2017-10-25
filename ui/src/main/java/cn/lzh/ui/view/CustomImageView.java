@@ -15,6 +15,7 @@ import android.util.TypedValue;
 import android.view.View;
 
 import cn.lzh.ui.R;
+import cn.lzh.utils.BitmapUtil;
 
 /**
  * 自定义View，实现圆角，圆形等效果
@@ -140,7 +141,7 @@ public class CustomImageView extends View {
 			canvas.drawBitmap(mSrc, 0, 0, null);
 			break;
 		case TYPE_ROUND:
-			canvas.drawBitmap(createRoundConerImage(mSrc), 0, 0, null);
+			canvas.drawBitmap(BitmapUtil.toRoundCorner(mSrc, (int)mRadius), 0, 0, null);
 			break;
 		case TYPE_CIRCLE:// 如果是TYPE_CIRCLE绘制圆形
 			int min = Math.min(mWidth, mHeight);

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <drawable name="page1">#888</drawable>
+    <drawable name="page2">#888</drawable>
+
+    <drawable name="white">#fff</drawable>
+    <drawable name="ripple">#0f000000</drawable>
+
+
+</resources>

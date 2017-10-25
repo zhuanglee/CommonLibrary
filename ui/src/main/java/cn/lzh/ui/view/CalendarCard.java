@@ -454,27 +454,27 @@ public class CalendarCard extends View {
 	 */
 	private void processClickListener(int col, int row) {
 		// 判断所选日期是否属于当前日历视图所对应的月份，不属于则跳转到对应月份的日历视图
-		SildeDirection sildeDirection = SildeDirection.NO_SILDE;
+		SlideDirection slideDirection = SlideDirection.NO_SILDE;
 		if (mEndableChangePage) {
 			float date1 = mShowDate.year + mShowDate.month / 100f;
 			float date2 = mRows[row].cells[col].date.year
 					+ mRows[row].cells[col].date.month / 100f;
 			if (date1 > date2) {
 				// 跳转到上个月日历视图
-				sildeDirection = SildeDirection.LEFT;
+				slideDirection = SlideDirection.LEFT;
 			} else if (date1 < date2) {
 				// 跳转到下个月日历视图
-				sildeDirection = SildeDirection.RIGHT;
+				slideDirection = SlideDirection.RIGHT;
 			}
 		}
 		if (mClickCellListener != null) {
 			// TODO 必须先回调单击事件,再刷新日历
 			mClickCellListener.onClickDate(mRows[row].cells[col].date,
-					sildeDirection);
+                    slideDirection);
 		}
-		if (sildeDirection == SildeDirection.LEFT) {
+		if (slideDirection == SlideDirection.LEFT) {
 			slideToLeft();
-		} else if (sildeDirection == SildeDirection.RIGHT) {
+		} else if (slideDirection == SlideDirection.RIGHT) {
 			slideToRight();
 		} else {
 			update(false);
@@ -718,9 +718,9 @@ public class CalendarCard extends View {
 		 * 点击日期
 		 * 
 		 * @param date
-		 * @param sildeDirection
+		 * @param slideDirection
 		 */
-		void onClickDate(CustomDate date, SildeDirection sildeDirection);
+		void onClickDate(CustomDate date, SlideDirection slideDirection);
 
 		/**
 		 * 切换日历面板时回调
@@ -772,7 +772,7 @@ public class CalendarCard extends View {
 	 * @author lzh
 	 *
 	 */
-	public static enum SildeDirection {
+	public static enum SlideDirection {
 		RIGHT, LEFT, NO_SILDE;
 	}
 
