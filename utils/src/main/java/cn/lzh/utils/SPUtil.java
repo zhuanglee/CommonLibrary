@@ -13,6 +13,7 @@ import java.util.Map;
  * @author lzh
  *
  */
+@Deprecated
 public class SPUtil {
 	/**
 	 * 保存在手机里面的文件名

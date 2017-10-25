@@ -8,6 +8,7 @@ import android.support.v4.util.LruCache;
  * 
  * @author lzh
  *
+ * @deprecated 使用开源库性能更佳，如：Glide
  */
 @Deprecated
 public class BitmapCache {

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        style="@android:style/Widget.DatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_padding"/>
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/datePicker"
+        android:layout_alignTop="@id/datePicker"
+        android:layout_alignBottom="@id/datePicker"
+        android:timePickerMode="spinner"
+        android:padding="0dp"
+        />
+</RelativeLayout>

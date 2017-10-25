@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <alpha xmlns:Android="http://schemas.android.com/apk/res/android"
     Android:duration="@android:integer/config_shortAnimTime"
-    Android:fromAlpha="0.0"
     Android:interpolator="@android:anim/linear_interpolator"
-    Android:toAlpha="1.0" />
+    Android:fromAlpha="1.0"
+    Android:toAlpha="0.0" />

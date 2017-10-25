@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="activity_padding">16dp</dimen>
     <dimen name="view_corners_radius">5dp</dimen>
     <dimen name="divider_1px">1px</dimen>
+    <dimen name="divider_1dp">1dp</dimen>
+
+    <!-- 日期时间选择对话框中的NumberPicker控件尺寸 -->
+    <dimen name="year_width">60dp</dimen>
+    <dimen name="moth_width">40dp</dimen>
+    <dimen name="day_width">40dp</dimen>
+    <dimen name="hour_width">40dp</dimen>
+    <dimen name="minute_width">40dp</dimen>
 
 </resources>

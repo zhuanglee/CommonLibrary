@@ -15,6 +15,7 @@ import java.nio.charset.Charset;
  * @author guolin
  * @since 2015/12/7
  */
+@Deprecated
 public final class SilentInstall {
 
 

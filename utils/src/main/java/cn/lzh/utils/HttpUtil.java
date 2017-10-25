@@ -7,7 +7,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+
+import cn.lzh.utils.io.IOUtils;
+import cn.lzh.utils.io.StreamUtil;
 
 /**
  * Http请求的工具类
@@ -79,17 +83,39 @@ public class HttpUtil {
 	/**
 	 * Get请求，获得返回数据
 	 * 
-	 * @param urlStr
+	 * @param url
 	 * @return
 	 * @throws Exception
 	 */
-	public static String doGet(String urlStr) {
-		URL url = null;
+	public static String doGet(String url) throws MalformedURLException {
+        byte[] bytes = doGetData(url);
+        if(bytes == null){
+            return null;
+        }
+        return new String(bytes);
+	}
+
+    /**
+     * Get请求，获得返回数据
+     *
+     * @param url
+     * @return
+     * @throws Exception
+     */
+    public static byte[] doGetData(String url) throws MalformedURLException {
+        return doGetData(new URL(url));
+    }
+	/**
+	 * Get请求，获得返回数据
+	 *
+	 * @param url
+	 * @return
+	 * @throws Exception
+	 */
+	public static byte[] doGetData(URL url) {
 		HttpURLConnection conn = null;
 		InputStream is = null;
-		ByteArrayOutputStream baos = null;
 		try {
-			url = new URL(urlStr);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(TIMEOUT_IN_MILLIONS);
 			conn.setConnectTimeout(TIMEOUT_IN_MILLIONS);
@@ -97,16 +123,8 @@ public class HttpUtil {
 			conn.setRequestProperty("accept", "*/*");
 			conn.setRequestProperty("connection", "Keep-Alive");
 			if (conn.getResponseCode() == 200) {
-				is = conn.getInputStream();
-				baos = new ByteArrayOutputStream();
-				int len = -1;
-				byte[] buf = new byte[128];
-
-				while ((len = is.read(buf)) != -1) {
-					baos.write(buf, 0, len);
-				}
-				baos.flush();
-				return baos.toString();
+                is = conn.getInputStream();
+				return StreamUtil.readByteArray(is);
 			} else {
 				throw new RuntimeException(" responseCode is not 200 ... ");
 			}
@@ -119,12 +137,8 @@ public class HttpUtil {
 					is.close();
 			} catch (IOException e) {
 			}
-			try {
-				if (baos != null)
-					baos.close();
-			} catch (IOException e) {
-			}
-			conn.disconnect();
+			if(conn != null)
+			    conn.disconnect();
 		}
 
 		return null;

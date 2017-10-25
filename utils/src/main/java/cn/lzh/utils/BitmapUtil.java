@@ -1,6 +1,5 @@
 package cn.lzh.utils;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -19,24 +18,21 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
-import android.media.MediaMetadataRetriever;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.provider.MediaStore;
-import android.widget.ImageView;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
 
+/**
+ * Last modify on 2017-10-25<br/>
+ * 图片处理工具类
+ */
 public class BitmapUtil {
 	private static final int UNCONSTRAINED = -1;
 	public static final int LEFT = 0;
@@ -48,41 +44,6 @@ public class BitmapUtil {
 		throw new UnsupportedOperationException("Cannot be instantiated");
 	}
 
-	public static Bitmap getBitmap(Context context, Uri uri) {
-		if (context == null || uri == null)
-			return null;
-		Bitmap bitmap;
-		try {
-			bitmap = BitmapFactory.decodeStream(context.getContentResolver()
-					.openInputStream(uri));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		}
-		return bitmap;
-	}
-
-	/**
-	 * 在ImageView上显示指定路径的图片（异步任务）
-	 *
-	 * @param filename
-	 *            图片的路径
-	 * @param iv
-	 */
-	public static void displayBitmap(final String filename, final ImageView iv) {
-		new AsyncTask<String, Void, Bitmap>() {
-			@Override
-			protected Bitmap doInBackground(String... params) {
-				return BitmapFactory.decodeFile(params[0]);
-			}
-
-			@Override
-			protected void onPostExecute(Bitmap result) {
-				iv.setImageBitmap(result);
-			}
-		}.execute(filename);
-	}
-
 	/**
 	 * 将Bitmap转换成指定大小
 	 *
@@ -91,7 +52,8 @@ public class BitmapUtil {
 	 * @param height
 	 * @return
 	 */
-	public static Bitmap createScaledBitmap(Bitmap bitmap, int width, int height) {
+	@NonNull
+	public static Bitmap createScaledBitmap(@NonNull Bitmap bitmap, int width, int height) {
 		return Bitmap.createScaledBitmap(bitmap, width, height, true);
 	}
 
@@ -101,7 +63,7 @@ public class BitmapUtil {
 	 * @param path
 	 * @return
 	 */
-	public static int readPictureDegree(String path) {
+	public static int readPictureDegree(@NonNull String path) {
 		int degree = 0;
 		try {
 			ExifInterface exifInterface = new ExifInterface(path);
@@ -141,72 +103,56 @@ public class BitmapUtil {
 	/**
 	 * 旋转
 	 *
-	 * @param bm
-	 * @param orientationDegree
+	 * @param src 原图（旋转后会被回收）
+	 * @param orientationDegree 旋转角度
 	 * @return
 	 */
-	public static Bitmap adjustPhotoRotation(Bitmap bm,
+	@NonNull
+	public static Bitmap adjustPhotoRotation(@NonNull Bitmap src,
 											 final int orientationDegree) {
 		Matrix m = new Matrix();
-		m.setRotate(orientationDegree, (float) bm.getWidth() / 2,
-				(float) bm.getHeight() / 2);
+		m.setRotate(orientationDegree, (float) src.getWidth() / 2,
+				(float) src.getHeight() / 2);
 		float targetX, targetY;
 		if (orientationDegree == 90) {
-			targetX = bm.getHeight();
+			targetX = src.getHeight();
 			targetY = 0;
 		} else {
-			targetX = bm.getHeight();
-			targetY = bm.getWidth();
+			targetX = src.getHeight();
+			targetY = src.getWidth();
 		}
 		final float[] values = new float[9];
 		m.getValues(values);
 		float x1 = values[Matrix.MTRANS_X];
 		float y1 = values[Matrix.MTRANS_Y];
 		m.postTranslate(targetX - x1, targetY - y1);
-		Bitmap bm1 = Bitmap.createBitmap(bm.getHeight(), bm.getWidth(),
+		Bitmap bmp = Bitmap.createBitmap(src.getHeight(), src.getWidth(),
 				Bitmap.Config.ARGB_8888);
 		Paint paint = new Paint();
-		Canvas canvas = new Canvas(bm1);
-		canvas.drawBitmap(bm, m, paint);
-		bm.recycle();
-		bm = null;
-		return bm1;
-	}
-
-	/**
-	 * 去色同时加圆角
-	 *
-	 * @param bmpOriginal
-	 *            原图
-	 * @param pixels
-	 *            圆角弧度
-	 * @return 修改后的图片
-	 */
-	public static Bitmap toGrayscale(Bitmap bmpOriginal, int pixels) {
-		return toRoundCorner(toGrayscale(bmpOriginal), pixels);
+		Canvas canvas = new Canvas(bmp);
+		canvas.drawBitmap(src, m, paint);
+		src.recycle();
+		return bmp;
 	}
 
 	/**
 	 * 图片去色,返回灰度图片
 	 *
-	 * @param bmpOriginal
-	 *            传入的图片
+	 * @param src 原图
 	 * @return 去色后的图片
 	 */
-	public static Bitmap toGrayscale(Bitmap bmpOriginal) {
-		int width, height;
-		height = bmpOriginal.getHeight();
-		width = bmpOriginal.getWidth();
-		Bitmap bmpGrayscale = Bitmap.createBitmap(width, height,
+	@NonNull
+	public static Bitmap toGrayScale(@NonNull Bitmap src) {
+		Bitmap bitmap = Bitmap.createBitmap(src.getWidth(), src.getHeight(),
 				Bitmap.Config.RGB_565);
-		Canvas c = new Canvas(bmpGrayscale);
+		Canvas c = new Canvas(bitmap);
 		Paint paint = new Paint();
 		ColorMatrix cm = new ColorMatrix();
 		cm.setSaturation(0);
 		ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
 		paint.setColorFilter(f);
-		c.drawBitmap(bmpOriginal, 0, 0, paint);
-		return bmpGrayscale;
+		c.drawBitmap(src, 0, 0, paint);
+		return bitmap;
 	}
 
 	/**
@@ -218,7 +164,8 @@ public class BitmapUtil {
 	 *            圆角的弧度
 	 * @return 圆角图片
 	 */
-	public static Bitmap toRoundCorner(Bitmap bitmap, int pixels) {
+	@NonNull
+	public static Bitmap toRoundCorner(@NonNull Bitmap bitmap, int pixels) {
 		Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
 				bitmap.getHeight(), Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(output);
@@ -237,37 +184,35 @@ public class BitmapUtil {
 	}
 
 	/**
-	 * 使圆角功能支持BitampDrawable
+	 * 使圆角功能支持BitmapDrawable
 	 *
 	 * @param bitmapDrawable
 	 * @param pixels
 	 * @return
 	 */
-	public static BitmapDrawable toRoundCorner(BitmapDrawable bitmapDrawable,
+	@NonNull
+	public static BitmapDrawable toRoundCorner(@NonNull BitmapDrawable bitmapDrawable,
 											   int pixels) {
-		Bitmap bitmap = bitmapDrawable.getBitmap();
-		bitmapDrawable = new BitmapDrawable(toRoundCorner(bitmap, pixels));
-		return bitmapDrawable;
+		return new BitmapDrawable(
+				toRoundCorner(bitmapDrawable.getBitmap(), pixels));
 	}
 
 	/**
-	 * 水印
+	 * 获取添加水印后的图片
 	 *
-	 * @param src
-	 * @param watermark
+	 * @param src 原图
+	 * @param watermark 水印图片
 	 * @return
 	 */
-	public static Bitmap createBitmapForWatermark(Bitmap src, Bitmap watermark) {
-		if (src == null) {
-			return null;
-		}
+	@NonNull
+	public static Bitmap getWatermarkBitmap(@NonNull Bitmap src, @NonNull Bitmap watermark) {
 		int w = src.getWidth();
 		int h = src.getHeight();
 		int ww = watermark.getWidth();
 		int wh = watermark.getHeight();
 		// create the new blank bitmap
-		Bitmap newb = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);// 创建一个新的和SRC长度宽度一样的位图
-		Canvas cv = new Canvas(newb);
+		Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);// 创建一个新的和SRC长度宽度一样的位图
+		Canvas cv = new Canvas(bitmap);
 		// draw src into
 		cv.drawBitmap(src, 0, 0, null);// 在 0，0坐标开始画入src
 		// draw watermark into
@@ -276,7 +221,7 @@ public class BitmapUtil {
 		cv.save(Canvas.ALL_SAVE_FLAG);// 保存
 		// store
 		cv.restore();// 存储
-		return newb;
+		return bitmap;
 	}
 
 	/**
@@ -284,6 +229,7 @@ public class BitmapUtil {
 	 *
 	 * @return
 	 */
+	@Nullable
 	public static Bitmap getFotoMix(int direction, Bitmap... bitmaps) {
 		if (bitmaps.length <= 0) {
 			return null;
@@ -299,6 +245,7 @@ public class BitmapUtil {
 		return newBitmap;
 	}
 
+	@Nullable
 	private static Bitmap createFotoMixBitmap(Bitmap first, Bitmap second,
 											  int direction) {
 		if (first == null) {
@@ -341,12 +288,29 @@ public class BitmapUtil {
 	}
 
 	/**
+	 * Drawable 转 Bitmap
+	 *
+	 * @param drawable
+	 * @return
+	 */
+	@NonNull
+	public static Bitmap drawableToBitmap(@NonNull Drawable drawable) {
+		if(drawable instanceof BitmapDrawable){
+			BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+			return bitmapDrawable.getBitmap();
+		}else{
+			return drawable2Bitmap(drawable);
+		}
+	}
+
+	/**
 	 * drawable 转换成bitmap
 	 *
 	 * @param drawable
 	 * @return
 	 */
-	public static Bitmap drawable2Bitmap(Drawable drawable) {
+	@NonNull
+	private static Bitmap drawable2Bitmap(@NonNull Drawable drawable) {
 		int width = drawable.getIntrinsicWidth();// 取drawable的长宽
 		int height = drawable.getIntrinsicHeight();
 		Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
@@ -359,25 +323,14 @@ public class BitmapUtil {
 	}
 
 	/**
-	 * Drawable 转 Bitmap
-	 *
-	 * @param drawable
-	 * @return
-	 */
-	public static Bitmap drawableToBitmap(Drawable drawable) {
-		BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-		return bitmapDrawable.getBitmap();
-	}
-
-	/**
 	 * Bitmap 转 Drawable
 	 *
 	 * @param bitmap
 	 * @return
 	 */
-	public static Drawable bitmapToDrawable(Bitmap bitmap) {
-		Drawable drawable = new BitmapDrawable(bitmap);
-		return drawable;
+	@NonNull
+	public static Drawable bitmapToDrawable(@NonNull Bitmap bitmap) {
+		return new BitmapDrawable(bitmap);
 	}
 
 	/**
@@ -386,7 +339,8 @@ public class BitmapUtil {
 	 * @param b
 	 * @return
 	 */
-	public static Bitmap bytesToBimap(byte[] b) {
+	@Nullable
+	public static Bitmap bytesToBitmap(@NonNull byte[] b) {
 		if (b.length != 0) {
 			return BitmapFactory.decodeByteArray(b, 0, b.length);
 		} else {
@@ -397,75 +351,46 @@ public class BitmapUtil {
 	/**
 	 * bitmap 转 byte[]
 	 *
-	 * @param bm
+	 * @param bmp
 	 * @return
 	 */
-	public static byte[] bitmapToBytes(Bitmap bm) {
+	@NonNull
+	public static byte[] bitmapToBytes(@NonNull Bitmap bmp) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		bm.compress(CompressFormat.PNG, 100, baos);
+		bmp.compress(CompressFormat.PNG, 100, baos);
 		return baos.toByteArray();
 	}
 
 	/**
-	 * 保存图片
-	 *
-	 * @param bitmap
-	 * @param filename
-	 * @param format
-	 *            ：JPEG|PNG
-	 * @return
-	 */
-	public static boolean saveImage(Bitmap bitmap, String filename,
-									CompressFormat format) {
-		boolean isSuccess = false;
-		File file = new File(filename);
-		FileOutputStream fos = null;
-		try {
-			fos = new FileOutputStream(file);
-			if (bitmap.compress(format, 100, fos)) {
-				fos.flush();
-			}
-			isSuccess = true;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (fos != null) {
-				try {
-					fos.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return isSuccess;
-	}
-
-	/**
 	 * 获取资源图片
-	 * 
+	 *
 	 * @param context
 	 * @param resId
 	 *            图片资源ID
 	 * @return
+	 * @deprecated 使用开源库性能更佳，如：Glide
 	 */
+	@Deprecated
+	@NonNull
 	public static Bitmap getBitmap(Context context, int resId) {
 		return getBitmap(context, resId, 0, 0);
 	}
 
 	/**
 	 * 获取资源图片
-	 * 
+	 *
 	 * @param context
 	 * @param resId
 	 *            图片资源ID
 	 * @param width
 	 * @param height
 	 * @return
+	 * @deprecated 使用开源库性能更佳，如：Glide
 	 */
+	@Deprecated
+	@NonNull
 	public static Bitmap getBitmap(Context context, int resId, int width,
-			int height) {
+								   int height) {
 		Options opts = new Options();
 		if (width > 0 && height > 0) {
 			opts.inJustDecodeBounds = true;
@@ -479,28 +404,32 @@ public class BitmapUtil {
 
 	/**
 	 * 获取本地图片
-	 * 
-	 * @param context
+	 *
 	 * @param file
 	 *            图片文件
 	 * @return
+	 * @deprecated 使用开源库性能更佳，如：Glide
 	 */
-	public static Bitmap getBitmap(Context context, File file) {
-		return getBitmap(context, file, 0, 0);
+	@Deprecated
+	@Nullable
+	public static Bitmap getBitmap(File file) {
+		return getBitmap(file, 0, 0);
 	}
 
 	/**
 	 * 获取本地图片
-	 * 
-	 * @param context
+	 *
 	 * @param file
 	 *            图片文件
 	 * @param width
 	 * @param height
 	 * @return
+	 * @deprecated 使用开源库性能更佳，如：Glide
 	 */
-	public static Bitmap getBitmap(Context context, File file, int width,
-			int height) {
+	@Deprecated
+	@Nullable
+	public static Bitmap getBitmap(File file, int width,
+								   int height) {
 		Options opts = new Options();
 		if (width > 0 && height > 0) {
 			opts.inJustDecodeBounds = true;
@@ -512,30 +441,57 @@ public class BitmapUtil {
 	}
 
 	/**
-	 * 加载网络图片
-	 * 
+	 * 加载本地图片
 	 * @param context
-	 * @param imgUrl
-	 *            图片链接
-	 * @return 可能为null
+	 * @param localUri
+	 * @return
+	 * @deprecated 使用开源库性能更佳，如：Glide
 	 */
-	public static Bitmap getBitmap(Context context, URL imgUrl) {
-		return getBitmap(context, imgUrl, 0, 0);
+	@Deprecated
+	@Nullable
+	public static Bitmap getBitmap(Context context, Uri localUri) {
+		if (context == null || localUri == null)
+			return null;
+		Bitmap bitmap;
+		try {
+			bitmap = BitmapFactory.decodeStream(context.getContentResolver()
+					.openInputStream(localUri));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return bitmap;
 	}
 
 	/**
 	 * 加载网络图片
-	 * 
-	 * @param context
+	 *
+	 * @param imgUrl
+	 *            图片链接
+	 * @return
+	 * @deprecated 使用开源库性能更佳，如：Glide
+	 */
+	@Deprecated
+	@Nullable
+	public static Bitmap getBitmap(URL imgUrl) {
+		return getBitmap(imgUrl, 0, 0);
+	}
+
+	/**
+	 * 加载网络图片
+	 *
 	 * @param imgUrl
 	 *            图片链接
 	 * @param width
 	 * @param height
-	 * @return 可能为null
+	 * @return
+	 * @deprecated 使用开源库性能更佳，如：Glide
 	 */
-	public static Bitmap getBitmap(Context context, URL imgUrl, int width,
-			int height) {
-		byte[] data = getDataFromNet(imgUrl);
+	@Deprecated
+	@Nullable
+	public static Bitmap getBitmap(URL imgUrl, int width,
+								   int height) {
+		byte[] data = HttpUtil.doGetData(imgUrl);
 		if (data == null || data.length == 0) {
 			return null;
 		}
@@ -547,41 +503,6 @@ public class BitmapUtil {
 			opts.inJustDecodeBounds = false;
 		}
 		return BitmapFactory.decodeByteArray(data, 0, data.length, opts);
-	}
-
-	/**
-	 * 保存图片
-	 * 
-	 * @param bitmap
-	 * @param file
-	 * @param format
-	 *            ：JPEG|PNG
-	 * @return
-	 */
-	public static boolean saveImage(Bitmap bitmap, File file,
-			CompressFormat format) {
-		boolean isSuccess = false;
-		FileOutputStream fos = null;
-		try {
-			fos = new FileOutputStream(file);
-			if (bitmap.compress(format, 100, fos)) {
-				fos.flush();
-			}
-			isSuccess = true;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (fos != null) {
-				try {
-					fos.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return isSuccess;
 	}
 
 	/**
@@ -603,7 +524,7 @@ public class BitmapUtil {
 	 * we round up the sample size to avoid OOM.
 	 */
 	private static int computeSampleSize(Options options,
-			int minSideLength, int maxNumOfPixels) {
+										 int minSideLength, int maxNumOfPixels) {
 		int initialSize = computeInitialSampleSize(options, minSideLength,
 				maxNumOfPixels);
 
@@ -628,7 +549,7 @@ public class BitmapUtil {
 	 * @return
 	 */
 	private static int computeInitialSampleSize(Options options,
-			int minSideLength, int maxNumOfPixels) {
+												int minSideLength, int maxNumOfPixels) {
 		double w = options.outWidth;
 		double h = options.outHeight;
 
@@ -653,85 +574,135 @@ public class BitmapUtil {
 		}
 	}
 
-	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	private Bitmap createVideoThumbnail(String url, int width, int height) {
-		Bitmap bitmap = null;
-		MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-		int kind = MediaStore.Video.Thumbnails.MINI_KIND;
+	/**
+	 * 保存图片
+	 *
+	 * @param bitmap
+	 * @param file
+	 * @param format
+	 *            ：JPEG|PNG
+	 * @return
+	 */
+	public static boolean saveImage(@NonNull Bitmap bitmap, @NonNull File file,
+									@NonNull CompressFormat format) {
+		boolean isSuccess = false;
+		FileOutputStream fos = null;
 		try {
-			if (Build.VERSION.SDK_INT >= 14) {
-				retriever.setDataSource(url, new HashMap<String, String>());
-			} else {
-				retriever.setDataSource(url);
+			fos = new FileOutputStream(file);
+			if (bitmap.compress(format, 100, fos)) {
+				fos.flush();
 			}
-			bitmap = retriever.getFrameAtTime(0);
-		} catch (IllegalArgumentException ex) {
-			// Assume this is a corrupt video file
-		} catch (RuntimeException ex) {
-			// Assume this is a corrupt video file.
+			isSuccess = true;
+		} catch (IOException e) {
+			e.printStackTrace();
 		} finally {
-			try {
-				retriever.release();
-			} catch (RuntimeException ex) {
-				// Ignore failures while cleaning up.
+			if (fos != null) {
+				try {
+					fos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		if (kind == MediaStore.Images.Thumbnails.MICRO_KIND && bitmap != null) {
-			bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height,
-					ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
-		}
-		return bitmap;
+		return isSuccess;
+	}
+
+
+	/**
+	 * 保存图片
+	 *
+	 * @param bitmap
+	 * @param filePath
+	 * @param format
+	 *            ：JPEG|PNG
+	 * @return
+	 */
+	public static boolean saveImage(@NonNull Bitmap bitmap, @NonNull String filePath,
+									@NonNull CompressFormat format) {
+		return saveImage(bitmap, new File(filePath), format);
 	}
 
 	/**
-	 * Get请求，获得返回数据
-	 * 
-	 * @param url
-	 * @return
+	 * 旋转数据
+	 *
+	 * @param dst
+	 *            目标数据
+	 * @param src
+	 *            源数据
+	 * @param srcWidth
+	 *            源数据宽
+	 * @param srcHeight
+	 *            源数据高
 	 */
-	private static byte[] getDataFromNet(URL url) {
-		final int TIMEOUT_IN_MILLIONS = 5000;
-		HttpURLConnection conn = null;
-		InputStream is = null;
-		ByteArrayOutputStream baos = null;
-		try {
-			conn = (HttpURLConnection) url.openConnection();
-			conn.setReadTimeout(TIMEOUT_IN_MILLIONS);
-			conn.setConnectTimeout(TIMEOUT_IN_MILLIONS);
-			conn.setRequestMethod("GET");
-			conn.setRequestProperty("accept", "*/*");
-			conn.setRequestProperty("connection", "Keep-Alive");
-			if (conn.getResponseCode() == 200) {
-				is = conn.getInputStream();
-				baos = new ByteArrayOutputStream();
-				int len = -1;
-				byte[] buf = new byte[128];
+	public static void YV12RotateNegative90(byte[] dst, byte[] src, int srcWidth,
+											int srcHeight) {
+		int t = 0;
+		int i, j;
 
-				while ((len = is.read(buf)) != -1) {
-					baos.write(buf, 0, len);
-				}
-				baos.flush();
-				return baos.toByteArray();
-			} else {
-				throw new RuntimeException(" responseCode is not 200 ... ");
-			}
+		int wh = srcWidth * srcHeight;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (is != null)
-					is.close();
-			} catch (IOException e) {
+		for (i = srcWidth - 1; i >= 0; i--) {
+			for (j = srcHeight - 1; j >= 0; j--) {
+				dst[t++] = src[j * srcWidth + i];
 			}
-			try {
-				if (baos != null)
-					baos.close();
-			} catch (IOException e) {
-			}
-			conn.disconnect();
 		}
-		return null;
+
+		for (i = srcWidth / 2 - 1; i >= 0; i--) {
+			for (j = srcHeight / 2 - 1; j >= 0; j--) {
+				dst[t++] = src[wh + j * srcWidth / 2 + i];
+			}
+		}
+
+		for (i = srcWidth / 2 - 1; i >= 0; i--) {
+			for (j = srcHeight / 2 - 1; j >= 0; j--) {
+				dst[t++] = src[wh * 5 / 4 + j * srcWidth / 2 + i];
+			}
+		}
+
+	}
+
+
+	/**
+	 * 旋转数据
+	 *
+	 * @param data
+	 *            源数据
+	 * @param imageWidth
+	 *            源数据宽
+	 * @param imageHeight
+	 *            源数据高
+	 * @return 目标数据
+	 */
+	public static byte[] YUV42RotateDegree90(byte[] data, int imageWidth, int imageHeight)
+	{
+		byte [] yuv = new byte[imageWidth*imageHeight*3/2];
+
+		// Y
+		int i = 0;
+		for(int x = 0;x < imageWidth;x++)
+		{
+			for(int y = imageHeight-1;y >= 0;y--)
+			{
+				yuv[i] = data[y*imageWidth+x];
+				i++;
+			}
+		}
+
+		// U and V
+		i = imageWidth*imageHeight*3/2-1;
+		int pos = imageWidth*imageHeight;
+		for(int x = imageWidth-1;x > 0;x=x-2)
+		{
+
+			for(int y = 0;y < imageHeight/2;y++)
+			{
+				yuv[i] = data[pos+(y*imageWidth)+x];
+				i--;
+				yuv[i] = data[pos+(y*imageWidth)+(x-1)];
+				i--;
+			}
+		}
+		return yuv;
 	}
 
 }
