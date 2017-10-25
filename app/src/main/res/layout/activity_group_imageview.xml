@@ -1,23 +1,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:lzh="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-    <cn.lzh.groupimagevew.GroupImageView
-        android:id="@+id/iv_group1"
+    <include layout="@layout/toolbar" />
+
+    <cn.lzh.ui.view.GroupImageView
+        android:id="@+id/iv_group_for_local"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
         android:src="@drawable/ic_launcher"
         lzh:bgRoundRectRadius="3dp" />
 
-    <cn.lzh.groupimagevew.GroupImageView
-        android:id="@+id/iv_group2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
+    <cn.lzh.ui.view.GroupImageView
+        android:id="@+id/iv_group_for_net"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
         android:src="@drawable/ic_launcher"
         lzh:bgRoundRectRadius="5dp"
         lzh:colorBG="#3333"

@@ -1,11 +1,17 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <cn.lzh.commonlibrary.view.ParallaxListView
+    <include layout="@layout/toolbar" />
+
+    <cn.lzh.common.view.ParallaxListView
         android:id="@+id/parallaxListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@color/gold"
+        android:dividerHeight="@dimen/divider_1px"
+        android:listSelector="@drawable/item_white_ripple" />
 
-</RelativeLayout>
+</LinearLayout>

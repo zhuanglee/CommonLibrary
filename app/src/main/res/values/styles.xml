@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -14,5 +14,32 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">false</item>
     </style>
+
+
+    <!-- ToolBar菜单样式 -->
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!--返回或更多的按钮等图标颜色-->
+        <item name="actionBarSize">@dimen/toolbar_height</item>
+        <item name="colorControlNormal">?android:attr/textColorPrimaryInverse</item>
+        <item name="actionMenuTextColor">@drawable/text_color_white_selector</item>
+        <!-- 在样式里面去掉acionbar的应用图标和标题 -->
+        <item name="android:displayOptions">useLogo</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <!-- 会影响到Toolbar菜单弹窗的背景 -->
+        <!--<item name="android:background">@color/colorPrimary</item>-->
+    </style>
+
+
+    <style name="ToolbarPopupTheme" parent="ThemeOverlay.AppCompat.Light" >
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+        <!-- Toolbar菜单弹窗的背景，会优先使用ToolbarTheme中的android:background属性 -->
+        <!--<item name="android:colorBackground">@color/white</item>-->
+    </style>
+
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <!--把该属性改为false即可使menu位置位于toolbar之下-->
+        <item name="overlapAnchor">false</item>
+    </style>
+
 
 </resources>

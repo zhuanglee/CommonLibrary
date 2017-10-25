@@ -1,18 +1,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <ListView
         android:id="@+id/lv_contacts"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar" />
 
     <cn.lzh.ui.view.QuickIndexBar
         android:id="@+id/quickIndexBar"
         android:layout_width="30dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
+        android:layout_below="@id/toolbar"
         android:background="#668e8e8e"
         android:textColor="@color/choose_car_type_text" />
 

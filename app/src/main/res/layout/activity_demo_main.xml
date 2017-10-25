@@ -1,15 +1,18 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
 
     <ListView
-        android:id="@+id/refreshListView"
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:cacheColorHint="@color/transparent"
+        android:cacheColorHint="@android:color/transparent"
         android:divider="@color/gold"
-        android:dividerHeight="1px"
-        android:listSelector="@color/transparent" />
+        android:dividerHeight="@dimen/divider_1px"
+        android:listSelector="@android:color/transparent" />
 
-</RelativeLayout>
+</LinearLayout>

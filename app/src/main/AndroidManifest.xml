@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           
-    package="cn.lzh.commonlibrary"
+    package="cn.lzh.common"
     >
 
     <application android:allowBackup="true"
@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".App">
+        android:name="cn.lzh.common.App">
         <activity
-            android:name="cn.lzh.commonlibrary.activity.DemoMainActivity"
+            android:name="cn.lzh.common.activity.DemoMainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,28 +20,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="cn.lzh.commonlibrary.activity.CustomImageViewActivity"
+            android:name="cn.lzh.common.activity.CalendarActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="cn.lzh.commonlibrary.activity.CustomVolumControlBarActivity"
+            android:name="cn.lzh.common.activity.CustomImageViewActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="cn.lzh.commonlibrary.activity.ParallaxListViewActivity"
+            android:name="cn.lzh.common.activity.CustomVolumControlBarActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="cn.lzh.commonlibrary.activity.FlowLayoutActivity"
+            android:name="cn.lzh.common.activity.FlowLayoutActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="cn.lzh.commonlibrary.activity.QuickIndexBarActivity"
+            android:name="cn.lzh.common.activity.GroupImageViewActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="cn.lzh.commonlibrary.activity.ScaleImageViewActivity"
+            android:name="cn.lzh.common.activity.ParallaxListViewActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="cn.lzh.commonlibrary.activity.CalendarActivity"
+            android:name="cn.lzh.common.activity.QuickIndexBarActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="cn.lzh.commonlibrary.activity.RoundProgressBarActivity"
+            android:name="cn.lzh.common.activity.RoundProgressBarActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="cn.lzh.common.activity.ScaleImageViewActivity"
             android:launchMode="singleTop" />
     </application>
 
