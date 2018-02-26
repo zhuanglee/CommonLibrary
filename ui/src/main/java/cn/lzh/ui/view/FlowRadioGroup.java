@@ -2,44 +2,36 @@ package cn.lzh.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.RadioGroup;
 
 import cn.lzh.ui.utils.FlowLayoutHelper;
 import cn.lzh.utils.DeviceUtil;
 
 /**
- * 自定义流式布局
+ * 自定义流式单选按钮组
  * @author lzh
  *
  */
-public class FlowLayout extends ViewGroup {
+public class FlowRadioGroup extends RadioGroup {
 
 	private FlowLayoutHelper mFlowLayoutHelper;
 
-	public FlowLayout(Context context) {
+	public FlowRadioGroup(Context context) {
 		this(context,null);
 	}
 
-	public FlowLayout(Context context, AttributeSet attrs) {
-		this(context, attrs,0);
-	}
-
-	public FlowLayout(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
+	public FlowRadioGroup(Context context, AttributeSet attrs) {
+		super(context, attrs);
 		mFlowLayoutHelper = new FlowLayoutHelper(this, new FlowLayoutHelper.OnMeasureCallback() {
 			@Override
 			public void onCallSuperMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-				FlowLayout.super.measure(widthMeasureSpec, heightMeasureSpec);
+				FlowRadioGroup.super.measure(widthMeasureSpec, heightMeasureSpec);
 			}
 
 			@Override
 			public void setMeasuredDimension(int measuredWidth, int measuredHeight) {
-				FlowLayout.this.setMeasuredDimension(measuredWidth, measuredHeight);
+				FlowRadioGroup.this.setMeasuredDimension(measuredWidth, measuredHeight);
 			}
 		});
 		int space = DeviceUtil.dip2px(context, 8);

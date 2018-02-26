@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.lzh.ui.view.RoundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layoutRadius="@dimen/view_corners_radius">
+
+    <cn.lzh.ui.view.CalendarCard
+        android:id="@+id/calendar_card"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:padding="10dp"
+        app:colorDivider="#333"
+        app:colorNormal="#000"
+        app:colorOtherMonth="#888"
+        app:colorSelectedBg="#209b54"
+        app:colorSelectedText="#fff"
+        app:colorShadowLine="#0000"
+        app:colorTableLine="#666"
+        app:colorToday="#ff0000"
+        app:colorWeek="#000"
+        app:enableChangePage="true"
+        app:enableClickFutureDay="true"
+        app:enableDrawOtherMonth="false"
+        app:enableDrawTableLine="false" />
+
+</cn.lzh.ui.view.RoundLinearLayout>

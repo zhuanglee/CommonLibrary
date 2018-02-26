@@ -27,6 +27,7 @@ import cn.lzh.ui.R;
  * @author lzh
  *
  */
+@Deprecated
 public class GroupImageView extends AppCompatImageView {
 
 	private static final String TAG = GroupImageView.class.getSimpleName();

@@ -7,19 +7,19 @@ import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.ui.view.CalendarCard;
 import cn.lzh.ui.view.CalendarCard.CustomDate;
 import cn.lzh.ui.utils.ToastUtil;
+import cn.lzh.ui.view.PageWidget;
+import cn.lzh.utils.BitmapUtil;
 
 public class CalendarActivity extends BaseWatermarkActivity implements CalendarCard.OnClickCellListener {
-  
-    private CalendarCard mCalendarCard;
-    
-    @Override  
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
         setContentView(R.layout.activity_calendar);
         initToolbar(true);
-        mCalendarCard =(CalendarCard)findViewById(R.id.calendar_card);
-        mCalendarCard.setClickCellListener(this);
-        mCalendarCard.setSelectedDate(new CustomDate());
+        CalendarCard calendarCard = (CalendarCard) findViewById(R.id.calendar_card);
+        calendarCard.setClickCellListener(this);
+        calendarCard.setSelectedDate(new CustomDate());
     }
 
     @Override  

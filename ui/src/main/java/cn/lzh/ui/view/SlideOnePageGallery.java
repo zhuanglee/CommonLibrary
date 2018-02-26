@@ -11,6 +11,7 @@ import android.widget.Gallery;
  * 
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2013-3-22
  */
+@Deprecated
 public class SlideOnePageGallery extends Gallery {
 
     public SlideOnePageGallery(Context context, AttributeSet attrs, int defStyle) {

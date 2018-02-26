@@ -29,10 +29,10 @@
             app:colorTableLine="#666"
             app:colorToday="#ff0000"
             app:colorWeek="#000"
-            app:enableClickUnreachDay="true"
-            app:enableDrawOhterMonth="false"
+            app:enableClickFutureDay="true"
+            app:enableDrawOtherMonth="false"
             app:enableDrawTableLine="false"
-            app:endableChangePage="true" />
+            app:enableChangePage="true" />
     </cn.lzh.ui.view.RoundLinearLayout>
 
 </LinearLayout>

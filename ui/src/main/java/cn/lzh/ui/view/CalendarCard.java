@@ -198,11 +198,11 @@ public class CalendarCard extends View {
 		mEnableDrawTableLine = typedArray.getBoolean(
 				R.styleable.CalendarCard_enableDrawTableLine, false);
 		mEnableDrawOhterMonth = typedArray.getBoolean(
-				R.styleable.CalendarCard_enableDrawOhterMonth, false);
+				R.styleable.CalendarCard_enableDrawOtherMonth, false);
 		mEndableChangePage = typedArray.getBoolean(
-				R.styleable.CalendarCard_endableChangePage, false);
+				R.styleable.CalendarCard_enableChangePage, false);
 		mEnableClickUnreachDay = typedArray.getBoolean(
-				R.styleable.CalendarCard_enableClickUnreachDay, false);
+				R.styleable.CalendarCard_enableClickFutureDay, false);
 		mHorizontalCellSpace = typedArray.getDimension(
 				R.styleable.CalendarCard_horizontalCellSpace, 0);
 		mVerticalCellSpace = typedArray.getDimension(

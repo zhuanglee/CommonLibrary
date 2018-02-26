@@ -15,12 +15,18 @@ import android.graphics.drawable.GradientDrawable;
 import android.media.ThumbnailUtils;
 import android.os.Build;
 import android.provider.MediaStore.Images.Thumbnails;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import cn.lzh.ui.R;
 
+/**
+ * 书本翻页效果
+ * @see #setBitmaps(Bitmap, Bitmap, Bitmap)
+ */
 public class PageWidget extends View {
 
     //private static final String TAG = "hmg";
@@ -76,7 +82,16 @@ public class PageWidget extends View {
     Paint mPaint;
 
     public PageWidget(Context context) {
-        super(context);
+        this(context, null);
+    }
+
+    public PageWidget(Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public PageWidget(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+
         mPath0 = new Path();
         mPath1 = new Path();
         createDrawable();
@@ -312,12 +327,6 @@ public class PageWidget extends View {
         canvas.restore();
     }
 
-    public void setBitmaps(Bitmap bm1, Bitmap bm2, Bitmap bm3) {
-        mCurPageBitmap = bm1;
-        mCurPageBackBitmap = bm2;
-        mNextPageBitmap = bm3;
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
         if (mCurPageBitmap == null || mNextPageBitmap == null) {
@@ -534,6 +543,18 @@ public class PageWidget extends View {
                 (int) (mBezierStart1.y + mMaxLength));
         mFolderShadowDrawable.draw(canvas);
         canvas.restore();
+    }
+
+    /**
+     * 设置页面图片
+     * @param bm1 当前页
+     * @param bm2 当前页的背面
+     * @param bm3 下一页
+     */
+    public void setBitmaps(Bitmap bm1, Bitmap bm2, Bitmap bm3) {
+        mCurPageBitmap = bm1;
+        mCurPageBackBitmap = bm2;
+        mNextPageBitmap = bm3;
     }
 
 }

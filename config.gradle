@@ -1,10 +1,12 @@
 ext {
     version = [
             minSdk        : 15,
-            targetSdk     : 26,
-            compileSdk    : 25,
-            buildTools    : '26.0.1',
-            supportLibrary: '25.3.1',
+            targetSdk     : 25,
+            compileSdk    : 26,
+            buildTools    : '26.0.2',
+            supportLibrary: '26.0.2',
+
+            // 常用库版本
             retrofit      : "2.3.0",
             okhttp        : "3.9.0",
             butterknife   : "8.8.1",
@@ -42,8 +44,6 @@ ext {
             "bugly-ndk"                    : 'com.tencent.bugly:nativecrashreport:3.3.1',
 
             // 已依赖的库
-            "common-utils"                 : 'com.github.zhuanglee.CommonLibrary:utils:v0.3',
-            "common-ui"                    : 'com.github.zhuanglee.CommonLibrary:ui:v0.3',
             "logger"                       : "com.orhanobut:logger:2.1.1",
             "glide"                        : "com.github.bumptech.glide:glide:3.7.0",
             "glide-okhttp3"                : 'com.github.bumptech.glide:okhttp3-integration:1.5.0@aar',

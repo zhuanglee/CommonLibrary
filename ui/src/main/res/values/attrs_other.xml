@@ -46,7 +46,7 @@
         <attr name="titleBarBackground" format="reference|color"/>
     </declare-styleable>
 
-    <declare-styleable name="CustomVolumControlBar">
+    <declare-styleable name="CustomVolumeControlBar">
         <attr name="firstColor" format="color" />
         <attr name="secondColor" format="color"/>
         <attr name="circleWidth" format="dimension" />
@@ -69,4 +69,9 @@
         <attr name="bottomLeftRadius" format="dimension" />
         <attr name="bottomRightRadius" format="dimension" />
     </declare-styleable>
+    <!-- 自定义禁止表情输入Edittext属性 -->
+    <declare-styleable name="ContainsEmojiEditText">
+        <attr name="emojiEnable" format="boolean" />
+    </declare-styleable>
+
 </resources>

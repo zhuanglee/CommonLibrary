@@ -38,7 +38,7 @@ public class DrawableTextView extends AppCompatTextView {
 		Rect bounds = null;
 		int drawableWidth = 0,drawableHeight=0;
 		if(drawables[0]!=null){
-			drawableWidth=typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_drawableLeftWdith, 0);
+			drawableWidth=typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_drawableLeftWidth, 0);
 			drawableHeight=typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_drawableLeftHeight, 0);
 			if(drawableWidth!=0&&drawableHeight!=0){
 				bounds=new Rect(0,0,drawableWidth,drawableHeight);
@@ -46,7 +46,7 @@ public class DrawableTextView extends AppCompatTextView {
 			}
 		}
 		if(drawables[1]!=null){
-			drawableWidth=typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_drawableTopWdith, 0);
+			drawableWidth=typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_drawableTopWidth, 0);
 			drawableHeight=typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_drawableTopHeight, 0);
 			if(drawableWidth!=0&&drawableHeight!=0){
 				bounds=new Rect(0,0,drawableWidth,drawableHeight);
@@ -54,7 +54,7 @@ public class DrawableTextView extends AppCompatTextView {
 			}
 		}
 		if(drawables[2]!=null){
-			drawableWidth=typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_drawableRightWdith, 0);
+			drawableWidth=typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_drawableRightWidth, 0);
 			drawableHeight=typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_drawableRightHeight, 0);
 			if(drawableWidth!=0&&drawableHeight!=0){
 				bounds=new Rect(0,0,drawableWidth,drawableHeight);
@@ -62,7 +62,7 @@ public class DrawableTextView extends AppCompatTextView {
 			}
 		}
 		if(drawables[3]!=null){
-			drawableWidth=typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_drawableBottomWdith, 0);
+			drawableWidth=typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_drawableBottomWidth, 0);
 			drawableHeight=typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_drawableBottomHeight, 0);
 			if(drawableWidth!=0&&drawableHeight!=0){
 				bounds=new Rect(0,0,drawableWidth,drawableHeight);

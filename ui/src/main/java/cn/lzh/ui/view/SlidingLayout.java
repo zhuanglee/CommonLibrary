@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
  * @author lzh
  * 
  */
+@Deprecated
 public class SlidingLayout extends FrameLayout {
 	// * 侧拉删除 (ViewGroup)
 		// 1. 创建 SwipeLayout, 继承FrameLayout

@@ -1,4 +1,4 @@
-package cn.lzh.ui.view;
+package cn.lzh.ui.dialog;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,18 +15,17 @@ import cn.lzh.ui.R;
 
 /**
  * 自定义的弹出框：显示在屏幕的中心，其他区域为透明色
- * 
  * @author lzh
  *
  */
-public class CustomPopupWindow extends PopupWindow implements
+public class SmartPopupWindow extends PopupWindow implements
 		PopupWindow.OnDismissListener {
 	private static final int COLOR_TRANSPARENT=0x00000000;
 	private View mInflateView;
 	private Animation alpha_in;
 	private Activity mActivity;
 
-	public CustomPopupWindow(Context context) {
+	public SmartPopupWindow(Context context) {
 		super(context);
 	}
 
@@ -35,7 +34,7 @@ public class CustomPopupWindow extends PopupWindow implements
 	 * @param activity
 	 * @param layoutId 布局ID
 	 */
-	public CustomPopupWindow(Activity activity, int layoutId) {
+	public SmartPopupWindow(Activity activity, int layoutId) {
 		super(activity);
 		mActivity=activity;
 		mInflateView = View.inflate(activity, layoutId, null);
@@ -51,8 +50,8 @@ public class CustomPopupWindow extends PopupWindow implements
 		alpha_in = AnimationUtils.loadAnimation(activity, R.anim.alpha_in);
 	}
 	
-	public CustomPopupWindow(Activity activity, int layoutId, int width,
-			int height) {
+	public SmartPopupWindow(Activity activity, int layoutId, int width,
+							int height) {
 		super(activity);
 		mActivity=activity;
 		mInflateView = View.inflate(activity, layoutId, null);
@@ -67,19 +66,18 @@ public class CustomPopupWindow extends PopupWindow implements
 	}
 
 	/**
-	 * 显示在屏幕的中心
+	 * 显示在屏幕的中心(Activity中有ScrollView时无效)
 	 */
 	public void showScreenCenter() {
 		mInflateView.startAnimation(alpha_in);
 		setWindowAlpha(0.5f);
-		//TODO Activity中有ScrollView时无效
 		showAtLocation(mActivity.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
 	}
 
 	/**
 	 * 设置添加屏幕的背景透明度
 	 * 
-	 * @param bgAlpha
+	 * @param bgAlpha 背景透明度(0.0-1.0)
 	 */
 	public void setWindowAlpha(float bgAlpha) {
 		WindowManager.LayoutParams lp = mActivity.getWindow().getAttributes();

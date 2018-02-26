@@ -37,6 +37,18 @@ public class BorderScrollView extends ScrollView {
         doOnBorderListener();
     }
 
+    private void doOnBorderListener() {
+        if (contentView != null && contentView.getMeasuredHeight() <= getScrollY() + getHeight()) {
+            if (onBorderListener != null) {
+                onBorderListener.onBottom();
+            }
+        } else if (getScrollY() == 0) {
+            if (onBorderListener != null) {
+                onBorderListener.onTop();
+            }
+        }
+    }
+
     public void setOnBorderListener(final OnBorderListener onBorderListener) {
         this.onBorderListener = onBorderListener;
         if (onBorderListener == null) {
@@ -66,15 +78,4 @@ public class BorderScrollView extends ScrollView {
         public void onTop();
     }
 
-    private void doOnBorderListener() {
-        if (contentView != null && contentView.getMeasuredHeight() <= getScrollY() + getHeight()) {
-            if (onBorderListener != null) {
-                onBorderListener.onBottom();
-            }
-        } else if (getScrollY() == 0) {
-            if (onBorderListener != null) {
-                onBorderListener.onTop();
-            }
-        }
-    }
 }

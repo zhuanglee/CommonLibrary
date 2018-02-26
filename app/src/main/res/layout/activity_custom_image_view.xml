@@ -7,9 +7,10 @@
 
     <include layout="@layout/toolbar" />
 
-    <ScrollView
+    <cn.lzh.ui.view.BoundScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,5 +42,5 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </cn.lzh.ui.view.BoundScrollView>
 </LinearLayout>

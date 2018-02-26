@@ -18,8 +18,8 @@
     <dimen name="text_size_small_secondary">12sp</dimen>
 
     <!-- FlowLayout -->
-    <dimen name="hot_text_hpading">12dp</dimen>
-    <dimen name="hot_text_vpading">6dp</dimen>
-    <dimen name="hot_radius">8dp</dimen>
+    <dimen name="text_horizontal_padding">12dp</dimen>
+    <dimen name="text_vertical_padding">6dp</dimen>
+    <dimen name="radius">8dp</dimen>
 
 </resources>

@@ -22,7 +22,7 @@ import cn.lzh.ui.R;
  * 圆形ImageView，可设置最多两个宽度不同且颜色不同的圆形边框。 
  * 设置颜色在xml布局文件中由自定义属性配置参数指定 
  */ 
-public class RoundImageView extends ImageView { 
+public class RoundImageView extends android.support.v7.widget.AppCompatImageView {
     private int mBorderThickness = 0; 
     private Context mContext; 
     private int defaultColor = 0xFFFFFFFF; 

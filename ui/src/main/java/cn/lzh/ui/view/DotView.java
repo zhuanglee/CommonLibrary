@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * 历史轨迹点
+ * 圆点
  * @author lzh
  *
  */

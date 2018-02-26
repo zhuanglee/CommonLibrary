@@ -42,7 +42,7 @@ public final class ViewUtil {
     /**
      * 从父View中移除子View
      *
-     * @param child
+     * @param child 子View
      */
     public static void removeFromParentView(View child) {
         if (child != null) {

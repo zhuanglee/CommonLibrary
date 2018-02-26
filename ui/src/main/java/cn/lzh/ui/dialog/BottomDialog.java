@@ -19,9 +19,11 @@ import cn.lzh.ui.R;
 
 public class BottomDialog extends Dialog {
 
+    private final View contentView;
+
     public BottomDialog(@NonNull Context context, int layoutId, boolean cancelable) {
         super(context, R.style.BottomDialog);
-        View contentView = LayoutInflater.from(context).inflate(layoutId, null);
+        contentView = LayoutInflater.from(context).inflate(layoutId, null);
         setCancelable(cancelable);
         setContentView(contentView);
         ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
@@ -38,4 +40,18 @@ public class BottomDialog extends Dialog {
         }
     }
 
+    public View getContentView() {
+        return contentView;
+    }
+
+    /**
+     * 创建底部显示的对话框
+     * @param ctx Activity Context
+     * @param layoutId 布局资源id
+     * @param cancelable 是否可以取消
+     * @return BottomDialog
+     */
+    public static BottomDialog create(@NonNull Context ctx, int layoutId, boolean cancelable) {
+        return new BottomDialog(ctx, layoutId, cancelable);
+    }
 }
