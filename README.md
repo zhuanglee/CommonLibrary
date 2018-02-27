@@ -1,13 +1,13 @@
 # CommonLibrary
 This is a android common library.
  
-#Download
+# Download
 You can download a jar from GitHub's [releases page](https://github.com/zhuanglee/CommonLibrary/releases).
 
 Or use Gradle:
 ```groovy
 repositories {
-    mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -15,5 +15,3 @@ dependencies {
     implementation 'com.github.zhuanglee.CommonLibrary:ui:0.5'
 }
 ```
-
-#ProGuard
