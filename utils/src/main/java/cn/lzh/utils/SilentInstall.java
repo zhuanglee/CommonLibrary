@@ -37,6 +37,7 @@ public final class SilentInstall {
         }  
         return bool;  
     }
+
     /**
      * 执行具体的静默安装逻辑，需要手机ROOT。
      * @param apkPath
@@ -59,15 +60,15 @@ public final class SilentInstall {
             dataOutputStream.flush();
             process.waitFor();
             errorStream = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-            String msg = "";
+            StringBuilder msg = new StringBuilder();
             String line;
             // 读取命令的执行结果
             while ((line = errorStream.readLine()) != null) {
-                msg += line;
+                msg.append(line);
             }
             Log.d("TAG", "install msg is " + msg);
             // 如果执行结果中包含Failure字样就认为是安装失败，否则就认为安装成功
-            if (!msg.contains("Failure")) {
+            if (!msg.toString().contains("Failure")) {
                 result = true;
             }
         } catch (Exception e) {

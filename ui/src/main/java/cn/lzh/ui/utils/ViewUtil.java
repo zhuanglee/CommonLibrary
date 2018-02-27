@@ -53,6 +53,10 @@ public final class ViewUtil {
         }
     }
 
+    /**
+     * 根据子view计算ListView高度
+     * @param listView ListView
+     */
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         // 获取ListView对应的Adapter
         ListAdapter listAdapter = listView.getAdapter();

@@ -8,7 +8,7 @@ package cn.lzh.utils;
 
 /**
  * Java汉字转换为拼音
- * 
+ * @deprecated 使用pinyin4j.jar更好
  */
 public final class CharacterParser {
 	private static int[] pyvalue = new int[] { -20319, -20317, -20304, -20295,

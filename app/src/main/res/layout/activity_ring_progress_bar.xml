@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
     <include layout="@layout/toolbar" />
 
@@ -17,7 +18,7 @@
         android:text="开始" />
 
     <cn.lzh.ui.view.RingProgressBar
-        android:id="@+id/roundProgressBar2"
+        android:id="@+id/roundProgressBar1"
         android:layout_width="80dip"
         android:layout_height="80dip"
         android:layout_margin="@dimen/activity_padding"
@@ -30,7 +31,7 @@
         app:textVisibility="true" />
 
     <cn.lzh.ui.view.RingProgressBar
-        android:id="@+id/roundProgressBar4"
+        android:id="@+id/roundProgressBar2"
         android:layout_width="80dip"
         android:layout_height="80dip"
         android:layout_margin="@dimen/activity_padding"

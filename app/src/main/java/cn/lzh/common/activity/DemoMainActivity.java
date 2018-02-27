@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -18,7 +17,6 @@ import cn.lzh.common.adapter.ActivityBeanAdapter;
 import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.common.bean.ActvityBean;
 import cn.lzh.utils.logger.LogManager;
-import cn.lzh.utils.logger.Logger;
 
 /**
  * Demo主界面
@@ -30,7 +28,6 @@ public class DemoMainActivity extends BaseWatermarkActivity {
     private static final String TAG = "DemoMainActivity";
     private Context mContext;
     private List<ActvityBean> mActivityBeans;
-    private ActivityBeanAdapter mAdapter;
     private ListView mListView;
 
     @Override
@@ -45,9 +42,8 @@ public class DemoMainActivity extends BaseWatermarkActivity {
     }
 
     private void initView() {
-        mAdapter = new ActivityBeanAdapter(this, mActivityBeans);
         mListView = (ListView) findViewById(R.id.listView);
-        mListView.setAdapter(mAdapter);
+        mListView.setAdapter(new ActivityBeanAdapter(this, mActivityBeans));
     }
 
     private void initData() {
@@ -60,8 +56,9 @@ public class DemoMainActivity extends BaseWatermarkActivity {
         mActivityBeans.add(new ActvityBean(GroupImageViewActivity.class));
         mActivityBeans.add(new ActvityBean(ParallaxListViewActivity.class));
         mActivityBeans.add(new ActvityBean(QuickIndexBarActivity.class));
-        mActivityBeans.add(new ActvityBean(RoundProgressBarActivity.class));
+        mActivityBeans.add(new ActvityBean(RingProgressBarActivity.class));
         mActivityBeans.add(new ActvityBean(PageActivity.class));
+        mActivityBeans.add(new ActvityBean(UtilActivity.class));
     }
 
     private void initListener() {

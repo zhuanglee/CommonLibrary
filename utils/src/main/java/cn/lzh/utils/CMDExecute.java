@@ -8,7 +8,7 @@ public class CMDExecute {
 
 	public synchronized String run(String[] cmd, String dir)
 			throws IOException {
-		String result = "";
+		StringBuilder result = new StringBuilder();
 
 		try {
 			ProcessBuilder builder = new ProcessBuilder(cmd);
@@ -20,23 +20,22 @@ public class CMDExecute {
 			InputStream in = process.getInputStream();
 			byte[] re = new byte[1024];
 			while (in.read(re) != -1) {
-				System.out.println(new String(re));
-				result = result + new String(re);
+				result.append(new String(re));
 			}
 			in.close();
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		return result;
+		return result.toString();
 	}
 
 	public static void main(String[] args) {
-		String result = null;
-		CMDExecute cmdExecute = new CMDExecute();
+		if(args == null){
+			args = new String[]{"notepad"};
+		}
 		try {
-			result = cmdExecute.run(args, "D:\\MyProject\\colimas\\axis_c");
-			System.out.println(result);
+			System.out.println(new CMDExecute().run(args, null));
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}

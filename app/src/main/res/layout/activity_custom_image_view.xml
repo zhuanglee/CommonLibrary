@@ -1,5 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,24 +22,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                custom:src="@drawable/bg_parallax"
-                custom:type="normal" />
+                app:src="@drawable/bg_parallax"
+                app:type="normal" />
 
             <cn.lzh.ui.view.CustomImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                custom:borderRadius="10dp"
-                custom:src="@drawable/bg_parallax"
-                custom:type="round" />
+                app:borderRadius="10dp"
+                app:src="@drawable/bg_parallax"
+                app:type="round" />
 
             <cn.lzh.ui.view.CustomImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                custom:src="@drawable/bg_parallax"
-                custom:type="circle" />
+                app:src="@drawable/bg_parallax"
+                app:type="circle" />
 
+            <cn.lzh.ui.view.RoundImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/user"
+                android:layout_margin="10dp"
+                app:borderThickness="3dp"
+                app:borderOutsideColor="#30f0"
+                app:borderInsideColor="#30ff"/>
         </LinearLayout>
 
     </cn.lzh.ui.view.BoundScrollView>

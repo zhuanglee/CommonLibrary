@@ -1,7 +1,5 @@
 package cn.lzh.utils;
 
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -11,11 +9,10 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
-import android.text.TextUtils;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import java.io.File;
-import java.util.List;
 
 /**
  * PackageUtil
@@ -40,8 +37,6 @@ import java.util.List;
  * <ul>
  * <strong>Others</strong>
  * <li>{@link PackageUtil#getInstallLocation()} get system install location</li>
- * <li>{@link PackageUtil#isTopActivity(Context, String)} whether the app whost package's name is packageName is on the
- * top of the stack</li>
  * <li>{@link PackageUtil#startInstalledAppDetails(Context, String)} start InstalledAppDetails Activity</li>
  * </ul>
  * 
@@ -61,6 +56,56 @@ public class PackageUtil {
     public static final int APP_INSTALL_AUTO     = 0;
     public static final int APP_INSTALL_INTERNAL = 1;
     public static final int APP_INSTALL_EXTERNAL = 2;
+
+    /**
+     * 安装apk
+     *
+     * @param context 上下文
+     * @param fileUri APK文件的Uri
+     */
+    public static void installApk(Context context, String authorities, Uri fileUri) {
+        installApk(context, authorities, new File(fileUri.getPath()));
+    }
+
+    /**
+     * 安装apk(兼容 Android N)
+     *
+     * @param context 上下文
+     * @param file    APK文件
+     */
+    public static void installApk(Context context, String authorities, File file) {
+        try {
+            Uri contentUri;
+            Intent install = new Intent(Intent.ACTION_VIEW);
+            install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                contentUri = FileProvider.getUriForFile(context,
+                        authorities, file);
+                //添加这一句表示对目标应用临时授权该Uri所代表的文件
+                install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            } else {
+                contentUri = Uri.fromFile(file);
+            }
+            Log.e(TAG, "installApk:contentUri=" + contentUri);
+            install.setDataAndType(contentUri, "application/vnd.android.package-archive");
+            context.startActivity(install);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 卸载apk
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     */
+    public static void uninstallApk(Context context, String packageName) {
+        Intent intent = new Intent(Intent.ACTION_DELETE);
+        Uri packageURI = Uri.parse("package:" + packageName);
+        intent.setData(packageURI);
+        context.startActivity(intent);
+    }
 
     /**
      * install according conditions
@@ -424,60 +469,6 @@ public class PackageUtil {
     }
 
     /**
-     * whether the app whost package's name is packageName is on the top of the stack
-     * <ul>
-     * <strong>Attentions:</strong>
-     * <li>You should add <strong>android.permission.GET_TASKS</strong> in manifest</li>
-     * </ul>
-     * 
-     * @param context
-     * @param packageName
-     * @return if params error or task stack is null, return null, otherwise retun whether the app is on the top of
-     *         stack
-     */
-    public static Boolean isTopActivity(Context context, String packageName) {
-        if (context == null || TextUtils.isEmpty(packageName)) {
-            return null;
-        }
-
-        ActivityManager activityManager = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<RunningTaskInfo> tasksInfo = activityManager.getRunningTasks(1);
-        if (tasksInfo == null || tasksInfo.isEmpty()) {
-            return null;
-        }
-        try {
-            return packageName.equals(tasksInfo.get(0).topActivity.getPackageName());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * get app version code
-     * 
-     * @param context
-     * @return
-     */
-    public static int getAppVersionCode(Context context) {
-        if (context != null) {
-            PackageManager pm = context.getPackageManager();
-            if (pm != null) {
-                PackageInfo pi;
-                try {
-                    pi = pm.getPackageInfo(context.getPackageName(), 0);
-                    if (pi != null) {
-                        return pi.versionCode;
-                    }
-                } catch (NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return -1;
-    }
-
-    /**
      * get system install location<br/>
      * can be set by System Menu Setting->Storage->Prefered install location
      * 
@@ -637,7 +628,7 @@ public class PackageUtil {
     /**
      * Installation return code<br/>
      * the new package failed because it has specified that it is a test-only package and the caller has not supplied
-     * the {@link #INSTALL_ALLOW_TEST} flag.
+     * the INSTALL_ALLOW_TEST flag.
      */
     public static final int INSTALL_FAILED_TEST_ONLY                       = -15;
 

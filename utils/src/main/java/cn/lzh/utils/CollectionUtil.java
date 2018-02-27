@@ -26,9 +26,9 @@ public class CollectionUtil {
      * is null or its size is 0
      * <p>
      * <pre>
-     * isEmpty(null)   =   true;
-     * isEmpty({})     =   true;
-     * isEmpty({1})    =   false;
+     * isBlank(null)   =   true;
+     * isBlank({})     =   true;
+     * isBlank({1})    =   false;
      * </pre>
      *
      * @param <V>

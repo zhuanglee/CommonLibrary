@@ -6,7 +6,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 
-public class BoundScrollWarpLayout extends LinearLayout {
+class BoundScrollWarpLayout extends LinearLayout {
 
     /**
      * OvershootInterpolator的弹性系数

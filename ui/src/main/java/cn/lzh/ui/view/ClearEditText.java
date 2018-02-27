@@ -17,7 +17,7 @@ import android.view.View;
  * @author lzh
  */
 @Deprecated
-public class CustomEditText extends AppCompatEditText {
+public class ClearEditText extends AppCompatEditText {
 
     private Drawable mLeft, mTop, mRight, mBottom;
 
@@ -34,17 +34,17 @@ public class CustomEditText extends AppCompatEditText {
     private OnClearListener mOnClearListener;
     private OnClickListener mOnClickListener;
 
-    public CustomEditText(Context context) {
+    public ClearEditText(Context context) {
         super(context);
         init();
     }
 
-    public CustomEditText(Context context, AttributeSet attrs) {
+    public ClearEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public CustomEditText(Context context, AttributeSet attrs, int defStyle) {
+    public ClearEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }

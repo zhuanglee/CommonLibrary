@@ -31,8 +31,7 @@ public final class DrawableUtil {
 		int red = random.nextInt(151) + 50;
 		int green = random.nextInt(151) + 50;
 		int blue = random.nextInt(151) + 50;
-		int rgb = Color.rgb(red, green, blue);
-		return rgb;
+		return Color.rgb(red, green, blue);
 	}
 
 	/**
@@ -112,12 +111,11 @@ public final class DrawableUtil {
 		Paint paint = new Paint();
 		paint.setColorFilter(new ColorMatrixColorFilter(cMatrix));
 
-		Drawable normal = drawable;
 		Drawable pressed = createDrawable(drawable, paint);
 		bg.addState(new int[] { android.R.attr.state_pressed, }, pressed);
 		bg.addState(new int[] { android.R.attr.state_focused, }, pressed);
 		bg.addState(new int[] { android.R.attr.state_selected }, pressed);
-		bg.addState(new int[] {}, normal);
+		bg.addState(new int[] {}, drawable);
 		return bg;
 	}
 

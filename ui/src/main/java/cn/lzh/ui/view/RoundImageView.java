@@ -13,7 +13,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import cn.lzh.ui.R;
 
@@ -52,9 +51,9 @@ public class RoundImageView extends android.support.v7.widget.AppCompatImageView
    
     private void setCustomAttributes(AttributeSet attrs) { 
         TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.RoundedImageView);
-        mBorderThickness = a.getDimensionPixelSize(R.styleable.RoundedImageView_border_thickness, 0); 
-        mBorderOutsideColor = a.getColor(R.styleable.RoundedImageView_border_outside_color,defaultColor); 
-        mBorderInsideColor = a.getColor(R.styleable.RoundedImageView_border_inside_color, defaultColor); 
+        mBorderThickness = a.getDimensionPixelSize(R.styleable.RoundedImageView_borderThickness, 0);
+        mBorderOutsideColor = a.getColor(R.styleable.RoundedImageView_borderOutsideColor,defaultColor);
+        mBorderInsideColor = a.getColor(R.styleable.RoundedImageView_borderInsideColor, defaultColor);
     } 
    
     @Override 

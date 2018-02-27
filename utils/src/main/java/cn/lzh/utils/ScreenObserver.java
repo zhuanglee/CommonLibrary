@@ -30,8 +30,8 @@ public class ScreenObserver {
 		try {
 			mReflectScreenState = PowerManager.class.getMethod("isScreenOn",
 					new Class[] {});
-		} catch (Exception nsme) {
-			Log.d(TAG, "API < 7," + nsme);
+		} catch (Exception e) {
+			Log.d(TAG, "API < 7," + e);
 		}
 	}
 
@@ -117,7 +117,7 @@ public class ScreenObserver {
 		public void onUserPresent();
 	}
 
-	public final static boolean isScreenLocked(Context c) {
+	public static boolean isScreenLocked(Context c) {
 		KeyguardManager mKeyguardManager = (KeyguardManager) c
 				.getSystemService(c.KEYGUARD_SERVICE);
 		return mKeyguardManager.inKeyguardRestrictedInputMode();

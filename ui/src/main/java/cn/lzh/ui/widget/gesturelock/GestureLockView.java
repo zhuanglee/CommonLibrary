@@ -311,7 +311,7 @@ public class GestureLockView extends View {
 		int y = (int) event.getY();
 		switch (action) {
 		case MotionEvent.ACTION_DOWN:
-			// TODO 移除延时重置任务
+			// 移除延时重置任务
 			removeCallbacks(mResetRunnable);
 			reset();
 			computeSelectedCircleIndex(x, y);
@@ -339,7 +339,7 @@ public class GestureLockView extends View {
 			}
 			mMoveX = -1;
 			mMoveY = -1;
-			// TODO 延时重置
+			// 延时重置
 			postDelayed(mResetRunnable, REST_DELAY_MILLIS);
 			break;
 
@@ -363,7 +363,7 @@ public class GestureLockView extends View {
 					&& y < mCircleCenterPoint.cy + mCircleRadius) {
 				if (!mSelectedCircleIndexs.contains(i)) {
 					this.mSelectedCircleIndexs.add(i);
-					this.mPasswords.add(i + 1);//TODO 密码索引=实心圆索引+1
+					this.mPasswords.add(i + 1);// 密码索引=实心圆索引+1
 					if (mPath.isEmpty()) {
 						mPath.moveTo(mCircleCenterPoint.cx,
 								mCircleCenterPoint.cy);

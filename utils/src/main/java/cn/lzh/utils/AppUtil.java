@@ -92,7 +92,7 @@ public final class AppUtil {
      * @param context 上下文
      * @return 当前版本Code
      */
-    public static int getVersionCode(Context context) {
+    public static int getVersionCode(@NonNull Context context) {
         PackageInfo packageInfo = getPackageInfo(context);
         if(packageInfo == null){
             return 0;
@@ -106,7 +106,7 @@ public final class AppUtil {
      * @param context 上下文
      * @return 当前版本信息
      */
-    public static String getVersionName(Context context) {
+    public static String getVersionName(@NonNull Context context) {
         PackageInfo packageInfo = getPackageInfo(context);
         if(packageInfo == null){
             return null;
@@ -116,19 +116,18 @@ public final class AppUtil {
 
 
     /**
-     * 检测当前应用是否是Debug版本
+     * 检测当前应用是否为Debug版本
      *
-     * @param ctx
-     * @return
+     * @param ctx Context
      */
-    public static boolean isDebuggable(Context ctx) {
+    public static boolean isDebuggable(@NonNull Context ctx) {
         boolean debuggable = false;
         try {
-            PackageInfo pinfo = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), PackageManager.GET_SIGNATURES);
-            Signature signatures[] = pinfo.signatures;
-            for (int i = 0; i < signatures.length; i++) {
+            PackageInfo info = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), PackageManager.GET_SIGNATURES);
+            Signature signatures[] = info.signatures;
+            for (Signature signature : signatures) {
                 CertificateFactory cf = CertificateFactory.getInstance("X.509");
-                ByteArrayInputStream stream = new ByteArrayInputStream(signatures[i].toByteArray());
+                ByteArrayInputStream stream = new ByteArrayInputStream(signature.toByteArray());
                 X509Certificate cert = (X509Certificate) cf
                         .generateCertificate(stream);
                 debuggable = cert.getSubjectX500Principal().equals(DEBUG_DN);

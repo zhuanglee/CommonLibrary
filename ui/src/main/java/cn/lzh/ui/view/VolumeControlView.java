@@ -22,7 +22,7 @@ import cn.lzh.ui.R;
  *
  * @author Administrator
  */
-public class CustomVolumeControlBar extends View {
+public class VolumeControlView extends View {
     /**
      * 第一圈的颜色
      */
@@ -60,11 +60,11 @@ public class CustomVolumeControlBar extends View {
 
     private Rect mRect;
 
-    public CustomVolumeControlBar(Context context, AttributeSet attrs) {
+    public VolumeControlView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CustomVolumeControlBar(Context context) {
+    public VolumeControlView(Context context) {
         this(context, null);
     }
 
@@ -75,25 +75,25 @@ public class CustomVolumeControlBar extends View {
      * @param attrs
      * @param defStyle
      */
-    public CustomVolumeControlBar(Context context, AttributeSet attrs, int defStyle) {
+    public VolumeControlView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CustomVolumeControlBar, defStyle, 0);
+        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.VolumeControlView, defStyle, 0);
         int n = a.getIndexCount();
 
         for (int i = 0; i < n; i++) {
             int attr = a.getIndex(i);
-            if (attr == R.styleable.CustomVolumeControlBar_firstColor)
+            if (attr == R.styleable.VolumeControlView_firstColor)
                 mFirstColor = a.getColor(attr, Color.GREEN);
-            else if (attr == R.styleable.CustomVolumeControlBar_secondColor)
+            else if (attr == R.styleable.VolumeControlView_secondColor)
                 mSecondColor = a.getColor(attr, Color.CYAN);
-            else if (attr == R.styleable.CustomVolumeControlBar_bg)
+            else if (attr == R.styleable.VolumeControlView_bg)
                 mImage = BitmapFactory.decodeResource(getResources(), a.getResourceId(attr, 0));
-            else if (attr == R.styleable.CustomVolumeControlBar_circleWidth)
+            else if (attr == R.styleable.VolumeControlView_circleWidth)
                 mCircleWidth = a.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
                         TypedValue.COMPLEX_UNIT_PX, 20, getResources().getDisplayMetrics()));
-            else if (attr == R.styleable.CustomVolumeControlBar_dotCount)
+            else if (attr == R.styleable.VolumeControlView_dotCount)
                 mCount = a.getInt(attr, 20);// 默认20
-            else if (attr == R.styleable.CustomVolumeControlBar_splitSize)
+            else if (attr == R.styleable.VolumeControlView_splitSize)
                 mSplitSize = a.getInt(attr, 20);
         }
         a.recycle();

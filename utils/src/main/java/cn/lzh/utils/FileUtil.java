@@ -720,7 +720,7 @@ public class FileUtil {
      * @see
      */
     public static String getFileNameWithoutExtension(String filePath) {
-        if (StringUtil.isEmpty(filePath)) {
+        if (StringUtil.isBlank(filePath)) {
             return filePath;
         }
 
@@ -757,7 +757,7 @@ public class FileUtil {
      * @return file name from path, include suffix
      */
     public static String getFileName(String filePath) {
-        if (StringUtil.isEmpty(filePath)) {
+        if (StringUtil.isBlank(filePath)) {
             return filePath;
         }
 
@@ -789,7 +789,7 @@ public class FileUtil {
      */
     public static String getFolderName(String filePath) {
 
-        if (StringUtil.isEmpty(filePath)) {
+        if (StringUtil.isBlank(filePath)) {
             return filePath;
         }
 
@@ -853,7 +853,7 @@ public class FileUtil {
      */
     public static boolean makeDirs(String filePath) {
         String folderName = getFolderName(filePath);
-        if (StringUtil.isEmpty(folderName)) {
+        if (StringUtil.isBlank(folderName)) {
             return false;
         }
 
@@ -877,7 +877,7 @@ public class FileUtil {
      * @return
      */
     public static boolean isFileExist(String filePath) {
-        if (StringUtil.isEmpty(filePath)) {
+        if (StringUtil.isBlank(filePath)) {
             return false;
         }
 
@@ -892,7 +892,7 @@ public class FileUtil {
      * @return
      */
     public static boolean isFolderExist(String directoryPath) {
-        if (StringUtil.isEmpty(directoryPath)) {
+        if (StringUtil.isBlank(directoryPath)) {
             return false;
         }
 
@@ -912,7 +912,7 @@ public class FileUtil {
      * @return
      */
     public static boolean deleteFile(String path) {
-        if (StringUtil.isEmpty(path)) {
+        if (StringUtil.isBlank(path)) {
             return true;
         }
 
@@ -947,7 +947,7 @@ public class FileUtil {
      * @return returns the length of this file in bytes. returns -1 if the file does not exist.
      */
     public static long getFileSize(String path) {
-        if (StringUtil.isEmpty(path)) {
+        if (StringUtil.isBlank(path)) {
             return -1;
         }
 

@@ -2,9 +2,9 @@
 <resources>
       <!-- 圆形图片视图-->
     <declare-styleable name="RoundedImageView"> 
-        <attr name="border_thickness" format="dimension" /> 
-        <attr name="border_inside_color" format="color" /> 
-        <attr name="border_outside_color" format="color"></attr> 
+        <attr name="borderThickness" format="dimension" />
+        <attr name="borderInsideColor" format="color" />
+        <attr name="borderOutsideColor" format="color"></attr>
     </declare-styleable> 
     <!-- 自定义ImageView -->
     <declare-styleable name="CustomImageView">
@@ -46,7 +46,7 @@
         <attr name="titleBarBackground" format="reference|color"/>
     </declare-styleable>
 
-    <declare-styleable name="CustomVolumeControlBar">
+    <declare-styleable name="VolumeControlView">
         <attr name="firstColor" format="color" />
         <attr name="secondColor" format="color"/>
         <attr name="circleWidth" format="dimension" />
