@@ -15,7 +15,7 @@ import cn.lzh.ui.R;
 
 /**
  * 自定义输入身份证号码的编辑框
- * @author Administrator
+ * @author lzh
  * 已设置为单行显示，不可编辑
  */
 public class InputIDCardEditText extends AppCompatEditText {

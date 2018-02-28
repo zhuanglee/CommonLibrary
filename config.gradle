@@ -4,7 +4,7 @@ ext {
             targetSdk     : 25,
             compileSdk    : 26,
             buildTools    : '26.0.2',
-            supportLibrary: '26.0.2',
+            supportLibrary: '26.1.0',
 
             // 常用库版本
             retrofit      : "2.3.0",
