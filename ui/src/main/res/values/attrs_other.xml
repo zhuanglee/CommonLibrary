@@ -4,7 +4,7 @@
     <declare-styleable name="RoundedImageView"> 
         <attr name="borderThickness" format="dimension" />
         <attr name="borderInsideColor" format="color" />
-        <attr name="borderOutsideColor" format="color"></attr>
+        <attr name="borderOutsideColor" format="color" />
     </declare-styleable> 
     <!-- 自定义ImageView -->
     <declare-styleable name="CustomImageView">
@@ -17,7 +17,7 @@
             <!-- 圆形 -->
             <enum name="circle" value="2" />
         </attr>
-        <attr name="src" format="reference"></attr>
+        <attr name="src" format="reference" />
     </declare-styleable>
     <!-- 圆形进度条 -->
     <declare-styleable name="RingProgressBar">
@@ -53,13 +53,6 @@
         <attr name="dotCount" format="integer" />
         <attr name="splitSize" format="integer" />
         <attr name="bg" format="reference"/>
-    </declare-styleable>
-    <!-- 分割线 -->
-    <declare-styleable name="DividerPadding">
-        <attr name="dividerPaddingLeft" format="dimension" />
-        <attr name="dividerPaddingRight" format="dimension" />
-        <attr name="dividerPaddingTop" format="dimension" />
-        <attr name="dividerPaddingBottom" format="dimension" />
     </declare-styleable>
     <!-- 圆角矩形布局的属性 -->
     <declare-styleable name="RoundLayout">
