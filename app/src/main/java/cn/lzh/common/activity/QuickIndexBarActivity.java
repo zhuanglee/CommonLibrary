@@ -17,7 +17,7 @@ import cn.lzh.common.adapter.ContactsAdapter;
 import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.common.bean.GoodMan;
 import cn.lzh.common.data.Constants;
-import cn.lzh.ui.view.QuickIndexBar;
+import cn.lzh.ui.widget.QuickIndexBar;
 
 public class QuickIndexBarActivity extends BaseWatermarkActivity {
 

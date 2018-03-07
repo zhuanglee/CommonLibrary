@@ -8,12 +8,12 @@
 
     <include layout="@layout/toolbar"/>
 
-    <cn.lzh.ui.view.RoundLinearLayout
+    <cn.lzh.ui.widget.RoundLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutRadius="@dimen/view_corners_radius">
 
-        <cn.lzh.ui.view.CalendarCard
+        <cn.lzh.ui.widget.CalendarCard
             android:id="@+id/calendar_card"
             android:layout_gravity="center"
             android:layout_width="match_parent"
@@ -33,6 +33,6 @@
             app:enableDrawOtherMonth="false"
             app:enableDrawTableLine="false"
             app:enableChangePage="true" />
-    </cn.lzh.ui.view.RoundLinearLayout>
+    </cn.lzh.ui.widget.RoundLinearLayout>
 
 </LinearLayout>

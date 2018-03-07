@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cn.lzh.ui.view.RoundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<cn.lzh.ui.widget.RoundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layoutRadius="@dimen/view_corners_radius">
 
-    <cn.lzh.ui.view.CalendarCard
+    <cn.lzh.ui.widget.CalendarCard
         android:id="@+id/calendar_card"
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -27,4 +27,4 @@
         app:enableDrawOtherMonth="false"
         app:enableDrawTableLine="false" />
 
-</cn.lzh.ui.view.RoundLinearLayout>
+</cn.lzh.ui.widget.RoundLinearLayout>

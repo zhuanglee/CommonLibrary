@@ -4,11 +4,9 @@ import android.os.Bundle;
 
 import cn.lzh.common.R;
 import cn.lzh.common.base.BaseWatermarkActivity;
-import cn.lzh.ui.view.CalendarCard;
-import cn.lzh.ui.view.CalendarCard.CustomDate;
+import cn.lzh.ui.widget.CalendarCard;
+import cn.lzh.ui.widget.CalendarCard.CustomDate;
 import cn.lzh.ui.utils.ToastUtil;
-import cn.lzh.ui.view.PageWidget;
-import cn.lzh.utils.BitmapUtil;
 
 public class CalendarActivity extends BaseWatermarkActivity implements CalendarCard.OnClickCellListener {
 

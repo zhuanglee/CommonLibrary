@@ -17,7 +17,7 @@ import java.util.concurrent.Future;
 import cn.lzh.common.R;
 import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.ui.utils.ToastUtil;
-import cn.lzh.ui.view.GroupImageView;
+import cn.lzh.ui.widget.GroupImageView;
 import cn.lzh.utils.BitmapCache;
 import cn.lzh.utils.BitmapUtil;
 

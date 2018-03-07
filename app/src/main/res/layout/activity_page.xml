@@ -6,7 +6,7 @@
 
     <include layout="@layout/toolbar" />
 
-    <cn.lzh.ui.view.PageWidget
+    <cn.lzh.ui.widget.PageWidget
         android:id="@+id/page_widget"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

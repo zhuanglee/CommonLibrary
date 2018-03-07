@@ -7,7 +7,7 @@
 
     <include layout="@layout/toolbar" />
 
-    <cn.lzh.ui.view.BoundScrollView
+    <cn.lzh.ui.widget.BoundScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -18,7 +18,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <cn.lzh.ui.view.InputIDCardEditText
+            <cn.lzh.ui.widget.InputIDCardEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:isShowText="true"
@@ -26,7 +26,7 @@
                 app:strokeWidth="2dp"
                 android:text="342224199101020304"/>
 
-            <cn.lzh.ui.view.RoundImageView
+            <cn.lzh.ui.widget.RoundImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/user"
@@ -35,14 +35,14 @@
                 app:borderOutsideColor="#30f0"
                 app:borderInsideColor="#30ff"/>
 
-            <cn.lzh.ui.view.CustomImageView
+            <cn.lzh.ui.widget.CustomImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 app:src="@drawable/bg_parallax"
                 app:type="normal" />
 
-            <cn.lzh.ui.view.CustomImageView
+            <cn.lzh.ui.widget.CustomImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -50,7 +50,7 @@
                 app:src="@drawable/bg_parallax"
                 app:type="round" />
 
-            <cn.lzh.ui.view.CustomImageView
+            <cn.lzh.ui.widget.CustomImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -59,5 +59,5 @@
 
         </LinearLayout>
 
-    </cn.lzh.ui.view.BoundScrollView>
+    </cn.lzh.ui.widget.BoundScrollView>
 </LinearLayout>

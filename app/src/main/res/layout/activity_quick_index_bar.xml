@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar" />
 
-    <cn.lzh.ui.view.QuickIndexBar
+    <cn.lzh.ui.widget.QuickIndexBar
         android:id="@+id/quickIndexBar"
         android:layout_width="30dp"
         android:layout_height="match_parent"

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import cn.lzh.common.R;
 import cn.lzh.common.base.BaseWatermarkActivity;
-import cn.lzh.ui.view.FlowLayout;
+import cn.lzh.ui.widget.FlowLayout;
 import cn.lzh.utils.DrawableUtil;
 import cn.lzh.ui.utils.ToastUtil;
 import cn.lzh.utils.RandomUtil;

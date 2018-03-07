@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import cn.lzh.common.R;
 import cn.lzh.common.base.BaseWatermarkActivity;
-import cn.lzh.ui.view.PageWidget;
+import cn.lzh.ui.widget.PageWidget;
 import cn.lzh.utils.BitmapUtil;
 
 public class PageActivity extends BaseWatermarkActivity {
