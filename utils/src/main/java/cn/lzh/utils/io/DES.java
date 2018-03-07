@@ -1,10 +1,8 @@
-package cn.lzh.utils.io.security;
+package cn.lzh.utils.io;
 
 import java.security.Key;
 
 import javax.crypto.Cipher;
-
-import cn.lzh.utils.io.ByteUtil;
 
 public final class DES {
 	public static final String DEFAULT_KEY = "cn.lzh.des";

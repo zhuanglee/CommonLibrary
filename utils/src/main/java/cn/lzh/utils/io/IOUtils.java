@@ -26,7 +26,7 @@ public class IOUtils {
             try {
                 closeable.close();
             } catch (IOException e) {
-                throw new RuntimeException("IOException occurred. ", e);
+                e.printStackTrace();
             }
         }
     }

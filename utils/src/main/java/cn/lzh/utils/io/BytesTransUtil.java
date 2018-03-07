@@ -9,17 +9,11 @@ import java.nio.ByteOrder;
  */
 public class BytesTransUtil {
 
-	public static boolean testCPU() {
-		if (ByteOrder.nativeOrder() == ByteOrder.BIG_ENDIAN) {
-			// System.out.println("is big ending");
-			return true;
-		} else {
-			// System.out.println("is little ending");
-			return false;
-		}
+	private static boolean isBigEndian() {
+		return ByteOrder.nativeOrder() == ByteOrder.BIG_ENDIAN;
 	}
 
-	public static byte[] getBytes(short s, boolean bBigEnding) {
+	private static byte[] getBytes(short s, boolean bBigEnding) {
 		byte[] buf = new byte[2];
 		if (bBigEnding)
 			for (int i = buf.length - 1; i >= 0; i--) {
@@ -34,7 +28,7 @@ public class BytesTransUtil {
 		return buf;
 	}
 
-	public static byte[] getBytes(int s, boolean bBigEnding) {
+	private static byte[] getBytes(int s, boolean bBigEnding) {
 		byte[] buf = new byte[4];
 		if (bBigEnding) {
 			for (int i = buf.length - 1; i >= 0; i--) {
@@ -51,7 +45,7 @@ public class BytesTransUtil {
 		return buf;
 	}
 
-	public static byte[] getBytes(long s, boolean bBigEnding) {
+	private static byte[] getBytes(long s, boolean bBigEnding) {
 		byte[] buf = new byte[8];
 		if (bBigEnding)
 			for (int i = buf.length - 1; i >= 0; i--) {
@@ -66,7 +60,7 @@ public class BytesTransUtil {
 		return buf;
 	}
 
-	public static short getShort(byte[] buf, boolean bBigEnding) {
+	private static short getShort(byte[] buf, boolean bBigEnding) {
 		if (buf == null) {
 			throw new IllegalArgumentException("byte array is null!");
 		}
@@ -88,7 +82,7 @@ public class BytesTransUtil {
 		return r;
 	}
 
-	public static int getInt(byte[] buf, boolean bBigEnding) {
+	private static int getInt(byte[] buf, boolean bBigEnding) {
 		if (buf == null) {
 			throw new IllegalArgumentException("byte array is null!");
 		}
@@ -110,7 +104,7 @@ public class BytesTransUtil {
 		return r;
 	}
 
-	public static long getLong(byte[] buf, boolean bBigEnding) {
+	private static long getLong(byte[] buf, boolean bBigEnding) {
 		if (buf == null) {
 			throw new IllegalArgumentException("byte array is null!");
 		}
@@ -119,9 +113,9 @@ public class BytesTransUtil {
 		}
 		long r = 0;
 		if (bBigEnding) {
-			for (int i = 0; i < buf.length; i++) {
+			for (byte b : buf) {
 				r <<= 8;
-				r |= (buf[i] & 0x00000000000000ff);
+				r |= (b & 0x00000000000000ff);
 			}
 		} else {
 			for (int i = buf.length - 1; i >= 0; i--) {
@@ -136,27 +130,27 @@ public class BytesTransUtil {
 	/* 对转换进行一个简单的封装 */
 	/*----------------------------------------------------------*/
 	public static byte[] getBytes(int i) {
-		return getBytes(i, testCPU());
+		return getBytes(i, isBigEndian());
 	}
 
 	public static byte[] getBytes(short s) {
-		return getBytes(s, testCPU());
+		return getBytes(s, isBigEndian());
 	}
 
 	public static byte[] getBytes(long l) {
-		return getBytes(l, testCPU());
+		return getBytes(l, isBigEndian());
 	}
 
 	public static int getInt(byte[] buf) {
-		return getInt(buf, testCPU());
+		return getInt(buf, isBigEndian());
 	}
 
 	public static short getShort(byte[] buf) {
-		return getShort(buf, testCPU());
+		return getShort(buf, isBigEndian());
 	}
 
 	public static long getLong(byte[] buf) {
-		return getLong(buf, testCPU());
+		return getLong(buf, isBigEndian());
 	}
 
 	/****************************************/
@@ -165,9 +159,7 @@ public class BytesTransUtil {
 		short[] s = new short[buf.length / bLength];
 		for (int iLoop = 0; iLoop < s.length; iLoop++) {
 			byte[] temp = new byte[bLength];
-			for (int jLoop = 0; jLoop < bLength; jLoop++) {
-				temp[jLoop] = buf[iLoop * bLength + jLoop];
-			}
+			System.arraycopy(buf, iLoop * bLength, temp, 0, bLength);
 			s[iLoop] = getShort(temp);
 		}
 		return s;
@@ -178,9 +170,7 @@ public class BytesTransUtil {
 		byte[] buf = new byte[s.length * bLength];
 		for (int iLoop = 0; iLoop < s.length; iLoop++) {
 			byte[] temp = getBytes(s[iLoop]);
-			for (int jLoop = 0; jLoop < bLength; jLoop++) {
-				buf[iLoop * bLength + jLoop] = temp[jLoop];
-			}
+			System.arraycopy(temp, 0, buf, iLoop * bLength, bLength);
 		}
 		return buf;
 	}
@@ -191,9 +181,7 @@ public class BytesTransUtil {
 		int[] s = new int[buf.length / bLength];
 		for (int iLoop = 0; iLoop < s.length; iLoop++) {
 			byte[] temp = new byte[bLength];
-			for (int jLoop = 0; jLoop < bLength; jLoop++) {
-				temp[jLoop] = buf[iLoop * bLength + jLoop];
-			}
+			System.arraycopy(buf, iLoop * bLength, temp, 0, bLength);
 			s[iLoop] = getInt(temp);
 			System.out.println("2out->" + s[iLoop]);
 		}
@@ -206,9 +194,7 @@ public class BytesTransUtil {
 		for (int iLoop = 0; iLoop < s.length; iLoop++) {
 			byte[] temp = getBytes(s[iLoop]);
 			System.out.println("1out->" + s[iLoop]);
-			for (int jLoop = 0; jLoop < bLength; jLoop++) {
-				buf[iLoop * bLength + jLoop] = temp[jLoop];
-			}
+			System.arraycopy(temp, 0, buf, iLoop * bLength, bLength);
 		}
 		return buf;
 	}
@@ -219,9 +205,7 @@ public class BytesTransUtil {
 		long[] s = new long[buf.length / bLength];
 		for (int iLoop = 0; iLoop < s.length; iLoop++) {
 			byte[] temp = new byte[bLength];
-			for (int jLoop = 0; jLoop < bLength; jLoop++) {
-				temp[jLoop] = buf[iLoop * bLength + jLoop];
-			}
+			System.arraycopy(buf, iLoop * bLength, temp, 0, bLength);
 			s[iLoop] = getLong(temp);
 		}
 		return s;
@@ -232,9 +216,7 @@ public class BytesTransUtil {
 		byte[] buf = new byte[s.length * bLength];
 		for (int iLoop = 0; iLoop < s.length; iLoop++) {
 			byte[] temp = getBytes(s[iLoop]);
-			for (int jLoop = 0; jLoop < bLength; jLoop++) {
-				buf[iLoop * bLength + jLoop] = temp[jLoop];
-			}
+			System.arraycopy(temp, 0, buf, iLoop * bLength, bLength);
 		}
 		return buf;
 	}

@@ -17,6 +17,7 @@ import java.lang.reflect.Method;
  * @author http://blog.csdn.net/oracleot/article/details/20378453
  * 
  */
+@Deprecated
 public class ScreenObserver {
 	private static String TAG = "ScreenObserver";
 	private Context mContext;

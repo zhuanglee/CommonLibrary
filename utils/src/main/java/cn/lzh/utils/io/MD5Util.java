@@ -1,11 +1,9 @@
-package cn.lzh.utils.io.security;
+package cn.lzh.utils.io;
 
 import android.support.annotation.NonNull;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import cn.lzh.utils.io.ByteUtil;
 
 /**
  * 信息摘要算法5

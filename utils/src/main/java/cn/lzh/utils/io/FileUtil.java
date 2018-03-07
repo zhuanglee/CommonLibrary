@@ -1,4 +1,4 @@
-package cn.lzh.utils;
+package cn.lzh.utils.io;
 
 import android.content.Context;
 import android.net.Uri;
@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import cn.lzh.utils.io.IOUtils;
+import cn.lzh.utils.StringUtil;
 
 /**
  * File Utils
@@ -65,6 +65,13 @@ public class FileUtil {
     private static final String LOG_TAG = "FileUtil";
     private static final String FILE_SEPARATOR = "/";
     private static final String FILE_SEPARATOR_2 = "\\";
+
+    /** gb to byte **/
+    public static final long GB_2_BYTE = 1073741824;
+    /** mb to byte **/
+    public static final long MB_2_BYTE = 1048576;
+    /** kb to byte **/
+    public static final long KB_2_BYTE = 1024;
 
     private FileUtil() {
         throw new AssertionError();

@@ -1,4 +1,4 @@
-package cn.lzh.utils.io.security;
+package cn.lzh.utils.io;
 
 import android.support.annotation.NonNull;
 import android.util.Base64;
@@ -7,8 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-
-import cn.lzh.utils.io.StreamUtil;
 
 /**
  * Created by lzh on 2017/2/9 17:44.

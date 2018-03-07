@@ -29,6 +29,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
+import cn.lzh.utils.io.HttpUtil;
+
 /**
  * Last modify on 2017-10-25<br/>
  * 图片处理工具类
