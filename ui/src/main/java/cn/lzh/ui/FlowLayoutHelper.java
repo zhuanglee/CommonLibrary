@@ -1,4 +1,4 @@
-package cn.lzh.ui.utils;
+package cn.lzh.ui;
 
 import android.view.View;
 import android.view.ViewGroup;

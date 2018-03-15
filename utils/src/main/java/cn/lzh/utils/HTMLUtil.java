@@ -9,6 +9,10 @@ public class HTMLUtil {
 	private static final String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
 	private final static String regxpForHtml = "<([^>]*)>"; // 过滤所有以<开头以>结尾的标签
 
+	private HTMLUtil() {
+		throw new UnsupportedOperationException("Cannot be instantiated");
+	}
+
 	public static String delHTMLTag(String htmlStr) {
 		Pattern p_script = Pattern.compile(regEx_script,
 				Pattern.CASE_INSENSITIVE);

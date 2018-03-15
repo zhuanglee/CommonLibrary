@@ -12,6 +12,10 @@ import java.util.ArrayList;
 
 public class CommonUtil {
 
+	private CommonUtil() {
+		throw new UnsupportedOperationException("Cannot be instantiated");
+	}
+
 	/**
 	 * 发送媒体库扫描广播
 	 *

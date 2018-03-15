@@ -19,7 +19,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import cn.lzh.ui.R;
-import cn.lzh.ui.utils.ToastUtil;
 
 
 /**
@@ -135,7 +134,7 @@ public class CalendarCard extends View {
 	/**
 	 * 单元格点击回调事件
 	 */
-	private OnClickCellListener mClickCellListener;
+	private CalendarListener mListener;
 
 	public CalendarCard(Context context) {
 		super(context);
@@ -221,14 +220,13 @@ public class CalendarCard extends View {
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		// TODO 尺寸值用整型会有偏差
 		int w = MeasureSpec.getSize(widthMeasureSpec);
 		int h = MeasureSpec.getSize(heightMeasureSpec);
-		float totalHorizantalPadding = getPaddingLeft() + getPaddingRight();
+		float totalHorizontalPadding = getPaddingLeft() + getPaddingRight();
 		float totalVerticalPadding = getPaddingTop() + getPaddingBottom();
 		float totalHorizontalSpace = mHorizontalCellSpace * (TOTAL_COL - 1);// 水平间距之和
 		float totalVerticalSpace = mVerticalCellSpace * (TOTAL_ROW - 1);// 垂直间距之和
-		mCellWidth = (w - totalHorizantalPadding - totalHorizontalSpace)
+		mCellWidth = (w - totalHorizontalPadding - totalHorizontalSpace)
 				/ TOTAL_COL;
 		mCellHeight = (h - totalVerticalPadding - totalVerticalSpace)
 				/ TOTAL_ROW;
@@ -289,7 +287,7 @@ public class CalendarCard extends View {
 	}
 
 	/**
-	 * TODO 获取单元格的左边X值
+	 * 获取单元格的左边X值
 	 * 
 	 * @param col
 	 *            第几列
@@ -300,7 +298,7 @@ public class CalendarCard extends View {
 	}
 
 	/**
-	 * TODO 获取单元格底部Y值(可以方便绘制文字)
+	 * 获取单元格底部Y值(可以方便绘制文字)
 	 * 
 	 * @param row
 	 *            第几行
@@ -375,12 +373,12 @@ public class CalendarCard extends View {
 			if (Math.abs(disX) < mCellWidth && Math.abs(disY) < mCellHeight) {
 				int row = (int) ((mDownY - mGetPaddingTop) / (mCellHeight + mVerticalCellSpace));
 				int col = (int) ((mDownX - mGetPaddingLeft) / (mCellWidth + mHorizontalCellSpace));
-				if (mClickCellListener != null
-						&& mClickCellListener.isClickable()) {
+				if (mListener != null
+						&& mListener.isClickable()) {
 					measureClickCell(row, col);
 				}
 			} else {
-				// TODO 左右滑动,切换到其他月份
+				// 左右滑动,切换到其他月份
 				if (Math.abs(disX) > Math.abs(disY)) {
 					int sliding = mTouchSlop;// px2dip(getContext(), 50);
 					if (disX > sliding) {
@@ -454,7 +452,7 @@ public class CalendarCard extends View {
 	 */
 	private void processClickListener(int col, int row) {
 		// 判断所选日期是否属于当前日历视图所对应的月份，不属于则跳转到对应月份的日历视图
-		SlideDirection slideDirection = SlideDirection.NO_SILDE;
+		SlideDirection slideDirection = SlideDirection.NO_SLIDE;
 		if (mEndableChangePage) {
 			float date1 = mShowDate.year + mShowDate.month / 100f;
 			float date2 = mRows[row].cells[col].date.year
@@ -467,9 +465,9 @@ public class CalendarCard extends View {
 				slideDirection = SlideDirection.RIGHT;
 			}
 		}
-		if (mClickCellListener != null) {
-			// TODO 必须先回调单击事件,再刷新日历
-			mClickCellListener.onClickDate(mRows[row].cells[col].date,
+		if (mListener != null) {
+			// 必须先回调单击事件,再刷新日历
+			mListener.onClickDate(mRows[row].cells[col].date,
                     slideDirection);
 		}
 		if (slideDirection == SlideDirection.LEFT) {
@@ -489,8 +487,8 @@ public class CalendarCard extends View {
 	 */
 	private void update(boolean isChange) {
 		fillDate();
-		if (mClickCellListener != null) {
-			mClickCellListener.onChangeCalendar(mShowDate);
+		if (mListener != null && isChange) {
+			mListener.onChangeCalendar(mShowDate);
 		}
 	}
 
@@ -511,7 +509,7 @@ public class CalendarCard extends View {
 	 * 从右往左划，下一个月
 	 */
 	public void slideToRight() {
-		// TODO 最多向右滑动到本月
+		// 最多向右滑动到本月
 		if (isValidDate(new CustomDate(mShowDate.year, mShowDate.month, 33))) {
 			if (mShowDate.month == 12) {
 				mShowDate.month = 1;
@@ -521,7 +519,7 @@ public class CalendarCard extends View {
 			}
 			update(true);
 		} else {
-			ToastUtil.show("最后一页了");
+			mListener.onSlideToLastPage();
 		}
 	}
 
@@ -554,8 +552,8 @@ public class CalendarCard extends View {
 		return mShowDate;
 	}
 
-	public OnClickCellListener getClickCellListener() {
-		return mClickCellListener;
+	public CalendarListener getClickCellListener() {
+		return mListener;
 	}
 
 	/**
@@ -563,8 +561,8 @@ public class CalendarCard extends View {
 	 * 
 	 * @param listener
 	 */
-	public void setClickCellListener(OnClickCellListener listener) {
-		this.mClickCellListener = listener;
+	public void setClickCellListener(CalendarListener listener) {
+		this.mListener = listener;
 	}
 
 	/**
@@ -713,7 +711,7 @@ public class CalendarCard extends View {
 	 * 单元格点击的回调接口
 	 * 
 	 */
-	public interface OnClickCellListener {
+	public interface CalendarListener {
 		/**
 		 * 点击日期
 		 * 
@@ -734,7 +732,12 @@ public class CalendarCard extends View {
 		 * 
 		 * @return
 		 */
-		public boolean isClickable();
+		boolean isClickable();
+
+		/**
+		 * 提示当前页为最后一页
+		 */
+		void onSlideToLastPage();
 	}
 
 	/**
@@ -743,7 +746,7 @@ public class CalendarCard extends View {
 	 * @author lzh
 	 *
 	 */
-	public static enum Status {
+	public enum Status {
 		/**
 		 * 今天
 		 */
@@ -772,8 +775,8 @@ public class CalendarCard extends View {
 	 * @author lzh
 	 *
 	 */
-	public static enum SlideDirection {
-		RIGHT, LEFT, NO_SILDE;
+	public enum SlideDirection {
+		RIGHT, LEFT, NO_SLIDE;
 	}
 
 	/**

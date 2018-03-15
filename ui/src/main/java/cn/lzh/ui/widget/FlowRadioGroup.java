@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RadioGroup;
 
-import cn.lzh.ui.utils.FlowLayoutHelper;
+import cn.lzh.ui.FlowLayoutHelper;
 import cn.lzh.utils.DeviceUtil;
 
 /**

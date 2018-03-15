@@ -21,7 +21,7 @@ public class SPUtil {
     private static final String FILE_NAME = "share_data";
 
     private SPUtil() {
-        throw new AssertionError("Cannot be instantiated");
+        throw new UnsupportedOperationException("Cannot be instantiated");
     }
 
     /**

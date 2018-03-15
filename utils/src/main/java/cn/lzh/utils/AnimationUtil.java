@@ -15,6 +15,10 @@ import android.view.animation.TranslateAnimation;
  */
 public class AnimationUtil {
 
+    private AnimationUtil() {
+        throw new UnsupportedOperationException("Cannot be instantiated");
+    }
+
     /**
      * 晃动View
      *

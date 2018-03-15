@@ -14,7 +14,6 @@ import android.view.WindowManager;
  */
 public class DeviceUtil {
 	private DeviceUtil() {
-		/* cannot be instantiated */
 		throw new UnsupportedOperationException("cannot be instantiated");
 	}
 

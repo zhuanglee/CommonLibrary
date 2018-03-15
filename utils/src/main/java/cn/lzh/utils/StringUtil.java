@@ -27,7 +27,7 @@ public class StringUtil {
 
 
 	private StringUtil() {
-		throw new AssertionError();
+		throw new UnsupportedOperationException("Cannot be instantiated");
 	}
 
 	/**

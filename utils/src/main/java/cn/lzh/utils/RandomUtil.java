@@ -44,7 +44,7 @@ public class RandomUtil {
     public static final String LOWER_CASE_LETTERS  = "abcdefghijklmnopqrstuvwxyz";
 
     private RandomUtil() {
-        throw new AssertionError();
+        throw new UnsupportedOperationException("Cannot be instantiated");
     }
 
     /**

@@ -19,7 +19,7 @@ public class CollectionUtil {
     public static final CharSequence DEFAULT_JOIN_SEPARATOR = ",";
 
     private CollectionUtil() {
-        throw new AssertionError();
+        throw new UnsupportedOperationException("Cannot be instantiated");
     }
 
     /**

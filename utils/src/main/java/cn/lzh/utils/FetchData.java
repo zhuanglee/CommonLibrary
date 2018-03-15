@@ -15,6 +15,10 @@ import java.util.List;
 public class FetchData {
 	private static StringBuffer buffer;
 
+	private FetchData() {
+		throw new UnsupportedOperationException("Cannot be instantiated");
+	}
+
 	// cpu info
 	public static String fetch_cpu_info() {
 		String result = null;

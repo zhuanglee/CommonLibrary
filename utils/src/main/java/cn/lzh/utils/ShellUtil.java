@@ -32,7 +32,7 @@ public class ShellUtil {
     public static final String COMMAND_LINE_END = "\n";
 
     private ShellUtil() {
-        throw new AssertionError();
+        throw new UnsupportedOperationException("Cannot be instantiated");
     }
 
     /**

@@ -15,7 +15,7 @@ import android.os.Parcelable;
 public class ParcelUtil {
 
     private ParcelUtil() {
-        throw new AssertionError();
+        throw new UnsupportedOperationException("Cannot be instantiated");
     }
 
     /**

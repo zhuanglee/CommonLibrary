@@ -17,7 +17,7 @@ import java.util.List;
 public class ResourceUtil {
 
     private ResourceUtil() {
-        throw new AssertionError();
+        throw new UnsupportedOperationException("Cannot be instantiated");
     }
 
     /**

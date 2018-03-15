@@ -47,7 +47,7 @@ public class PackageUtil {
     public static final String TAG = "PackageUtil";
 
     private PackageUtil() {
-        throw new AssertionError();
+        throw new UnsupportedOperationException("Cannot be instantiated");
     }
 
     /**

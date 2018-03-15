@@ -2,7 +2,7 @@ package cn.lzh.common;
 
 import android.app.Application;
 
-import cn.lzh.ui.utils.ToastUtil;
+import cn.lzh.utils.ToastUtil;
 
 /**
  * Created by lzh on 2017/10/20.<br/>

@@ -28,9 +28,9 @@ public class WatermarkUtil {
 	 * 水印图片文件名的格式("%swatermark_%s.png")
 	 */
 	public static final String WATERMARK_FILE_FORMAT = "%swatermark_%s.png";
-	
+
 	private WatermarkUtil() {
-		throw new AssertionError("Cannot be instantiated");
+		throw new UnsupportedOperationException("Cannot be instantiated");
 	}
 
 	/**

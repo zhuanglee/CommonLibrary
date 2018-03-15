@@ -12,6 +12,10 @@ import android.text.format.Formatter;
  */
 public class DataCleanManager {
 
+    private DataCleanManager() {
+        throw new UnsupportedOperationException("Cannot be instantiated");
+    }
+
     public static String getTotalCacheSize(Context context) throws Exception {
         long cacheSize = getFolderSize(context.getCacheDir());
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {

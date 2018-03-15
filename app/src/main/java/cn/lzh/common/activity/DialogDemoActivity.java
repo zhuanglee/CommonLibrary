@@ -16,7 +16,7 @@ import cn.lzh.ui.dialog.ContextDialog;
 import cn.lzh.ui.dialog.DateTimePickerDialog;
 import cn.lzh.ui.dialog.WaitingDialog;
 import cn.lzh.ui.dialog.YearMonthPickerDialog;
-import cn.lzh.ui.utils.ToastUtil;
+import cn.lzh.utils.ToastUtil;
 import cn.lzh.ui.widget.CalendarCard;
 import cn.lzh.utils.DateUtil;
 
@@ -24,7 +24,7 @@ import cn.lzh.utils.DateUtil;
  * Created by lzh on 2018/2/26.<br/>
  * 对话框效果演示
  */
-public class DialogDemoActivity extends BaseWatermarkActivity implements View.OnClickListener, CalendarCard.OnClickCellListener {
+public class DialogDemoActivity extends BaseWatermarkActivity implements View.OnClickListener, CalendarCard.CalendarListener {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,6 +90,11 @@ public class DialogDemoActivity extends BaseWatermarkActivity implements View.On
     @Override
     public boolean isClickable() {
         return true;
+    }
+
+    @Override
+    public void onSlideToLastPage() {
+        ToastUtil.show("最后一页了");
     }
 
 }

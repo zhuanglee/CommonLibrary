@@ -6,9 +6,9 @@ import cn.lzh.common.R;
 import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.ui.widget.CalendarCard;
 import cn.lzh.ui.widget.CalendarCard.CustomDate;
-import cn.lzh.ui.utils.ToastUtil;
+import cn.lzh.utils.ToastUtil;
 
-public class CalendarActivity extends BaseWatermarkActivity implements CalendarCard.OnClickCellListener {
+public class CalendarActivity extends BaseWatermarkActivity implements CalendarCard.CalendarListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {  
@@ -33,6 +33,11 @@ public class CalendarActivity extends BaseWatermarkActivity implements CalendarC
 	@Override
 	public boolean isClickable() {
 		return true;
-	}  
-      
+	}
+
+    @Override
+    public void onSlideToLastPage() {
+        ToastUtil.show("最后一页了");
+    }
+
 }  
