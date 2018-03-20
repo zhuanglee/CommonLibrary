@@ -200,6 +200,56 @@ public class BitmapUtil {
 	}
 
 	/**
+	 * 获取裁剪后的圆形图片
+	 *
+	 * @param bmp    原图
+	 * @param radius 半径
+	 */
+	public static Bitmap getCroppedRoundBitmap(Bitmap bmp, int radius) {
+		Bitmap scaledSrcBmp;
+		int diameter = radius * 2;
+		// 为了防止宽高不相等，造成圆形图片变形，因此截取长方形中处于中间位置最大的正方形图片
+		int bmpWidth = bmp.getWidth();
+		int bmpHeight = bmp.getHeight();
+		Bitmap squareBitmap;
+		if(bmpHeight == bmpWidth){
+			squareBitmap = bmp;
+		}else{
+			int size = Math.min(bmpHeight, bmpWidth);
+			int x = bmpHeight > bmpWidth ? 0 : (bmpWidth - bmpHeight) / 2;
+			int y = bmpHeight > bmpWidth ? (bmpHeight - bmpWidth) / 2 : 0;
+			squareBitmap = Bitmap.createBitmap(bmp, x, y, size, size);
+		}
+		if (squareBitmap.getWidth() != diameter || squareBitmap.getHeight() != diameter) {
+			scaledSrcBmp = Bitmap.createScaledBitmap(squareBitmap, diameter, diameter, true);
+		} else {
+			scaledSrcBmp = squareBitmap;
+		}
+		Bitmap output = Bitmap.createBitmap(scaledSrcBmp.getWidth(),
+				scaledSrcBmp.getHeight(),
+				Bitmap.Config.ARGB_8888);
+		Canvas canvas = new Canvas(output);
+
+		Paint paint = new Paint();
+		Rect rect = new Rect(0, 0, scaledSrcBmp.getWidth(), scaledSrcBmp.getHeight());
+
+		paint.setAntiAlias(true);
+		paint.setFilterBitmap(true);
+		paint.setDither(true);
+		canvas.drawARGB(0, 0, 0, 0);
+		canvas.drawCircle(scaledSrcBmp.getWidth() / 2,
+				scaledSrcBmp.getHeight() / 2,
+				scaledSrcBmp.getWidth() / 2,
+				paint);
+		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+		canvas.drawBitmap(scaledSrcBmp, rect, rect, paint);
+		bmp.recycle();
+		squareBitmap.recycle();
+		scaledSrcBmp.recycle();
+		return output;
+	}
+
+	/**
 	 * 获取添加水印后的图片
 	 *
 	 * @param src 原图

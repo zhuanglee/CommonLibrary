@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -16,7 +17,6 @@ import cn.lzh.common.R;
 import cn.lzh.common.adapter.ActivityBeanAdapter;
 import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.common.bean.ActvityBean;
-import cn.lzh.utils.logger.LogManager;
 
 /**
  * Demo主界面
@@ -73,7 +73,7 @@ public class DemoMainActivity extends BaseWatermarkActivity {
                 }
                 String name = mActivityBeans.get(index).getName();
                 if (TextUtils.isEmpty(name)) {
-                    LogManager.getLogger().i(TAG, "click "
+                    Log.i(TAG, "click "
                             + mActivityBeans.get(position).getLabel());
                 } else {
                     try {
@@ -81,7 +81,7 @@ public class DemoMainActivity extends BaseWatermarkActivity {
                         startActivity(new Intent(mContext, activityClass));
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
-                        LogManager.getLogger().i(TAG, name + "不存在");
+                        Log.i(TAG, name + "不存在");
                     }
                 }
             }

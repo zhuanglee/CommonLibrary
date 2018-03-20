@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
       <!-- 圆形图片视图-->
-    <declare-styleable name="RoundedImageView"> 
+    <declare-styleable name="RoundImageView">
         <attr name="borderThickness" format="dimension" />
         <attr name="borderInsideColor" format="color" />
         <attr name="borderOutsideColor" format="color" />

@@ -192,7 +192,7 @@ public class CustomImageView extends View {
 	 * @param source
 	 * @return
 	 */
-	private Bitmap createRoundConerImage(Bitmap source) {
+	private Bitmap createRoundCornerImage(Bitmap source) {
 		final Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		Bitmap target = Bitmap.createBitmap(mWidth, mHeight, Config.ARGB_8888);
