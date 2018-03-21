@@ -51,4 +51,13 @@
         android:text="YearMonthPickerDialog"
         android:onClick="onClick"/>
 
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_popup_window"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/activity_padding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SmartPopupWindow"
+        android:onClick="onClick"/>
+
 </LinearLayout>

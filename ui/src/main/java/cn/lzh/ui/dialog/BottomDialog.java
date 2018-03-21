@@ -1,13 +1,14 @@
 package cn.lzh.ui.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 
 import cn.lzh.ui.R;
 
@@ -17,18 +18,18 @@ import cn.lzh.ui.R;
  * 底部显示的对话框
  */
 
-public class BottomDialog extends Dialog {
+public class BottomDialog extends AppCompatDialog {
 
-    private final View contentView;
+    protected final View mContentView;
 
     public BottomDialog(@NonNull Context context, int layoutId, boolean cancelable) {
         super(context, R.style.BottomDialog);
-        contentView = LayoutInflater.from(context).inflate(layoutId, null);
+        mContentView = LayoutInflater.from(context).inflate(layoutId, null);
+        setContentView(mContentView);
         setCancelable(cancelable);
-        setContentView(contentView);
-        ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
+        ViewGroup.LayoutParams layoutParams = mContentView.getLayoutParams();
         layoutParams.width = context.getResources().getDisplayMetrics().widthPixels;
-        contentView.setLayoutParams(layoutParams);
+        mContentView.setLayoutParams(layoutParams);
         setGravityBottom();
     }
 
@@ -41,7 +42,21 @@ public class BottomDialog extends Dialog {
     }
 
     public View getContentView() {
-        return contentView;
+        return mContentView;
+    }
+
+    public void addDimBehindFlag(){
+        Window window = getWindow();
+        if(window != null){
+            window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
+    }
+
+    public void clearDimBehindFlag(){
+        Window window = getWindow();
+        if(window != null){
+            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
     }
 
     /**

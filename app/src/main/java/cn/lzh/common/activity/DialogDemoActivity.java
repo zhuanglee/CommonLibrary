@@ -14,8 +14,10 @@ import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.ui.dialog.BottomDialog;
 import cn.lzh.ui.dialog.ContextDialog;
 import cn.lzh.ui.dialog.DateTimePickerDialog;
+import cn.lzh.ui.dialog.SmartPopupWindow;
 import cn.lzh.ui.dialog.WaitingDialog;
 import cn.lzh.ui.dialog.YearMonthPickerDialog;
+import cn.lzh.utils.DeviceUtil;
 import cn.lzh.utils.ToastUtil;
 import cn.lzh.ui.widget.CalendarCard;
 import cn.lzh.utils.DateUtil;
@@ -25,6 +27,8 @@ import cn.lzh.utils.DateUtil;
  * 对话框效果演示
  */
 public class DialogDemoActivity extends BaseWatermarkActivity implements View.OnClickListener, CalendarCard.CalendarListener {
+
+    private SmartPopupWindow popupWindow;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +78,13 @@ public class DialogDemoActivity extends BaseWatermarkActivity implements View.On
                     }
                 }).show();
                 break;
+            case R.id.btn_popup_window:
+                if(popupWindow == null){
+                    popupWindow = new SmartPopupWindow(this,
+                            R.layout.dialog_bottom, DeviceUtil.getScreenWidth(this), DeviceUtil.dip2px(this, 200));
+                }
+                popupWindow.showScreenCenter();
+                break;
         }
     }
 
@@ -97,4 +108,11 @@ public class DialogDemoActivity extends BaseWatermarkActivity implements View.On
         ToastUtil.show("最后一页了");
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(popupWindow != null && popupWindow.isShowing()){
+            popupWindow.dismiss();
+        }
+    }
 }
