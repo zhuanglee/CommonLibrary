@@ -76,7 +76,7 @@ public class SmartPopupWindow extends PopupWindow implements
     public void showScreenCenter() {
         mContentView.startAnimation(mAlphaIn);
         showAtLocation(mActivity.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
-//        addDimBehindFlag();
+        addDimBehindFlag();
         setWindowAlpha(0.5f);
     }
 
@@ -93,8 +93,8 @@ public class SmartPopupWindow extends PopupWindow implements
 
     @Override
     public void onDismiss() {
-//        clearDimBehindFlag();
         setWindowAlpha(1f);
+        clearDimBehindFlag();
     }
 
 }
