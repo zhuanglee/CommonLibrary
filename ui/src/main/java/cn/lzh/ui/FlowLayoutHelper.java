@@ -31,7 +31,7 @@ public class FlowLayoutHelper {
     public FlowLayoutHelper(ViewGroup vg, OnMeasureCallback callback) {
         this.mViewGroup = vg;
         this.mCallback = callback;
-        this.mLines = new ArrayList<Line>();//存储所有行
+        this.mLines = new ArrayList<>();//存储所有行
     }
 
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -39,7 +39,6 @@ public class FlowLayoutHelper {
         int childCount = mViewGroup.getChildCount();
         if (childCount == 0) {
 //			throw new IllegalArgumentException("请添加子控件");
-            mCallback.onCallSuperMeasure(widthMeasureSpec, heightMeasureSpec);
             return;
         }
         int width = View.MeasureSpec.getSize(widthMeasureSpec);//ViewGroup的宽度
@@ -148,7 +147,7 @@ public class FlowLayoutHelper {
         private int height;
 
         public Line() {
-            views = new ArrayList<View>();
+            views = new ArrayList<>();
         }
 
         public void addView(View view) {
@@ -204,7 +203,6 @@ public class FlowLayoutHelper {
     }
 
     public interface OnMeasureCallback{
-        void onCallSuperMeasure(int widthMeasureSpec, int heightMeasureSpec);
         void setMeasuredDimension(int measuredWidth, int measuredHeight);
     }
 }

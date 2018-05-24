@@ -24,11 +24,6 @@ public class FlowRadioGroup extends RadioGroup {
 		super(context, attrs);
 		mFlowLayoutHelper = new FlowLayoutHelper(this, new FlowLayoutHelper.OnMeasureCallback() {
 			@Override
-			public void onCallSuperMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-				FlowRadioGroup.super.measure(widthMeasureSpec, heightMeasureSpec);
-			}
-
-			@Override
 			public void setMeasuredDimension(int measuredWidth, int measuredHeight) {
 				FlowRadioGroup.this.setMeasuredDimension(measuredWidth, measuredHeight);
 			}
@@ -63,11 +58,18 @@ public class FlowRadioGroup extends RadioGroup {
 	
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		if(getChildCount() == 0){
+			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+			return;
+		}
 		mFlowLayoutHelper.onMeasure(widthMeasureSpec, heightMeasureSpec);
 	}
 
 	@Override
 	protected void onLayout(boolean changed,int l, int t, int r, int b) {
+		if(getChildCount() == 0){
+			return;
+		}
 		mFlowLayoutHelper.onLayout(changed, l, t, r, b);
 	}
 	
