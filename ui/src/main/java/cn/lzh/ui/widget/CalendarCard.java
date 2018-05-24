@@ -26,6 +26,7 @@ import cn.lzh.ui.R;
  * 日历单元格宽（高）=控件宽（高） - 控件左右（上下）边距 - 水平（垂直）单元格间距;</br>
  * @author lzh
  */
+@Deprecated
 public class CalendarCard extends View {
 	/**
 	 * 日历标题：星期几

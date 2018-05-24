@@ -14,6 +14,7 @@ import android.widget.ScrollView;
  * 
  * @author trinea@trinea.cn 2013-5-21
  */
+@Deprecated
 public class BorderScrollView extends ScrollView {
 
     private OnBorderListener onBorderListener;

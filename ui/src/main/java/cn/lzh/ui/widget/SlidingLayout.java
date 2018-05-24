@@ -89,7 +89,7 @@ public class SlidingLayout extends FrameLayout {
 	protected void onLayout(boolean changed, int left, int top, int right,
 			int bottom) {
 		super.onLayout(changed, left, top, right, bottom);
-		//TODO 如何摆放两个View的初始位置, 重写 onLayout, 将 backView 放置到右边
+		// 如何摆放两个View的初始位置, 重写 onLayout, 将 backView 放置到右边
 		mViewGroupBack.layout(mWidth, 0, mWidth + mViewGroupBackWidth, mHeight);
 	}
 	
@@ -102,7 +102,7 @@ public class SlidingLayout extends FrameLayout {
 
 			@Override
 			public int clampViewPositionHorizontal(View child, int left, int dx) {
-				//TODO 修正水平偏移值, 两个View都要修正
+				// 修正水平偏移值, 两个View都要修正
 				if (child == mViewGroupFront) {
 					if (left < -mViewGroupBackWidth) {
 						left = -mViewGroupBackWidth;
@@ -127,7 +127,7 @@ public class SlidingLayout extends FrameLayout {
 			@Override
 			public void onViewPositionChanged(View changedView, int left,
 					int top, int dx, int dy) {
-				//TODO 移动任意一个View的时候, 让另外一个也跟着移动
+				// 移动任意一个View的时候, 让另外一个也跟着移动
 				if (changedView == mViewGroupFront) {
 					mViewGroupBack.offsetLeftAndRight(dx);
 				} else if (changedView == mViewGroupBack) {
@@ -140,7 +140,7 @@ public class SlidingLayout extends FrameLayout {
 			@Override
 			public void onViewReleased(View releasedChild, float xvel,
 					float yvel) {
-				//TODO 处理手指抬起后的打开/关闭
+				// 处理手指抬起后的打开/关闭
 				if (xvel == 0
 						&& mViewGroupFront.getLeft() < -mViewGroupBackWidth * 0.5f) {
 					open();

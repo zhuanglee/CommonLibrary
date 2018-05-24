@@ -30,12 +30,17 @@ public class FlowLayoutActivity extends BaseWatermarkActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flow_layout);
         initToolbar(true);
-        ArrayList<String> tags = new ArrayList<String>();
+        final ArrayList<String> tags = new ArrayList<String>();
         for (int i = 0; i < 20; i++) {
             tags.add("标签" + i + RandomUtil.getRandomLetters(i));
         }
-        FlowLayout flowLayout = (FlowLayout) findViewById(R.id.flow_layout);
-        setupFlowLayout(flowLayout, tags);
+        final FlowLayout flowLayout = findViewById(R.id.flow_layout);
+        flowLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setupFlowLayout(flowLayout, tags);
+            }
+        }, 1000);
     }
 
     private void setupFlowLayout(FlowLayout flowLayout, ArrayList<String> tags) {

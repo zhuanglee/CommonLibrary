@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
  * Created by lzh on 2017/3/29 11:05.
  */
 
-public class LinearListLayout extends LinearLayout implements View.OnClickListener, View.OnLongClickListener {
+public class ListLinearLayout extends LinearLayout implements View.OnClickListener, View.OnLongClickListener {
 
 	private DataSetObserver mDataSetObserver;
 	private BaseAdapter mAdapter;
@@ -23,15 +23,15 @@ public class LinearListLayout extends LinearLayout implements View.OnClickListen
 	private OnItemLongClickListener mOnItemLongClickListener;
 
 
-	public LinearListLayout(Context context) {
+	public ListLinearLayout(Context context) {
 		this(context, null);
 	}
 
-	public LinearListLayout(Context context, @Nullable AttributeSet attrs) {
+	public ListLinearLayout(Context context, @Nullable AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
-	public LinearListLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+	public ListLinearLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		mDataSetObserver = new DataSetObserver() {
 			@Override

@@ -12,6 +12,7 @@ import android.util.AttributeSet;
  * @author Administrator
  * 
  */
+@Deprecated
 public class InputControlEditText extends AppCompatEditText {
 
 	private int maxInputLength;
@@ -92,7 +93,7 @@ public class InputControlEditText extends AppCompatEditText {
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			// TODO 要有递归出口
+			// 要有递归出口
 			// Logg.w("afterTextChanged:oldText="+oldText);
 			String text = s.toString();
 			if (text.equals(oldText)) {
@@ -131,16 +132,13 @@ public class InputControlEditText extends AppCompatEditText {
 
 	public static boolean isChinese(char c) {
 		Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
-		if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+		return ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
 				|| ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
 				|| ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
 				|| ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
 				|| ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
 				|| ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS
-				|| ub == Character.UnicodeBlock.GENERAL_PUNCTUATION) {
-			return true;
-		}
-		return false;
+				|| ub == Character.UnicodeBlock.GENERAL_PUNCTUATION;
 	}
 
 }

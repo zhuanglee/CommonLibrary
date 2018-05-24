@@ -6,6 +6,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 
+@Deprecated
 class BoundScrollWarpLayout extends LinearLayout {
 
     /**

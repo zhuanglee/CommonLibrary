@@ -57,7 +57,6 @@ public class DemoMainActivity extends BaseWatermarkActivity {
         mActivityBeans.add(new ActvityBean(ParallaxListViewActivity.class));
         mActivityBeans.add(new ActvityBean(QuickIndexBarActivity.class));
         mActivityBeans.add(new ActvityBean(RingProgressBarActivity.class));
-        mActivityBeans.add(new ActvityBean(PageActivity.class));
         mActivityBeans.add(new ActvityBean(UtilActivity.class));
     }
 

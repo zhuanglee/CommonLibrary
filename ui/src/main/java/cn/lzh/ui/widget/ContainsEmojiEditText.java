@@ -14,10 +14,10 @@ import cn.lzh.ui.R;
 
 
 /**
- * @Description EditText限制输入表情符号
  * Created by admin on 2017/5/25.
+ * EditText限制输入表情符号
  */
-
+@Deprecated
 public class ContainsEmojiEditText extends AppCompatEditText {
 
     private boolean emojiEnable = true; // 是否允许输入表情符号
@@ -29,36 +29,29 @@ public class ContainsEmojiEditText extends AppCompatEditText {
     private boolean resetText = false;
     private Context mContext;
 
-    public boolean isEmojiEnable() {
-        return emojiEnable;
-    }
-
-    public void setEmojiEnable(boolean emojiEnable) {
-        this.emojiEnable = emojiEnable;
-    }
-
     public ContainsEmojiEditText(Context context) {
-        super(context);
-        this.mContext = context;
-        initEditText();
+        this(context, null);
     }
 
     public ContainsEmojiEditText(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        this.mContext = context;
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ContainsEmojiEditText);
-        // 获取自定义属性值
-        emojiEnable = ta.getBoolean(R.styleable.ContainsEmojiEditText_emojiEnable, true);
-        initEditText();
+        this(context, attrs, 0);
     }
 
     public ContainsEmojiEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
+        initAttr(context, attrs);
+        initEditText();
+    }
+
+    private void initAttr(Context context, AttributeSet attrs) {
+        if (attrs == null) {
+            return;
+        }
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ContainsEmojiEditText);
         // 获取自定义属性值
         emojiEnable = ta.getBoolean(R.styleable.ContainsEmojiEditText_emojiEnable, true);
-        initEditText();
+        ta.recycle();
     }
 
     // 初始化edittext 控件
@@ -107,13 +100,21 @@ public class ContainsEmojiEditText extends AppCompatEditText {
         });
     }
 
+    public boolean isEmojiEnable() {
+        return emojiEnable;
+    }
+
+    public void setEmojiEnable(boolean emojiEnable) {
+        this.emojiEnable = emojiEnable;
+    }
+
     /**
      * 检测是否有emoji表情
      *
      * @param source
      * @return
      */
-    public static boolean containsEmoji(String source) {
+    private static boolean containsEmoji(String source) {
         int len = source.length();
         for (int i = 0; i < len; i++) {
             char codePoint = source.charAt(i);

@@ -20,6 +20,7 @@ import android.widget.ScrollView;
 /**
  * 有弹性的ScrollView,实现下拉弹回和上拉弹回
  */
+@Deprecated
 public class BoundScrollView extends ScrollView {
 
 	/**

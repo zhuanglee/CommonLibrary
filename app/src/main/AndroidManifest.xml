@@ -47,9 +47,6 @@
             android:name="cn.lzh.common.activity.DialogDemoActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="cn.lzh.common.activity.PageActivity"
-            android:launchMode="singleTop" />
-        <activity
             android:name="cn.lzh.common.activity.UtilActivity"
             android:launchMode="singleTop" />
     </application>
