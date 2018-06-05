@@ -132,7 +132,7 @@ public class StringUtil {
 	 * @param phone String
 	 */
 	public static boolean isPhone(@NonNull String phone) {
-		return phone.matches("^1[34578]\\d{9}$");
+		return phone.matches("^1[3-9]\\d{9}$");
 	}
 
 	/**
