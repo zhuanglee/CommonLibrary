@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -17,6 +19,25 @@ public class IntentUtil {
 
 	private IntentUtil() {
 		throw new UnsupportedOperationException("Cannot be instantiated");
+	}
+
+	/**
+	 * 发送媒体库扫描广播
+	 *
+	 * @param context
+	 * @param file
+	 */
+	public static void sendMediaScannerBroadcast(Context context, File file) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			Intent mediaScanIntent = new Intent(
+					Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+			mediaScanIntent.setData(Uri.fromFile(file));
+			context.sendBroadcast(mediaScanIntent);
+		} else {
+			context.sendBroadcast(new Intent(
+					Intent.ACTION_MEDIA_MOUNTED,
+					Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+		}
 	}
 
 	/**
@@ -38,7 +59,7 @@ public class IntentUtil {
 	 * 
 	 * @return
 	 */
-	public static Intent getHomeIntet() {
+	public static Intent getHomeIntent() {
 		Intent intent = new Intent();
 		intent.setAction("android.intent.action.MAIN");
 		intent.addCategory("android.intent.category.HOME");

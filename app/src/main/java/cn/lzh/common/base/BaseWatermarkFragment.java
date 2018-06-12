@@ -15,8 +15,8 @@ import android.view.WindowManager;
 
 import java.io.File;
 
+import cn.lzh.common.utils.WatermarkUtil;
 import cn.lzh.utils.BitmapUtil;
-import cn.lzh.utils.WatermarkUtil;
 
 public abstract class BaseWatermarkFragment extends Fragment {
 	private static final String DIR_DEBUG = "/debug/";

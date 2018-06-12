@@ -474,7 +474,7 @@ public class FileUtil {
         } catch (IOException e) {
             throw new RuntimeException("IOException occurred. ", e);
         } finally {
-            IOUtils.close(reader);
+            CloseableUtils.close(reader);
         }
     }
 
@@ -501,7 +501,7 @@ public class FileUtil {
         } catch (IOException e) {
             throw new RuntimeException("IOException occurred. ", e);
         } finally {
-            IOUtils.close(fileWriter);
+            CloseableUtils.close(fileWriter);
         }
     }
 
@@ -534,7 +534,7 @@ public class FileUtil {
         } catch (IOException e) {
             throw new RuntimeException("IOException occurred. ", e);
         } finally {
-            IOUtils.close(fileWriter);
+            CloseableUtils.close(fileWriter);
         }
     }
 
@@ -623,8 +623,8 @@ public class FileUtil {
         } catch (IOException e) {
             throw new RuntimeException("IOException occurred. ", e);
         } finally {
-            IOUtils.close(o);
-            IOUtils.close(stream);
+            CloseableUtils.close(o);
+            CloseableUtils.close(stream);
         }
     }
 
@@ -700,7 +700,7 @@ public class FileUtil {
         } catch (IOException e) {
             throw new RuntimeException("IOException occurred. ", e);
         } finally {
-            IOUtils.close(reader);
+            CloseableUtils.close(reader);
         }
     }
 

@@ -19,11 +19,11 @@ import java.lang.reflect.Method;
  */
 @Deprecated
 public class ScreenObserver {
-	private static String TAG = "ScreenObserver";
+	private static final String TAG = "ScreenObserver";
 	private Context mContext;
 	private ScreenBroadcastReceiver mScreenReceiver;
 	private ScreenStateListener mScreenStateListener;
-	private static Method mReflectScreenState;
+	private Method mReflectScreenState;
 
 	public ScreenObserver(Context context) {
 		mContext = context;
@@ -62,23 +62,6 @@ public class ScreenObserver {
 	}
 
 	/**
-	 * 第一次请求screen状态
-	 */
-	private void firstGetScreenState() {
-		PowerManager manager = (PowerManager) mContext
-				.getSystemService(Activity.POWER_SERVICE);
-		if (isScreenOn(manager)) {
-			if (mScreenStateListener != null) {
-				mScreenStateListener.onScreenOn();
-			}
-		} else {
-			if (mScreenStateListener != null) {
-				mScreenStateListener.onScreenOff();
-			}
-		}
-	}
-
-	/**
 	 * 停止screen状态更新
 	 */
 	public void stopScreenStateUpdate() {
@@ -97,9 +80,26 @@ public class ScreenObserver {
 	}
 
 	/**
+	 * 第一次请求screen状态
+	 */
+	private void firstGetScreenState() {
+		PowerManager manager = (PowerManager) mContext
+				.getSystemService(Activity.POWER_SERVICE);
+		if (isScreenOn(manager)) {
+			if (mScreenStateListener != null) {
+				mScreenStateListener.onScreenOn();
+			}
+		} else {
+			if (mScreenStateListener != null) {
+				mScreenStateListener.onScreenOff();
+			}
+		}
+	}
+
+	/**
 	 * screen是否打开状态
 	 */
-	private static boolean isScreenOn(PowerManager pm) {
+	private boolean isScreenOn(PowerManager pm) {
 		boolean screenState;
 		try {
 			screenState = (Boolean) mReflectScreenState.invoke(pm);
@@ -111,16 +111,15 @@ public class ScreenObserver {
 
 	// 外部调用接口
 	public interface ScreenStateListener {
-		public void onScreenOn();
+		void onScreenOn();
 
-		public void onScreenOff();
+		void onScreenOff();
 
-		public void onUserPresent();
+		void onUserPresent();
 	}
 
-	public static boolean isScreenLocked(Context c) {
-		KeyguardManager mKeyguardManager = (KeyguardManager) c
-				.getSystemService(c.KEYGUARD_SERVICE);
-		return mKeyguardManager.inKeyguardRestrictedInputMode();
+	public static boolean isScreenLocked(Context ctx) {
+		KeyguardManager km = (KeyguardManager) ctx.getSystemService(Context.KEYGUARD_SERVICE);
+		return km != null && km.inKeyguardRestrictedInputMode();
 	}
 }

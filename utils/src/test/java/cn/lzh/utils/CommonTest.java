@@ -2,10 +2,7 @@ package cn.lzh.utils;
 
 import org.junit.Test;
 
-import cn.lzh.utils.io.ByteUtil;
-import cn.lzh.utils.io.BytesTransUtil;
-import cn.lzh.utils.io.DES;
-import cn.lzh.utils.io.MD5Util;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by lzh on 2017/9/18.<br/>
@@ -30,7 +27,11 @@ public class CommonTest {
     @Test
     public void testMD5(){
         String text = "测试MD5加密"; // 7b78acb12c955bfe233469aa4bfa7fe0
-        System.out.println(MD5Util.digest(text));
+        try {
+            System.out.println(MD5Util.digest(text));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

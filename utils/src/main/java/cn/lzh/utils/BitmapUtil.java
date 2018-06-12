@@ -27,9 +27,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
-
-import cn.lzh.utils.io.HttpUtil;
 
 /**
  * Last modify on 2017-10-25<br/>
@@ -513,48 +510,6 @@ public class BitmapUtil {
 			return null;
 		}
 		return bitmap;
-	}
-
-	/**
-	 * 加载网络图片
-	 *
-	 * @param imgUrl
-	 *            图片链接
-	 * @return
-	 * @deprecated 使用开源库性能更佳，如：Glide
-	 */
-	@Deprecated
-	@Nullable
-	public static Bitmap getBitmap(URL imgUrl) {
-		return getBitmap(imgUrl, 0, 0);
-	}
-
-	/**
-	 * 加载网络图片
-	 *
-	 * @param imgUrl
-	 *            图片链接
-	 * @param width
-	 * @param height
-	 * @return
-	 * @deprecated 使用开源库性能更佳，如：Glide
-	 */
-	@Deprecated
-	@Nullable
-	public static Bitmap getBitmap(URL imgUrl, int width,
-								   int height) {
-		byte[] data = HttpUtil.doGetData(imgUrl);
-		if (data == null || data.length == 0) {
-			return null;
-		}
-		Options opts = new Options();
-		if (width > 0 && height > 0) {
-			opts.inJustDecodeBounds = true;
-			BitmapFactory.decodeByteArray(data, 0, data.length, opts);
-			opts.inSampleSize = computeSampleSize(opts, -1, width * height);
-			opts.inJustDecodeBounds = false;
-		}
-		return BitmapFactory.decodeByteArray(data, 0, data.length, opts);
 	}
 
 	/**

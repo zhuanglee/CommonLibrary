@@ -9,13 +9,11 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -598,6 +596,4 @@ public class SystemUtil {
         ComponentName topActivity = taskList.get(0).topActivity;
         return topActivity != null && !topActivity.getPackageName().equals(context.getPackageName());
     }
-
-
 }

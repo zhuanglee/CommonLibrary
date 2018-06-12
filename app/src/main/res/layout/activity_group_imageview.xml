@@ -7,17 +7,8 @@
 
     <include layout="@layout/toolbar" />
 
-    <cn.lzh.ui.widget.GroupImageView
+    <cn.lzh.common.view.GroupImageView
         android:id="@+id/iv_group_for_local"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_launcher"
-        lzh:bgRoundRectRadius="3dp" />
-
-    <cn.lzh.ui.widget.GroupImageView
-        android:id="@+id/iv_group_for_net"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="50dp"

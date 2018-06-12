@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import cn.lzh.common.R;
 import cn.lzh.common.base.BaseWatermarkActivity;
-import cn.lzh.ui.widget.RingProgressBar;
+import cn.lzh.common.view.RingProgressBar;
 
 public class RingProgressBarActivity extends BaseWatermarkActivity {
     private RingProgressBar mRoundProgressBar1;
@@ -45,8 +45,8 @@ public class RingProgressBarActivity extends BaseWatermarkActivity {
         setContentView(R.layout.activity_ring_progress_bar);
         initToolbar(true);
         mBtnStart = findViewById(R.id.btn_start);
-        mRoundProgressBar1 = (RingProgressBar) findViewById(R.id.roundProgressBar1);
-        mRoundProgressBar2 = (RingProgressBar) findViewById(R.id.roundProgressBar2);
+        mRoundProgressBar1 = findViewById(R.id.roundProgressBar1);
+        mRoundProgressBar2 = findViewById(R.id.roundProgressBar2);
     }
 
     public void onClick(View v) {

@@ -19,14 +19,13 @@ import cn.lzh.ui.dialog.WaitingDialog;
 import cn.lzh.ui.dialog.YearMonthPickerDialog;
 import cn.lzh.utils.DeviceUtil;
 import cn.lzh.utils.ToastUtil;
-import cn.lzh.ui.widget.CalendarCard;
 import cn.lzh.utils.DateUtil;
 
 /**
  * Created by lzh on 2018/2/26.<br/>
  * 对话框效果演示
  */
-public class DialogDemoActivity extends BaseWatermarkActivity implements View.OnClickListener, CalendarCard.CalendarListener {
+public class DialogDemoActivity extends BaseWatermarkActivity implements View.OnClickListener{
 
     private SmartPopupWindow popupWindow;
 
@@ -41,12 +40,7 @@ public class DialogDemoActivity extends BaseWatermarkActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_bottom:
-                BottomDialog dialog = BottomDialog.create(this, R.layout.dialog_bottom, true);
-                View view = dialog.getContentView();
-                CalendarCard calendarCard = (CalendarCard) view.findViewById(R.id.calendar_card);
-                calendarCard.setClickCellListener(this);
-                calendarCard.setSelectedDate(new CalendarCard.CustomDate());
-                dialog.show();
+                BottomDialog.create(this, R.layout.dialog_content_view, true).show();
                 break;
             case R.id.btn_context:
                 ContextDialog.create(this, "Title", "dialog message", true)
@@ -81,31 +75,11 @@ public class DialogDemoActivity extends BaseWatermarkActivity implements View.On
             case R.id.btn_popup_window:
                 if(popupWindow == null){
                     popupWindow = new SmartPopupWindow(this,
-                            R.layout.dialog_bottom, DeviceUtil.getScreenWidth(this), DeviceUtil.dip2px(this, 200));
+                            R.layout.dialog_content_view, DeviceUtil.getScreenWidth(this), DeviceUtil.dip2px(this, 200));
                 }
                 popupWindow.showScreenCenter();
                 break;
         }
-    }
-
-    @Override
-    public void onClickDate(CalendarCard.CustomDate date, CalendarCard.SlideDirection state) {
-        ToastUtil.show(date.toString());
-    }
-
-    @Override
-    public void onChangeCalendar(CalendarCard.CustomDate date) {
-        ToastUtil.show(date.year + "年" + date.month + "月");
-    }
-
-    @Override
-    public boolean isClickable() {
-        return true;
-    }
-
-    @Override
-    public void onSlideToLastPage() {
-        ToastUtil.show("最后一页了");
     }
 
     @Override

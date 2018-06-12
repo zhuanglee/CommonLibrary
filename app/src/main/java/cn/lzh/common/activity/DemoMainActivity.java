@@ -48,14 +48,9 @@ public class DemoMainActivity extends BaseWatermarkActivity {
 
     private void initData() {
         mActivityBeans = new ArrayList<>();
-        mActivityBeans.add(new ActvityBean(CalendarActivity.class));
-        mActivityBeans.add(new ActvityBean(CustomImageViewActivity.class));
-        mActivityBeans.add(new ActvityBean(CustomVolumControlBarActivity.class));
         mActivityBeans.add(new ActvityBean(DialogDemoActivity.class));
         mActivityBeans.add(new ActvityBean(FlowLayoutActivity.class));
         mActivityBeans.add(new ActvityBean(GroupImageViewActivity.class));
-        mActivityBeans.add(new ActvityBean(ParallaxListViewActivity.class));
-        mActivityBeans.add(new ActvityBean(QuickIndexBarActivity.class));
         mActivityBeans.add(new ActvityBean(RingProgressBarActivity.class));
         mActivityBeans.add(new ActvityBean(UtilActivity.class));
     }

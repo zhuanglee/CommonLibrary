@@ -6,7 +6,7 @@
 
     <include layout="@layout/toolbar" />
 
-    <cn.lzh.ui.widget.BoundScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -45,5 +45,5 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"/>
         </LinearLayout>
-    </cn.lzh.ui.widget.BoundScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

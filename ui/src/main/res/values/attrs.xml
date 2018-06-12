@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- 可设置上下左右图片尺寸的TextView -->
+    <declare-styleable name="DrawableTextView">
+        <!-- 上下左右图片尺寸统一  -->
+        <attr name="drawableWidth" format="dimension" />
+        <attr name="drawableHeight" format="dimension" />
+        <!-- 上 -->
+        <attr name="drawableTopWidth" format="dimension" />
+        <attr name="drawableTopHeight" format="dimension" />
+        <!-- 下 -->
+        <attr name="drawableBottomWidth" format="dimension" />
+        <attr name="drawableBottomHeight" format="dimension" />
+        <!-- 左 -->
+        <attr name="drawableLeftWidth" format="dimension" />
+        <attr name="drawableLeftHeight" format="dimension" />
+        <!-- 右 -->
+        <attr name="drawableRightWidth" format="dimension" />
+        <attr name="drawableRightHeight" format="dimension" />
+    </declare-styleable>
+
+    <!-- 圆角矩形布局的属性 -->
+    <declare-styleable name="RoundLayout">
+        <attr name="layoutRadius" format="dimension" />
+        <attr name="topLeftRadius" format="dimension" />
+        <attr name="topRightRadius" format="dimension" />
+        <attr name="bottomLeftRadius" format="dimension" />
+        <attr name="bottomRightRadius" format="dimension" />
+    </declare-styleable>
+
 </resources>

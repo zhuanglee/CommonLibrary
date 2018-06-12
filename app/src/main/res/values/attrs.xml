@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 圆形进度条 -->
+    <declare-styleable name="RingProgressBar">
+        <attr name="max" format="integer" />
+        <attr name="progress" format="integer" />
+        <attr name="progressStartAngle" format="integer" />
+        <attr name="progressColor" format="color" />
+        <attr name="progressRingWidth" format="dimension" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="backgroundRingWidth" format="dimension" />
+        <attr name="textVisibility" format="boolean" />
+        <attr name="centerTextColor" format="color" />
+        <attr name="centerTextSize" format="dimension" />
+        <attr name="centerText" format="string" />
+        <attr name="paintStyle">
+            <enum name="STROKE" value="0" />
+            <enum name="FILL" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <!-- 输入身份证后6位的编辑框 -->
+    <declare-styleable name="InputIDCardEditText">
+        <attr name="isShowText" format="boolean" />
+        <attr name="textCount" format="integer" />
+        <attr name="strokeWidth" format="reference|dimension"/>
+        <attr name="strokeRadius" format="reference|dimension" />
+        <attr name="circleRadius" format="reference|dimension" />
+    </declare-styleable>
+
+    <!-- 自定义组合头像控件 -->
+    <declare-styleable name="GroupImageView">
+        <!-- 背景颜色 -->
+        <attr name="colorBG" format="color|reference" />
+        <!-- 背景圆角 -->
+        <attr name="bgRoundRectRadius" format="dimension|reference" />
+        <!-- 水平间距 -->
+        <attr name="horizontalSpace" format="dimension|reference" />
+        <!-- 垂直间距 -->
+        <attr name="verticalSpace" format="dimension|reference" />
+    </declare-styleable>
+
+</resources>

@@ -17,7 +17,7 @@
         android:onClick="onClick"
         android:text="开始" />
 
-    <cn.lzh.ui.widget.RingProgressBar
+    <cn.lzh.common.view.RingProgressBar
         android:id="@+id/roundProgressBar1"
         android:layout_width="80dip"
         android:layout_height="80dip"
@@ -30,7 +30,7 @@
         app:progressRingWidth="2dp"
         app:textVisibility="true" />
 
-    <cn.lzh.ui.widget.RingProgressBar
+    <cn.lzh.common.view.RingProgressBar
         android:id="@+id/roundProgressBar2"
         android:layout_width="80dip"
         android:layout_height="80dip"

@@ -20,25 +20,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="cn.lzh.common.activity.CalendarActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name="cn.lzh.common.activity.CustomImageViewActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name="cn.lzh.common.activity.CustomVolumControlBarActivity"
-            android:launchMode="singleTop" />
-        <activity
             android:name="cn.lzh.common.activity.FlowLayoutActivity"
             android:launchMode="singleTop" />
         <activity
             android:name="cn.lzh.common.activity.GroupImageViewActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name="cn.lzh.common.activity.ParallaxListViewActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name="cn.lzh.common.activity.QuickIndexBarActivity"
             android:launchMode="singleTop" />
         <activity
             android:name="cn.lzh.common.activity.RingProgressBarActivity"

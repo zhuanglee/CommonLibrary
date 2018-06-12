@@ -13,8 +13,8 @@ import android.view.WindowManager;
 import java.io.File;
 
 import cn.lzh.common.R;
+import cn.lzh.common.utils.WatermarkUtil;
 import cn.lzh.utils.BitmapUtil;
-import cn.lzh.utils.WatermarkUtil;
 
 /**
  * 添加水印效果的基类

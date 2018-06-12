@@ -16,7 +16,7 @@ import cn.lzh.ui.R;
 
 
 /**
- * 圆角矩形LinearLayout(可以设置抗锯齿，但是圆角处有背景色,因此使用时一定要设置一个shape背景，且圆角大小和布局圆角大小相等)
+ * 圆角矩形LinearLayout(可以设置抗锯齿，但是圆角处有背景色，因此使用时一定要设置一个shape背景，且圆角大小和布局圆角大小相等)
  * @博客地址 http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0420/4167.html
  * @源码地址 https://github.com/angcyo/RoundAngleLinearLayout
  * @author lzh
