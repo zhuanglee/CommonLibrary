@@ -3,13 +3,13 @@ package cn.lzh.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HTMLUtil {
+public class HtmlUtil {
 	private static final String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; // 定义script的正则表达式
 	private static final String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>"; // 定义style的正则表达式
 	private static final String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
 	private final static String regxpForHtml = "<([^>]*)>"; // 过滤所有以<开头以>结尾的标签
 
-	private HTMLUtil() {
+	private HtmlUtil() {
 		throw new UnsupportedOperationException("Cannot be instantiated");
 	}
 

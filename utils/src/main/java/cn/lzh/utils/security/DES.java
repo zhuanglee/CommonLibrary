@@ -1,4 +1,4 @@
-package cn.lzh.utils;
+package cn.lzh.utils.security;
 
 import java.security.Key;
 
