@@ -33,13 +33,6 @@ public class CommonTest {
     }
 
     @Test
-    public void testByteTransUtil(){
-        String test = "Test";
-        byte[] bytes = test.getBytes();
-        assert test.equals(new String(BytesTransUtil.Shorts2Bytes(BytesTransUtil.Bytes2Shorts(bytes))));
-    }
-
-    @Test
     public void testByteUtil(){
         String test = "Test";
         assert test.equals(ByteUtil.toHexString(ByteUtil.hex2byte(test)));

@@ -17,15 +17,14 @@ import java.lang.reflect.Method;
  * @author http://blog.csdn.net/oracleot/article/details/20378453
  * 
  */
-@Deprecated
-public class ScreenObserver {
-	private static final String TAG = "ScreenObserver";
+public class ScreenStatusObserver {
+	private static final String TAG = "ScreenStatusObserver";
 	private Context mContext;
 	private ScreenBroadcastReceiver mScreenReceiver;
 	private ScreenStateListener mScreenStateListener;
 	private Method mReflectScreenState;
 
-	public ScreenObserver(Context context) {
+	public ScreenStatusObserver(Context context) {
 		mContext = context;
 		mScreenReceiver = new ScreenBroadcastReceiver();
 		try {

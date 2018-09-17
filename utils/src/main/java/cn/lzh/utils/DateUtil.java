@@ -16,67 +16,20 @@ import java.util.TimeZone;
 @SuppressLint("SimpleDateFormat")
 public final class DateUtil {
 
-    private static final String FORMAT_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
-    private static final String FORMAT_DATE_TIME_SIMPLE = "yyyy-MM-dd HH:mm";
-    private static final String FORMAT_DATE = "yyyy-MM-dd";
-    private static final String FORMAT_MONTH = "yyyy-MM";
-    private static final String FORMAT_TIME = "HH:mm:ss";
+    public static final String FORMAT_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+    public static final String FORMAT_DATE_TIME_SIMPLE = "yyyy-MM-dd HH:mm";
+    public static final String FORMAT_DATE = "yyyy-MM-dd";
+    public static final String FORMAT_MONTH = "yyyy-MM";
+    public static final String FORMAT_TIME = "HH:mm:ss";
 
     private DateUtil() {
         throw new UnsupportedOperationException("Cannot be instantiated");
     }
 
     /**
-     * 获取当前时间的Unix时间戳
-     *
-     * @return 当前时间的Unix时间戳
-     */
-    public static int getUnixTimestamp() {
-        return (int) (System.currentTimeMillis() / 1000);
-    }
-
-    /**
-     * 获取Unix时间戳
-     *
-     * @param calendar 日历实例
-     * @return calendar日期对应的 Unix时间戳
-     */
-    public static int getUnixTimestamp(Calendar calendar) {
-        return (int) (calendar.getTimeInMillis() / 1000);
-    }
-
-    /**
-     * 获取指定时间的Unix时间戳
-     *
-     * @return 当指定时间的Unix时间戳
-     */
-    public static int getUnixTimestamp(long time) {
-        return (int) (time / 1000);
-    }
-
-    /**
-     * 获取当前时间的Unix时间戳
-     *
-     * @return 当前时间的Unix时间戳
-     */
-    public static String getUnixTimestampStr() {
-        return String.valueOf(getUnixTimestamp());
-    }
-
-    /**
-     * 获取指定时间的Unix时间戳
-     *
-     * @param time 毫秒值
-     * @return 指定时间的Unix时间戳
-     */
-    public static String getUnixTimestampStr(long time) {
-        return String.valueOf(time / 1000);
-    }
-
-    /**
      * 解析日期时间字符串
      *
-     * @param datetime "yyyy-MM-dd HH:mm:ss"
+     * @param datetime 格式："yyyy-MM-dd HH:mm:ss"
      * @return 日期时间
      */
     public static Date parseDateTime(@NonNull String datetime) throws ParseException {
@@ -86,26 +39,82 @@ public final class DateUtil {
     /**
      * 解析日期字符串
      *
-     * @param datetime(格式：yyyy-MM-dd)
+     * @param datetime 格式："yyyy-MM-dd"
      * @return 日期
      */
     public static Date parseDate(@NonNull String datetime) throws ParseException {
         return new SimpleDateFormat(FORMAT_DATE).parse(datetime);
     }
 
-    @Nullable
-    public static String formatMonth(Calendar calendar) {
-        return calendar == null ? null : DateFormat.format(FORMAT_MONTH, calendar).toString();
+    /**
+     * 获取当前时间的Unix时间戳
+     *
+     * @return 当前时间的Unix时间戳
+     */
+    public static int getUnixTimestamp() {
+        return getUnixTimestamp(System.currentTimeMillis());
     }
 
-    @Nullable
-    public static String formatDay(Calendar date) {
-        return date == null ? null : DateFormat.format(FORMAT_DATE, date).toString();
+    /**
+     * 获取Unix时间戳
+     *
+     * @param calendar 日历实例
+     * @return calendar日期对应的 Unix时间戳
+     */
+    public static int getUnixTimestamp(Calendar calendar) {
+        return getUnixTimestamp(calendar.getTimeInMillis());
     }
 
-    @Nullable
-    public static String formatDay(Date date) {
-        return date == null ? null : DateFormat.format(FORMAT_DATE, date).toString();
+    /**
+     * 获取指定时间的Unix时间戳
+     * @param time 时间毫秒值{@link Calendar#getTimeInMillis()}
+     * @return 当指定时间的Unix时间戳
+     */
+    public static int getUnixTimestamp(long time) {
+        return (int) (time / 1000);
+    }
+
+    /**
+     * 获取日历
+     *
+     * @param time        毫秒数 或 unix时间戳
+     * @param isTimestamp 是否为unix时间戳
+     */
+    public static Calendar getCalendar(long time, boolean isTimestamp) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(isTimestamp ? time * 1000 : time);
+        return calendar;
+    }
+
+    /**
+     * 格式化日期时间
+     *
+     * @param time        毫秒数 或 unix时间戳
+     * @param isTimestamp 是否为unix时间戳
+     */
+    public static String formatDateTime(long time, boolean isTimestamp) {
+        return formatDateTime(getCalendar(time, isTimestamp));
+    }
+
+    /**
+     * 格式化日期
+     *
+     * @param time        毫秒数 或 unix时间戳
+     * @param isTimestamp 是否为unix时间戳
+     */
+    public static String formatDay(long time, boolean isTimestamp) {
+        return formatDay(getCalendar(time, isTimestamp));
+    }
+
+    /**
+     * 格式化日期字符串
+     * @param datetime 日期时间字符串
+     * @deprecated 不推荐使用字符串日期
+     * @see #formatDay(long, boolean)
+     */
+    @Deprecated
+    public static String formatDay(@NonNull String datetime) throws ParseException {
+        return formatDay(parseDateTime(datetime));
     }
 
     /**
@@ -116,77 +125,36 @@ public final class DateUtil {
      * @see #formatDateTime(long, boolean)
      */
     @Deprecated
-    @Nullable
-    public static String format(String format, String datetime) {
-        Date date = null;
-        try {
-            date = parseDateTime(datetime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date == null ? null : DateFormat.format(format, date).toString();
+    public static String format(String format, String datetime) throws ParseException {
+        return DateFormat.format(format, parseDateTime(datetime)).toString();
     }
 
-    /**
-     * 格式化日期字符串
-     * @param datetime 日期时间字符串
-     * @deprecated 不推荐使用字符串日期
-     * @see #formatDay(long, boolean)
-     */
-    @Deprecated
-    @Nullable
-    public static String formatDay(String datetime) {
-        Date date = null;
-        try {
-            date = parseDateTime(datetime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date == null ? null : formatDay(date);
+    public static String formatDateTime(@NonNull Calendar date) {
+        return DateFormat.format(FORMAT_DATE_TIME_SIMPLE, date).toString();
     }
 
-    @Nullable
-    public static String formatTime(Calendar date) {
-        return date == null ? null : DateFormat.format(FORMAT_TIME, date).toString();
+    public static String formatDateTime(@NonNull Date date) {
+        return DateFormat.format(FORMAT_DATE_TIME_SIMPLE, date).toString();
     }
 
-    @Nullable
-    public static String formatTime(Date date) {
-        return date == null ? null : DateFormat.format(FORMAT_TIME, date).toString();
+    public static String formatMonth(@NonNull Calendar calendar) {
+        return DateFormat.format(FORMAT_MONTH, calendar).toString();
     }
 
-    @Nullable
-    public static String formatDateTime(Calendar date) {
-        return date == null ? null : DateFormat.format(FORMAT_DATE_TIME_SIMPLE, date).toString();
+    public static String formatDay(@NonNull Calendar date) {
+        return DateFormat.format(FORMAT_DATE, date).toString();
     }
 
-    @Nullable
-    public static String formatDateTime(Date date) {
-        return date == null ? null : DateFormat.format(FORMAT_DATE_TIME_SIMPLE, date).toString();
+    public static String formatDay(@NonNull Date date) {
+        return DateFormat.format(FORMAT_DATE, date).toString();
     }
 
-    /**
-     * 格式化日期时间
-     *
-     * @param time        毫秒数 或 unix时间戳
-     * @param isTimestamp 是否为unix时间戳
-     */
-    public static String formatDateTime(long time, boolean isTimestamp) {
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(isTimestamp ? time * 1000 : time);
-        return formatDateTime(c);
+    public static String formatTime(@NonNull Calendar date) {
+        return DateFormat.format(FORMAT_TIME, date).toString();
     }
 
-    /**
-     * 格式化日期
-     *
-     * @param time        毫秒数 或 unix时间戳
-     * @param isTimestamp 是否为unix时间戳
-     */
-    public static String formatDay(long time, boolean isTimestamp) {
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(isTimestamp ? time * 1000 : time);
-        return formatDay(c);
+    public static String formatTime(@NonNull Date date) {
+        return DateFormat.format(FORMAT_TIME, date).toString();
     }
 
     /**
@@ -221,18 +189,6 @@ public final class DateUtil {
     public static int compare(long date1, long date2) {
         long d = date1 - date2;
         return d == 0 ? 0 : (int) (d / Math.abs(d));
-    }
-
-    /**
-     * 获取日历
-     *
-     * @param time        毫秒数 或 unix时间戳
-     * @param isTimestamp 是否为unix时间戳
-     */
-    public static Calendar getCalendar(long time, boolean isTimestamp) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(isTimestamp ? time * 1000 : time);
-        return calendar;
     }
 
     /**

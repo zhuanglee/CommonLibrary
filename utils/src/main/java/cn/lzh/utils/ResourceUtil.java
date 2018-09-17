@@ -21,6 +21,16 @@ public class ResourceUtil {
     }
 
     /**
+     * 根据资源id的名称获取资源的id
+     *
+     * @param context        Context
+     * @param resourceIdName 资源名称
+     */
+    public static int getResourceId(Context context, String resourceIdName) {
+        return context.getResources().getIdentifier(resourceIdName, null, null);
+    }
+
+    /**
      * get an asset using ACCESS_STREAMING mode. This provides access to files that have been bundled with an
      * application as assets -- that is, files placed in to the "assets" directory.
      * 

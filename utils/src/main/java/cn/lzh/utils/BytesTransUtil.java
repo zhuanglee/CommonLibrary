@@ -5,7 +5,6 @@ import java.nio.ByteOrder;
 /**
  * 字节数组转换操作
  * @author open source
- *
  */
 public class BytesTransUtil {
 

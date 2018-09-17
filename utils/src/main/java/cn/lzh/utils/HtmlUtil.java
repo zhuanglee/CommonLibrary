@@ -1,5 +1,7 @@
 package cn.lzh.utils;
 
+import android.support.annotation.NonNull;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,69 +15,80 @@ public class HtmlUtil {
 		throw new UnsupportedOperationException("Cannot be instantiated");
 	}
 
-	public static String delHTMLTag(String htmlStr) {
+	/**
+	 * 删除所有标签
+	 * @param html HTML内容
+	 * @return 网页文本内容
+	 */
+	public static String delTag(String html) {
 		Pattern p_script = Pattern.compile(regEx_script,
 				Pattern.CASE_INSENSITIVE);
-		Matcher m_script = p_script.matcher(htmlStr);
-		htmlStr = m_script.replaceAll(""); // 过滤script标签
+		Matcher m_script = p_script.matcher(html);
+		html = m_script.replaceAll(""); // 过滤script标签
 
 		Pattern p_style = Pattern
 				.compile(regEx_style, Pattern.CASE_INSENSITIVE);
-		Matcher m_style = p_style.matcher(htmlStr);
-		htmlStr = m_style.replaceAll(""); // 过滤style标签
+		Matcher m_style = p_style.matcher(html);
+		html = m_style.replaceAll(""); // 过滤style标签
 
 		Pattern p_html = Pattern.compile(regEx_html, Pattern.CASE_INSENSITIVE);
-		Matcher m_html = p_html.matcher(htmlStr);
-		htmlStr = m_html.replaceAll(""); // 过滤html标签
+		Matcher m_html = p_html.matcher(html);
+		html = m_html.replaceAll(""); // 过滤html标签
 
-		return htmlStr.trim(); // 返回文本字符串
+		return html.trim(); // 返回文本字符串
 	}
 	
 	/**
 	 * 基本功能：替换标记以正常显示
-	 * @param input
+	 * @param html HTML内容
 	 * @return String
+	 * @see android.text.TextUtils#htmlEncode(String)
 	 */
-	public static String replaceTag(String input) {
-		if (!hasSpecialChars(input)) {
-			return input;
-		}
-		StringBuffer filtered = new StringBuffer(input.length());
+	public static String htmlEncode(@NonNull String html) {
+		int length = html.length();
+		StringBuilder sb = new StringBuilder(length);
 		char c;
-		for (int i = 0; i <= input.length() - 1; i++) {
-			c = input.charAt(i);
+		for (int i = 0; i <= length - 1; i++) {
+			c = html.charAt(i);
 			switch (c) {
-			case '<':
-				filtered.append("&lt;");
-				break;
-			case '>':
-				filtered.append("&gt;");
-				break;
-			case '"':
-				filtered.append("&quot;");
-				break;
-			case '&':
-				filtered.append("&amp;");
-				break;
-			default:
-				filtered.append(c);
+				case '<':
+					sb.append("&lt;"); //$NON-NLS-1$
+					break;
+				case '>':
+					sb.append("&gt;"); //$NON-NLS-1$
+					break;
+				case '&':
+					sb.append("&amp;"); //$NON-NLS-1$
+					break;
+				case '\'':
+					//http://www.w3.org/TR/xhtml1
+					// The named character reference &apos; (the apostrophe, U+0027) was introduced in
+					// XML 1.0 but does not appear in HTML. Authors should therefore use &#39; instead
+					// of &apos; to work as expected in HTML 4 user agents.
+					sb.append("&#39;"); //$NON-NLS-1$
+					break;
+				case '"':
+					sb.append("&quot;"); //$NON-NLS-1$
+					break;
+				default:
+					sb.append(c);
 			}
 
 		}
-		return (filtered.toString());
+		return (sb.toString());
 	}
 
 	/**
 	 * 基本功能：判断标记是否存在
-	 * @param input
+	 * @param html HTML内容
 	 * @return boolean
 	 */
-	public static boolean hasSpecialChars(String input) {
+	public static boolean hasSpecialChars(String html) {
 		boolean flag = false;
-		if ((input != null) && (input.length() > 0)) {
+		if ((html != null) && (html.length() > 0)) {
 			char c;
-			for (int i = 0; i <= input.length() - 1; i++) {
-				c = input.charAt(i);
+			for (int i = 0; i <= html.length() - 1; i++) {
+				c = html.charAt(i);
 				switch (c) {
 				case '>':
 					flag = true;
@@ -96,18 +109,18 @@ public class HtmlUtil {
 	}
 
 	/**
-	 * 基本功能：过滤所有以"<"开头以">"结尾的标签
-	 * @param str
+	 * 基本功能：过滤所有以"<"开头，以">"结尾的标签
+	 * @param html HTML内容
 	 * @return String
 	 */
-	public static String filterHtml(String str) {
+	public static String filterHtml(String html) {
 		Pattern pattern = Pattern.compile(regxpForHtml);
-		Matcher matcher = pattern.matcher(str);
+		Matcher matcher = pattern.matcher(html);
 		StringBuffer sb = new StringBuffer();
-		boolean result1 = matcher.find();
-		while (result1) {
+		boolean result = matcher.find();
+		while (result) {
 			matcher.appendReplacement(sb, "");
-			result1 = matcher.find();
+			result = matcher.find();
 		}
 		matcher.appendTail(sb);
 		return sb.toString();
@@ -115,14 +128,14 @@ public class HtmlUtil {
 
 	/**
 	 * 基本功能：过滤指定标签
-	 * @param str
+	 * @param html HTML内容
 	 * @param tag 指定标签
 	 * @return String
 	 */
-	public static String fiterHtmlTag(String str, String tag) {
-		String regxp = "<\\s*" + tag + "\\s+([^>]*)\\s*>";
-		Pattern pattern = Pattern.compile(regxp);
-		Matcher matcher = pattern.matcher(str);
+	public static String filterHtmlTag(String html, String tag) {
+		String regex = "<\\s*" + tag + "\\s+([^>]*)\\s*>";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(html);
 		StringBuffer sb = new StringBuffer();
 		boolean result1 = matcher.find();
 		while (result1) {
@@ -135,35 +148,37 @@ public class HtmlUtil {
 
 	/**
 	 * 基本功能：替换指定的标签
-	 * @param str
+	 * exp：替换img标签的src属性值为[img]属性值[/img]
+	 * @param html HTML内容
 	 * @param beforeTag 要替换的标签
-	 * @param tagAttrib 要替换的标签属性值
+	 * @param tagAttr 要替换的标签属性值
 	 * @param startTag 新标签开始标记
 	 * @param endTag 新标签结束标记
 	 * @return String
-	 * @如：替换img标签的src属性值为[img]属性值[/img]
 	 */
-	public static String replaceHtmlTag(String str, String beforeTag,
-			String tagAttrib, String startTag, String endTag) {
-		String regxpForTag = "<\\s*" + beforeTag + "\\s+([^>]*)\\s*>";
-		String regxpForTagAttrib = tagAttrib + "=\"([^\"]+)\"";
-		Pattern patternForTag = Pattern.compile(regxpForTag);
-		Pattern patternForAttrib = Pattern.compile(regxpForTagAttrib);
-		Matcher matcherForTag = patternForTag.matcher(str);
+	public static String replaceHtmlTag(String html, String beforeTag,
+			String tagAttr, String startTag, String endTag) {
+		String regForTag = "<\\s*" + beforeTag + "\\s+([^>]*)\\s*>";
+		String regForTagAttr = tagAttr + "=\"([^\"]+)\"";
+		Pattern patternForTag = Pattern.compile(regForTag);
+		Pattern patternForAttr = Pattern.compile(regForTagAttr);
+		Matcher matcherForTag = patternForTag.matcher(html);
 		StringBuffer sb = new StringBuffer();
 		boolean result = matcherForTag.find();
 		while (result) {
-			StringBuffer sbreplace = new StringBuffer();
-			Matcher matcherForAttrib = patternForAttrib.matcher(matcherForTag
+			StringBuffer sbReplace = new StringBuffer();
+			Matcher matcherForAttr = patternForAttr.matcher(matcherForTag
 					.group(1));
-			if (matcherForAttrib.find()) {
-				matcherForAttrib.appendReplacement(sbreplace, startTag
-						+ matcherForAttrib.group(1) + endTag);
+			if (matcherForAttr.find()) {
+				matcherForAttr.appendReplacement(sbReplace, startTag
+						+ matcherForAttr.group(1) + endTag);
 			}
-			matcherForTag.appendReplacement(sb, sbreplace.toString());
+			matcherForTag.appendReplacement(sb, sbReplace.toString());
 			result = matcherForTag.find();
 		}
 		matcherForTag.appendTail(sb);
 		return sb.toString();
 	}
+
+
 }

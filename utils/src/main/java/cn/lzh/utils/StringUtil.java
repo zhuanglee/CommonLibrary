@@ -262,8 +262,8 @@ public class StringUtil {
 	 * capitalizeFirstLetter("Abc")    =   "Abc"
 	 * </pre>
 	 *
-	 * @param str
-	 * @return
+	 * @param str String
+	 * @return 首字母大写
 	 */
 	public static String capitalizeFirstLetter(String str) {
 		if (isBlank(str)) {
@@ -271,8 +271,7 @@ public class StringUtil {
 		}
 
 		char c = str.charAt(0);
-		return (!Character.isLetter(c) || Character.isUpperCase(c)) ? str : new StringBuilder(str.length())
-				.append(Character.toUpperCase(c)).append(str.substring(1)).toString();
+		return (!Character.isLetter(c) || Character.isUpperCase(c)) ? str : String.valueOf(Character.toUpperCase(c)) + str.substring(1);
 	}
 
 	/**
@@ -285,17 +284,13 @@ public class StringUtil {
 	 * utf8Encode("啊啊啊啊")   = "%E5%95%8A%E5%95%8A%E5%95%8A%E5%95%8A";
 	 * </pre>
 	 *
-	 * @param str
-	 * @return
+	 * @param str String
 	 * @throws UnsupportedEncodingException if an error occurs
+	 * @return
 	 */
-	public static String utf8Encode(String str) {
+	public static String utf8Encode(String str) throws UnsupportedEncodingException {
 		if (!isBlank(str) && str.getBytes().length != str.length()) {
-			try {
-				return URLEncoder.encode(str, "UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				throw new RuntimeException("UnsupportedEncodingException occurred. ", e);
-			}
+			return URLEncoder.encode(str, "UTF-8");
 		}
 		return str;
 	}
@@ -316,66 +311,6 @@ public class StringUtil {
 			}
 		}
 		return str;
-	}
-
-	/**
-	 * get innerHtml from href
-	 *
-	 * <pre>
-	 * getHrefInnerHtml(null)                                  = ""
-	 * getHrefInnerHtml("")                                    = ""
-	 * getHrefInnerHtml("mp3")                                 = "mp3";
-	 * getHrefInnerHtml("&lt;a innerHtml&lt;/a&gt;")                    = "&lt;a innerHtml&lt;/a&gt;";
-	 * getHrefInnerHtml("&lt;a&gt;innerHtml&lt;/a&gt;")                    = "innerHtml";
-	 * getHrefInnerHtml("&lt;a&lt;a&gt;innerHtml&lt;/a&gt;")                    = "innerHtml";
-	 * getHrefInnerHtml("&lt;a href="baidu.com"&gt;innerHtml&lt;/a&gt;")               = "innerHtml";
-	 * getHrefInnerHtml("&lt;a href="baidu.com" title="baidu"&gt;innerHtml&lt;/a&gt;") = "innerHtml";
-	 * getHrefInnerHtml("   &lt;a&gt;innerHtml&lt;/a&gt;  ")                           = "innerHtml";
-	 * getHrefInnerHtml("&lt;a&gt;innerHtml&lt;/a&gt;&lt;/a&gt;")                      = "innerHtml";
-	 * getHrefInnerHtml("jack&lt;a&gt;innerHtml&lt;/a&gt;&lt;/a&gt;")                  = "innerHtml";
-	 * getHrefInnerHtml("&lt;a&gt;innerHtml1&lt;/a&gt;&lt;a&gt;innerHtml2&lt;/a&gt;")        = "innerHtml2";
-	 * </pre>
-	 *
-	 * @param href
-	 * @return <ul>
-	 *         <li>if href is null, return ""</li>
-	 *         <li>if not match regx, return source</li>
-	 *         <li>return the last string that match regx</li>
-	 *         </ul>
-	 */
-	public static String getHrefInnerHtml(String href) {
-		if (isBlank(href)) {
-			return "";
-		}
-
-		String hrefReg = ".*<[\\s]*a[\\s]*.*>(.+?)<[\\s]*/a[\\s]*>.*";
-		Pattern hrefPattern = Pattern.compile(hrefReg, Pattern.CASE_INSENSITIVE);
-		Matcher hrefMatcher = hrefPattern.matcher(href);
-		if (hrefMatcher.matches()) {
-			return hrefMatcher.group(1);
-		}
-		return href;
-	}
-
-	/**
-	 * 将html中的特殊符号的编码替换为特殊符号字符串：process special char in html
-	 *
-	 * <pre>
-	 * htmlEscapeCharsToString(null) = null;
-	 * htmlEscapeCharsToString("") = "";
-	 * htmlEscapeCharsToString("mp3") = "mp3";
-	 * htmlEscapeCharsToString("mp3&lt;") = "mp3<";
-	 * htmlEscapeCharsToString("mp3&gt;") = "mp3\>";
-	 * htmlEscapeCharsToString("mp3&amp;mp4") = "mp3&mp4";
-	 * htmlEscapeCharsToString("mp3&quot;mp4") = "mp3\"mp4";
-	 * htmlEscapeCharsToString("mp3&lt;&gt;&amp;&quot;mp4") = "mp3\<\>&\"mp4";
-	 * </pre>
-	 *
-	 * @param source 网页内容
-	 */
-	public static String htmlEscapeCharsToString(String source) {
-		return isBlank(source) ? source : source.replaceAll("&lt;", "<").replaceAll("&gt;", ">")
-				.replaceAll("&amp;", "&").replaceAll("&quot;", "\"");
 	}
 
 	/**

@@ -11,7 +11,9 @@ android {
         versionCode 10
         versionName "0.5.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        dataBinding {
+            enabled = true
+        }
     }
     buildTypes {
         release {

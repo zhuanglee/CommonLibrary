@@ -55,7 +55,7 @@ public class FlowLayoutActivity extends BaseWatermarkActivity {
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             tv.setPadding(textPaddingH, textPaddingV, textPaddingH, textPaddingV);
             tv.setGravity(Gravity.CENTER);
-            tv.setBackgroundDrawable(DrawableUtil.getBtnSelectorRandomColor(radius));
+            tv.setBackgroundDrawable(DrawableUtil.getRandomColorSelector(radius));
             tv.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {

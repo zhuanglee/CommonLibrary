@@ -11,7 +11,7 @@ public abstract class AbstractLruCache<T> {
 
 	private final LruCache<String, T> mLruCache;
 
-	public AbstractLruCache() {
+	protected AbstractLruCache() {
 		// use 1/8 of available heap size
 		mLruCache = new LruCache<String, T>((int) (Runtime.getRuntime()
 				.maxMemory() / 8)) {

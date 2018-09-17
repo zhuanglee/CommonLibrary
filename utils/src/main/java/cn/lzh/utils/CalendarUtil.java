@@ -23,8 +23,7 @@ public class CalendarUtil {
 
     /**
      * 获取年份
-     * @param calendar
-     * @return
+     * @param calendar Calendar
      */
     public static int getYear(Calendar calendar) {
         return calendar.get(Calendar.YEAR);
@@ -32,8 +31,7 @@ public class CalendarUtil {
 
     /**
      * 获取月份
-     * @param calendar
-     * @return
+     * @param calendar Calendar
      */
     public static int getMonth(Calendar calendar) {
         return calendar.get(Calendar.MONTH) + 1;
@@ -41,8 +39,7 @@ public class CalendarUtil {
 
     /**
      * 获取日期中的day
-     * @param calendar
-     * @return
+     * @param calendar Calendar
      */
     public static int getDayOfMonth(Calendar calendar) {
         return calendar.get(Calendar.DAY_OF_MONTH);
@@ -50,8 +47,7 @@ public class CalendarUtil {
 
     /**
      * 获取小时
-     * @param calendar
-     * @return
+     * @param calendar Calendar
      */
     public static int getHourOfDay(Calendar calendar) {
         return calendar.get(Calendar.HOUR_OF_DAY);
@@ -59,8 +55,7 @@ public class CalendarUtil {
 
     /**
      * 获取分钟
-     * @param calendar
-     * @return
+     * @param calendar Calendar
      */
     public static int getMinute(Calendar calendar) {
         return calendar.get(Calendar.MINUTE);
@@ -68,8 +63,7 @@ public class CalendarUtil {
 
     /**
      * 获取秒
-     * @param calendar
-     * @return
+     * @param calendar Calendar
      */
     public static int getSecond(Calendar calendar) {
         return calendar.get(Calendar.SECOND);
@@ -78,7 +72,7 @@ public class CalendarUtil {
     /**
      * 获取指定日期为周几
      *
-     * @param calendar
+     * @param calendar Calendar
      * @return 0~6，0未周末，1~6为周一到周六
      */
     public static int getDayOfWeek(Calendar calendar) {
@@ -88,8 +82,7 @@ public class CalendarUtil {
     /**
      * 获取指定年月的第一天是星期几
      *
-     * @param calendar
-     * @return
+     * @param calendar Calendar
      */
     public static int getWeekDayOfMonthFirstDay(Calendar calendar) {
         calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -99,9 +92,8 @@ public class CalendarUtil {
     /**
      * 获取指定年月的第一天是星期几
      *
-     * @param year
+     * @param year 年份
      * @param month 实际月份，日历中的月份=实际月份-1
-     * @return
      */
     public static int getWeekDayOfMonthFirstDay(int year, int month) {
         return getDayOfWeek(new GregorianCalendar(year, month - 1, 1));
@@ -110,8 +102,7 @@ public class CalendarUtil {
     /**
      * 获取指定月历的天数
      *
-     * @param calendar
-     * @return
+     * @param calendar Calendar
      */
     public static int getDaysOfMonth(Calendar calendar) {
         return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -120,9 +111,8 @@ public class CalendarUtil {
     /**
      * 获取指定年月份的天数
      *
-     * @param year
+     * @param year 年份
      * @param month 实际月份，日历中的月份=实际月份-1
-     * @return
      */
     public static int getDaysOfMonth(int year, int month) {
         GregorianCalendar calendar = new GregorianCalendar(year, month - 1, 1);
@@ -132,8 +122,7 @@ public class CalendarUtil {
     /**
      * 获取当前时间为每年第几周
      *
-     * @param date
-     * @return
+     * @param date Date
      */
     public static int getWeekOfYear(Date date) {
         Calendar c = Calendar.getInstance();
@@ -146,7 +135,6 @@ public class CalendarUtil {
 
     /**
      * 获取本月第一天0点时间
-     * @return
      */
     public static long getTimesMonthMorning() {
         Calendar cal = Calendar.getInstance();
@@ -158,8 +146,7 @@ public class CalendarUtil {
     /**
      * 判断指定日期是否是今天
      *
-     * @param date
-     * @return
+     * @param date Calendar
      */
     public static boolean isToday(Calendar date) {
         Calendar calendar = Calendar.getInstance();
@@ -171,8 +158,7 @@ public class CalendarUtil {
     /**
      * 判断指定日期是否是当前月份的日期
      *
-     * @param date
-     * @return
+     * @param date Calendar
      */
     public static boolean isCurrentMonth(Calendar date) {
         Calendar calendar = Calendar.getInstance();

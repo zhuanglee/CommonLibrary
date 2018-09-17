@@ -60,8 +60,7 @@ public class HttpUtil {
             paramString.append(key);
             if (val != null){
                 // The query string in URL should be encoded with URLEncoder standard.
-                paramString.append("=").append(HttpUtil.urlEncode(val, charset));
-                // TODO: Should use URLEncoder.encode(val, charset)) instead of HttpUril#urlEncode;
+                paramString.append("=").append(urlEncode(val, charset));
             }
 
             first = false;

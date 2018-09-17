@@ -22,6 +22,12 @@ import java.nio.charset.Charset;
 /**
  * PackageUtil
  * <ul>
+ * <ul>
+ * <strong>Is system application</strong>
+ * <li>{@link PackageUtil#isSystemApplication(Context)}</li>
+ * <li>{@link PackageUtil#isSystemApplication(Context, String)}</li>
+ * <li>{@link PackageUtil#isSystemApplication(PackageManager, String)}</li>
+ * </ul>
  * <strong>Install package</strong>
  * <li>{@link PackageUtil#installNormal(Context, String)}</li>
  * <li>{@link PackageUtil#installSilent(Context, String)}</li>
@@ -32,12 +38,6 @@ import java.nio.charset.Charset;
  * <li>{@link PackageUtil#uninstallNormal(Context, String)}</li>
  * <li>{@link PackageUtil#uninstallSilent(Context, String)}</li>
  * <li>{@link PackageUtil#uninstall(Context, String)}</li>
- * </ul>
- * <ul>
- * <strong>Is system application</strong>
- * <li>{@link PackageUtil#isSystemApplication(Context)}</li>
- * <li>{@link PackageUtil#isSystemApplication(Context, String)}</li>
- * <li>{@link PackageUtil#isSystemApplication(PackageManager, String)}</li>
  * </ul>
  * <ul>
  * <strong>Others</strong>
@@ -76,6 +76,62 @@ public class PackageUtil {
             e.printStackTrace();
         }
         return bool;
+    }
+
+    /**
+     * whether context is system application
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isSystemApplication(Context context) {
+        if (context == null) {
+            return false;
+        }
+
+        return isSystemApplication(context.getPackageManager(), context.getPackageName());
+    }
+
+    /**
+     * whether packageName is system application
+     *
+     * @param context
+     * @param packageName
+     * @return
+     */
+    public static boolean isSystemApplication(Context context, String packageName) {
+        if (context == null) {
+            return false;
+        }
+
+        return isSystemApplication(context.getPackageManager(), packageName);
+    }
+
+    /**
+     * whether packageName is system application
+     *
+     * @param packageManager
+     * @param packageName
+     * @return <ul>
+     *         <li>if packageManager is null, return false</li>
+     *         <li>if package name is null or is empty, return false</li>
+     *         <li>if package name not exit, return false</li>
+     *         <li>if package name exit, but not system app, return false</li>
+     *         <li>else return true</li>
+     *         </ul>
+     */
+    public static boolean isSystemApplication(PackageManager packageManager, String packageName) {
+        if (packageManager == null || packageName == null || packageName.length() == 0) {
+            return false;
+        }
+
+        try {
+            ApplicationInfo app = packageManager.getApplicationInfo(packageName, 0);
+            return (app != null && (app.flags & ApplicationInfo.FLAG_SYSTEM) > 0);
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
@@ -484,62 +540,6 @@ public class PackageUtil {
     }
 
     /**
-     * whether context is system application
-     * 
-     * @param context
-     * @return
-     */
-    public static boolean isSystemApplication(Context context) {
-        if (context == null) {
-            return false;
-        }
-
-        return isSystemApplication(context, context.getPackageName());
-    }
-
-    /**
-     * whether packageName is system application
-     * 
-     * @param context
-     * @param packageName
-     * @return
-     */
-    public static boolean isSystemApplication(Context context, String packageName) {
-        if (context == null) {
-            return false;
-        }
-
-        return isSystemApplication(context.getPackageManager(), packageName);
-    }
-
-    /**
-     * whether packageName is system application
-     * 
-     * @param packageManager
-     * @param packageName
-     * @return <ul>
-     *         <li>if packageManager is null, return false</li>
-     *         <li>if package name is null or is empty, return false</li>
-     *         <li>if package name not exit, return false</li>
-     *         <li>if package name exit, but not system app, return false</li>
-     *         <li>else return true</li>
-     *         </ul>
-     */
-    public static boolean isSystemApplication(PackageManager packageManager, String packageName) {
-        if (packageManager == null || packageName == null || packageName.length() == 0) {
-            return false;
-        }
-
-        try {
-            ApplicationInfo app = packageManager.getApplicationInfo(packageName, 0);
-            return (app != null && (app.flags & ApplicationInfo.FLAG_SYSTEM) > 0);
-        } catch (NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    /**
      * get system install location<br/>
      * can be set by System Menu Setting->Storage->Prefered install location
      * 
@@ -583,7 +583,7 @@ public class PackageUtil {
 
     /**
      * start InstalledAppDetails Activity
-     * 
+     *
      * @param context
      * @param packageName
      */

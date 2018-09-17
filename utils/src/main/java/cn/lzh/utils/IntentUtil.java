@@ -153,57 +153,6 @@ public class IntentUtil {
 	}
 
 	/**
-	 * 获取安装APK意图
-	 * 
-	 * @param apkFileName apk的完整路径
-	 * @return
-	 * @throws Exception
-	 */
-	public static Intent getInstallAPKIntent(String apkFileName) throws Exception {
-		return getInstallAPKIntent(new File(apkFileName));
-	}
-
-	/**
-	 * 获取安装APK意图
-	 * 
-	 * @param apkFile
-	 * @return
-	 * @throws Exception
-	 */
-	public static Intent getInstallAPKIntent(File apkFile) throws Exception {
-		return getInstallAPKIntent(Uri.fromFile(apkFile));
-	}
-
-	/**
-	 * 获取安装APK意图
-	 * 
-	 * @param apkUri
-	 * @return
-	 * @throws Exception
-	 */
-	public static Intent getInstallAPKIntent(Uri apkUri) throws Exception {
-		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.addCategory(Intent.CATEGORY_DEFAULT);
-		String type = "application/vnd.android.package-archive";
-		intent.setDataAndType(apkUri, type);
-		return intent;
-	}
-
-	/**
-	 * 获取卸载APK意图
-	 * 
-	 * @param apkPackage
-	 * @return
-	 * @throws Exception
-	 */
-	public static Intent getUninstallAPKIntent(String apkPackage)
-			throws Exception {
-		Uri uri = Uri.fromParts("package", apkPackage, null);
-		Intent intent = new Intent(Intent.ACTION_DELETE, uri);
-		return intent;
-	}
-
-	/**
 	 * 获取浏览意图
 	 * 
 	 * @param uri

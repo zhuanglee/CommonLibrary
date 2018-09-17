@@ -1,13 +1,12 @@
 package cn.lzh.utils;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.widget.Toast;
 
 /**
- * 可以连续弹吐司，不用等上个吐司消失
+ * 持有一个Toast实例，后一次的提示会覆盖前一次的提示
  */
 public final class ToastUtil {
     private static Toast mToast;
@@ -19,19 +18,15 @@ public final class ToastUtil {
 
     public static void init(@NonNull Context context){
         mAppContext = context.getApplicationContext();
+        mToast = new Toast(mAppContext);
     }
 
-    @SuppressLint("ShowToast")
     public static void show(@NonNull String text, int duration) {
-        if (mToast == null) {
-            if(mAppContext == null){
-                throw new IllegalStateException("mAppContext is null, must be invoke init method");
-            }
-            mToast = Toast.makeText(mAppContext, text, duration);
-        }else{
-            mToast.setText(text);
-            mToast.setDuration(duration);
+        if(mToast == null){
+            throw new IllegalStateException("mToast is null, must be invoke init method");
         }
+        mToast.setText(text);
+        mToast.setDuration(duration);
         mToast.show();
     }
 
