@@ -1,7 +1,0 @@
-
-
-外部Cache路径：/mnt/sdcard/android/data/com.xxx.xxx/cache 一般存储缓存数据（注：通过getExternalCacheDir()获取）
-
-外部File路径：/mnt/sdcard/android/data/com.xxx.xxx/files 存储长时间存在的数据 （注：通过getExternalFilesDir(String type)获取， type为特定类型，可以是以下任何一种
-
-Environment.DIRECTORY_MUSIC, Environment.DIRECTORY_PODCASTS, Environment.DIRECTORY_RINGTONES, Environment.DIRECTORY_ALARMS, Environment.DIRECTORY_NOTIFICATIONS, Environment.DIRECTORY_PICTURES, or Environment.DIRECTORY_MOVIES. ）
