@@ -1,21 +1,24 @@
 ext {
     version = [
-            minSdk        : 15,
-            targetSdk     : 27,
-            compileSdk    : 27,
-            buildTools    : '27.0.3',
-            supportLibrary: '27.1.0',
+            minSdk          : 15,
+            targetSdk       : 28,
+            compileSdk      : 28,
+            code            : 12,
+            name            : "0.5.9",
+            // Android Support Library
+            supportLibrary  : '28.0.0',
+            constraintLayout: '1.1.3',
     ]
     dependencies = [
             // Android Support Library
-            "annotations"                  : "com.android.support:support-annotations:${version["supportLibrary"]}",
-            "support-v4"                   : "com.android.support:support-v4:${version["supportLibrary"]}",
-            "appcompat-v7"                 : "com.android.support:appcompat-v7:${version["supportLibrary"]}",
-            "recyclerview-v7"              : "com.android.support:recyclerview-v7:${version["supportLibrary"]}",
-            "cardview-v7"                  : "com.android.support:cardview-v7:${version["supportLibrary"]}",
-            "gridlayout-v7"                : "com.android.support:gridlayout-v7:${version["supportLibrary"]}",
-            "design"                       : "com.android.support:design:${version["supportLibrary"]}",
-            "constraint-layout"            : "com.android.support.constraint:constraint-layout:1.0.2",
+            "annotations"      : "com.android.support:support-annotations:${version["supportLibrary"]}",
+            "support-v4"       : "com.android.support:support-v4:${version["supportLibrary"]}",
+            "appcompat-v7"     : "com.android.support:appcompat-v7:${version["supportLibrary"]}",
+            "recyclerview-v7"  : "com.android.support:recyclerview-v7:${version["supportLibrary"]}",
+            "cardview-v7"      : "com.android.support:cardview-v7:${version["supportLibrary"]}",
+            "gridlayout-v7"    : "com.android.support:gridlayout-v7:${version["supportLibrary"]}",
+            "design"           : "com.android.support:design:${version["supportLibrary"]}",
+            "constraint-layout": "com.android.support.constraint:constraint-layout:${version["constraintLayout"]}",
     ]
 
 }
