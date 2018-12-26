@@ -36,6 +36,29 @@ import java.util.regex.Pattern;
 /**
  * SystemUtil
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2013-5-15
+ * @see #isART() isART
+ * @see #isApplicationInBackground(Context) isApplicationInBackground
+ * @see #isDalvik() isDalvik
+ * @see #isMainProcess(Context) isMainProcess
+ * @see #isNamedProcess(Context, String) isNamedProcess
+ * @see #isRunningService(Context, String) isRunningService
+ * @see #isRunningService(Context, Class) isRunningService
+ * @see #gc(Context) gc
+ * @see #getAllApps(Context) getAllApps
+ * @see #getCpuCoreNumber() getCpuCoreNumber
+ * @see #getCurrentRuntimeValue() getCurrentRuntimeValue
+ * @see #getDefaultThreadPoolSize() getDefaultThreadPoolSize
+ * @see #getDefaultThreadPoolSize(int) getDefaultThreadPoolSize
+ * @see #getDeviceUsableMemory(Context) getDeviceUsableMemory
+ * @see #getPhoneModel() getPhoneModel
+ * @see #getProcessName(int) getProcessName
+ * @see #getSDKVersion() getSDKVersion
+ * @see #getSign(Context, String) getSign
+ * @see #getSystemVersion() getSystemVersion
+ * @see #getTopActivity(Context) getTopActivity
+ * @see #getUidByPackageName(Context, String) getUidByPackageName
+ * @see #getWifiIpAddress(Context) getWifiIpAddress
+ * @see #stopRunningService(Context, String) stopRunningService
  */
 public final class SystemUtil {
 
@@ -395,6 +418,16 @@ public final class SystemUtil {
     }
 
     /**
+     * 是否ART模式
+     *
+     * @return 结果
+     */
+    public static boolean isART() {
+        String currentRuntime = getCurrentRuntimeValue();
+        return "ART".equals(currentRuntime) || "ART debug build".equals(currentRuntime);
+    }
+
+    /**
      * 是否Dalvik模式
      *
      * @return 结果
@@ -404,13 +437,10 @@ public final class SystemUtil {
     }
 
     /**
-     * 是否ART模式
-     *
-     * @return 结果
+     * 判断Android版本是否为6.0以后
      */
-    public static boolean isART() {
-        String currentRuntime = getCurrentRuntimeValue();
-        return "ART".equals(currentRuntime) || "ART debug build".equals(currentRuntime);
+    public static boolean isM(){
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
     /**

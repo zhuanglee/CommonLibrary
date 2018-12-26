@@ -1,46 +1,16 @@
 package cn.lzh.common.base;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.os.Environment;
-import android.util.DisplayMetrics;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.WindowManager;
 
-import java.io.File;
-
-import cn.lzh.common.R;
-import cn.lzh.common.utils.WatermarkUtil;
-import cn.lzh.utils.BitmapUtil;
+import cn.lzh.common.utils.WatermarkHelper;
 
 /**
  * 添加水印效果的基类
  *
  * @author lzh
  */
-public class BaseWatermarkActivity extends BaseActivity {
-
-    private static final String DIR_DEBUG = "/debug/";
-    private static final int COLOR_TRANSPARENT = 0x0000000;
-    private static final int WATERMARK_TEXT_COLOR = 0x331d9ef1;
-    private static final int WATERMARK_TEXT_SIZE = 80;
-    private static String mWatermarkText;
-    /**
-     * 水印图片
-     */
-    private static Drawable mWatermarkDrawable;
-
-    protected Activity mContext;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mContext = this;
-        initBackground(this, "Android");
-    }
+public abstract class BaseWatermarkActivity extends AppCompatActivity {
 
     @Override
     public void setContentView(int layoutResID) {
@@ -50,85 +20,9 @@ public class BaseWatermarkActivity extends BaseActivity {
 
     @Override
     public void setContentView(View view) {
-        view.setBackgroundColor(COLOR_TRANSPARENT);
-        // resetBG(view);
+        view.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         super.setContentView(view);
-        if (mWatermarkDrawable != null) {
-            getWindow().getDecorView()
-                    .setBackgroundDrawable(mWatermarkDrawable);
-        }
-    }
-
-    /**
-     * 重设视图背景
-     *
-     * @param text
-     */
-    // private void resetBG(View view) {
-    // if(view instanceof ViewGroup){
-    // ViewGroup viewGroup=(ViewGroup) view;
-    // int childCount = viewGroup.getChildCount();
-    // View childAt;
-    // for(int i=0;i<childCount;i++){
-    // childAt = viewGroup.getChildAt(i);
-    // Logg.w(BenguoApp.TAG, "childAt="+childAt.getClass().getSimpleName());
-    // if(childAt instanceof ViewGroup){
-    // childAt.setBackgroundColor(COLOR_TRANSPARENT);
-    // resetBG(childAt);
-    // }else{
-    // childAt.setBackgroundColor(COLOR_TRANSPARENT);
-    // }
-    // }
-    // }else{
-    // view.setBackgroundColor(COLOR_TRANSPARENT);
-    // }
-    // }
-    private void initBackground(Context context, String text) {
-        if (mWatermarkDrawable != null && mWatermarkText.equals(text)) {
-            return;
-        }
-        mWatermarkText = text;
-        WindowManager wm = (WindowManager) context
-                .getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(outMetrics);
-        File file = null;
-        if (Environment.getExternalStorageState().equals(
-                Environment.MEDIA_MOUNTED)) {
-            String dir = Environment.getExternalStorageDirectory()
-                    + DIR_DEBUG;
-            file = new File(String.format(WatermarkUtil.WATERMARK_FILE_FORMAT,
-                    dir, text));
-        }
-        WatermarkUtil.Watermark watermark = new WatermarkUtil.Watermark();
-        watermark.width = outMetrics.widthPixels;
-        watermark.height = outMetrics.heightPixels;
-        watermark.offsetY = (int) this.getResources().getDimension(
-                R.dimen.toolbar_height);
-        if (file != null && file.exists()) {
-            Bitmap bitmap = BitmapUtil.getBitmap(file);
-            if (bitmap != null) {
-                int width = outMetrics.widthPixels >> 1;
-                int height = bitmap.getHeight() * width / bitmap.getWidth();//保证等比例缩放
-                Bitmap scaledBitmap = BitmapUtil.createScaledBitmap(bitmap, width, height);
-                if (scaledBitmap != null) {
-                    bitmap = scaledBitmap;
-                }
-                mWatermarkDrawable = WatermarkUtil.getWatermarkDrawable(
-                        bitmap, watermark);
-            }
-        }
-        if (mWatermarkDrawable == null) {
-            // 没有获取到水印图片,则自己画
-            watermark.text = mWatermarkText;
-//			watermark.textColor=WATERMARK_TEXT_COLOR;
-//			watermark.textSize=WATERMARK_TEXT_SIZE;
-            mWatermarkDrawable = WatermarkUtil.getWatermarkDrawable(watermark);
-        }
-    }
-
-    public static Drawable getWatermarkDrawable() {
-        return mWatermarkDrawable;
+        getWindow().getDecorView().setBackgroundDrawable(WatermarkHelper.getWatermarkDrawable(this));
     }
 
 }

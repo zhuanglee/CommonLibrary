@@ -1,9 +1,7 @@
 package cn.lzh.utils;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.text.format.DateFormat;
 
 import java.text.ParseException;
@@ -13,14 +11,18 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-@SuppressLint("SimpleDateFormat")
+/**
+ * @author from open source
+ */
 public final class DateUtil {
 
     public static final String FORMAT_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
     public static final String FORMAT_DATE_TIME_SIMPLE = "yyyy-MM-dd HH:mm";
     public static final String FORMAT_DATE = "yyyy-MM-dd";
-    public static final String FORMAT_MONTH = "yyyy-MM";
+    public static final String FORMAT_DATE_SHORT = "yyyy-MM";
     public static final String FORMAT_TIME = "HH:mm:ss";
+    private static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat(FORMAT_DATE_TIME, Locale.CHINESE);
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(FORMAT_DATE, Locale.CHINESE);
 
     private DateUtil() {
         throw new UnsupportedOperationException("Cannot be instantiated");
@@ -33,7 +35,7 @@ public final class DateUtil {
      * @return 日期时间
      */
     public static Date parseDateTime(@NonNull String datetime) throws ParseException {
-        return new SimpleDateFormat(FORMAT_DATE_TIME, Locale.CHINESE).parse(datetime);
+        return DATE_TIME_FORMAT.parse(datetime);
     }
 
     /**
@@ -43,16 +45,16 @@ public final class DateUtil {
      * @return 日期
      */
     public static Date parseDate(@NonNull String datetime) throws ParseException {
-        return new SimpleDateFormat(FORMAT_DATE).parse(datetime);
+        return DATE_FORMAT.parse(datetime);
     }
 
     /**
-     * 获取当前时间的Unix时间戳
-     *
-     * @return 当前时间的Unix时间戳
+     * 获取指定时间的Unix时间戳
+     * @param time 时间毫秒值{@link Calendar#getTimeInMillis()}
+     * @return 当指定时间的Unix时间戳
      */
-    public static int getUnixTimestamp() {
-        return getUnixTimestamp(System.currentTimeMillis());
+    public static int getUnixTimestamp(Long time) {
+        return time == null ? 0 : (int) (time / 1000);
     }
 
     /**
@@ -66,12 +68,12 @@ public final class DateUtil {
     }
 
     /**
-     * 获取指定时间的Unix时间戳
-     * @param time 时间毫秒值{@link Calendar#getTimeInMillis()}
-     * @return 当指定时间的Unix时间戳
+     * 获取当前时间的Unix时间戳
+     *
+     * @return 当前时间的Unix时间戳
      */
-    public static int getUnixTimestamp(long time) {
-        return (int) (time / 1000);
+    public static int getUnixTimestamp() {
+        return getUnixTimestamp(System.currentTimeMillis());
     }
 
     /**
@@ -80,7 +82,7 @@ public final class DateUtil {
      * @param time        毫秒数 或 unix时间戳
      * @param isTimestamp 是否为unix时间戳
      */
-    public static Calendar getCalendar(long time, boolean isTimestamp) {
+    public static Calendar getCalendar(@NonNull Long time, boolean isTimestamp) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(isTimestamp ? time * 1000 : time);
         return calendar;
@@ -92,41 +94,58 @@ public final class DateUtil {
      * @param time        毫秒数 或 unix时间戳
      * @param isTimestamp 是否为unix时间戳
      */
-    public static String formatDateTime(long time, boolean isTimestamp) {
-        return formatDateTime(getCalendar(time, isTimestamp));
+    @Nullable
+    public static String formatDateTime(@Nullable Long time, boolean isTimestamp) {
+        return time == null ? null : formatDateTime(getCalendar(time, isTimestamp));
     }
 
     /**
-     * 格式化日期
+     * 格式化日期到天
      *
      * @param time        毫秒数 或 unix时间戳
      * @param isTimestamp 是否为unix时间戳
      */
-    public static String formatDay(long time, boolean isTimestamp) {
-        return formatDay(getCalendar(time, isTimestamp));
+    @Nullable
+    public static String formatDate(@Nullable Long time, boolean isTimestamp) {
+        return time == null ? null : formatDate(getCalendar(time, isTimestamp));
+    }
+
+
+    /**
+     * 格式化日期到月份
+     *
+     * @param time        毫秒数 或 unix时间戳
+     * @param isTimestamp 是否为unix时间戳
+     */
+    public static String formatDateShort(@Nullable Long time, boolean isTimestamp) {
+        return time == null ? null : formatDateShort(getCalendar(time, isTimestamp));
     }
 
     /**
-     * 格式化日期字符串
-     * @param datetime 日期时间字符串
-     * @deprecated 不推荐使用字符串日期
-     * @see #formatDay(long, boolean)
+     * 格式化时间
+     *
+     * @param time        毫秒数 或 unix时间戳
+     * @param isTimestamp 是否为unix时间戳
      */
-    @Deprecated
-    public static String formatDay(@NonNull String datetime) throws ParseException {
-        return formatDay(parseDateTime(datetime));
+    public static String formatTime(@Nullable Long time, boolean isTimestamp) {
+        return time == null ? null : formatTime(getCalendar(time, isTimestamp));
     }
 
     /**
      * 格式化日期事件字符串
      * @param format 格式
      * @param datetime 日期时间字符串
-     * @deprecated 不推荐使用字符串日期
-     * @see #formatDateTime(long, boolean)
      */
-    @Deprecated
     public static String format(String format, String datetime) throws ParseException {
         return DateFormat.format(format, parseDateTime(datetime)).toString();
+    }
+
+    /**
+     * 格式化日期字符串
+     * @param datetime 日期时间字符串
+     */
+    public static String formatDate(@NonNull String datetime) throws ParseException {
+        return formatDate(parseDateTime(datetime));
     }
 
     public static String formatDateTime(@NonNull Calendar date) {
@@ -137,16 +156,20 @@ public final class DateUtil {
         return DateFormat.format(FORMAT_DATE_TIME_SIMPLE, date).toString();
     }
 
-    public static String formatMonth(@NonNull Calendar calendar) {
-        return DateFormat.format(FORMAT_MONTH, calendar).toString();
-    }
-
-    public static String formatDay(@NonNull Calendar date) {
+    public static String formatDate(@NonNull Calendar date) {
         return DateFormat.format(FORMAT_DATE, date).toString();
     }
 
-    public static String formatDay(@NonNull Date date) {
+    public static String formatDate(@NonNull Date date) {
         return DateFormat.format(FORMAT_DATE, date).toString();
+    }
+
+    public static String formatDateShort(@NonNull Calendar date) {
+        return DateFormat.format(FORMAT_DATE_SHORT, date).toString();
+    }
+
+    public static String formatDateShort(@NonNull Date date) {
+        return DateFormat.format(FORMAT_DATE_SHORT, date).toString();
     }
 
     public static String formatTime(@NonNull Calendar date) {
@@ -265,7 +288,7 @@ public final class DateUtil {
         }
         // 判断是否是同一天
         Calendar cal = Calendar.getInstance();
-        String curDate = formatDay(cal.getTime());
+        String curDate = formatDate(cal.getTime());
         if (curDate.equals(dateStr.substring(0, FORMAT_DATE.length()))) {
             int hour = (int) ((cal.getTimeInMillis() - time.getTime()) / 3600000);
             if (hour == 0)
@@ -301,7 +324,7 @@ public final class DateUtil {
         } else if (days > 3 * 31 && days <= 4 * 31) {
             result = "3个月前";
         } else {
-            result = formatDay(time);
+            result = formatDate(time);
         }
         return result;
     }

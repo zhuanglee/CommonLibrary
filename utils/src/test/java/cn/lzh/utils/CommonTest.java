@@ -11,39 +11,35 @@ import cn.lzh.utils.security.DES;
  */
 
 public class CommonTest {
+
     @Test
-    public void testDES(){
+    public void testDES() {
         try {
-//            String test = "测试DES加密";//30dd5dca323591339ec193ee5b0ab91d
-            String test = "测试DES加密,哈哈哈哈哈哈";//30dd5dca323591339ec193ee5b0ab91d
-            // 注意这里，自定义的加密的KEY要和解密的KEY一致，这就是钥匙，如果你上锁了，却忘了钥匙，那么是解密不了的
-            DES des = DES.getInstance();
-            System.out.println("加密前的字符：" + test);
-            System.out.println("加密后的字符：" + des.encrypt(test));
-            System.out.println("解密后的字符：" + des.decrypt(des.encrypt(test)));
+            String text = "测试DES加密,哈哈哈哈哈哈";//30dd5dca323591339ec193ee5b0ab91d
+            DES des = new DES();
+            System.out.println("加密前的字符：" + text);
+            System.out.println("加密后的字符：" + des.encrypt(text));
+            String decrypt = des.decrypt(des.encrypt(text));
+            System.out.println("解密后的字符：" + decrypt);
+            assert text.equals(decrypt);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void testMD5(){
-        String text = "测试MD5加密"; // 7b78acb12c955bfe233469aa4bfa7fe0
-        System.out.println(new String(BinaryUtil.calculateMd5(text.getBytes())));
+    public void testMD5() {
+        String text = "测试MD5加密";
+        String md5 = BinaryUtil.getMd5StrFromBytes(BinaryUtil.md5(text.getBytes()));
+        System.out.println("md5=" + md5);
+        assert "7b78acb12c955bfe233469aa4bfa7fe0".equals(md5);
     }
 
     @Test
-    public void testByteUtil(){
-        String test = "Test";
-        assert test.equals(ByteUtil.toHexString(ByteUtil.hex2byte(test)));
+    public void testByteUtil() {
+        String text = "1234567890ABCDEF";
+        byte[] bytes = ByteUtil.hex2bytes(text);
+        assert text.equals(ByteUtil.bytes2hex(bytes));
     }
-
-    @Test
-    public void testSerializeUtil(){
-        String test = "Test";
-        assert test.equals(ByteUtil.toHexString(ByteUtil.hex2byte(test)));
-    }
-
-
 
 }

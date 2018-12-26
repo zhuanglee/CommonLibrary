@@ -1,5 +1,7 @@
 package cn.lzh.utils;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
@@ -12,6 +14,7 @@ import android.view.animation.TranslateAnimation;
 
 /**
  * 动画工具类
+ * @author lzh
  */
 public class AnimationUtil {
 
@@ -31,6 +34,40 @@ public class AnimationUtil {
             shake.setInterpolator(new CycleInterpolator(5));
             view.startAnimation(shake);
         }
+    }
+
+    /**
+     * 隐藏某控件
+     * @param view View
+     * @return Animator
+     */
+    public static Animator hide(final View view) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 1, 0);
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                view.setVisibility(View.GONE);
+            }
+        });
+        return animator;
+    }
+
+    /**
+     * 显示某控件
+     * @param view View
+     * @return Animator
+     */
+    public static Animator show(final View view) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 0, 1);
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                view.setVisibility(View.VISIBLE);
+            }
+        });
+        return animator;
     }
 
     /**

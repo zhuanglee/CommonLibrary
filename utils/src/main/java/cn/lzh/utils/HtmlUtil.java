@@ -1,10 +1,23 @@
 package cn.lzh.utils;
 
 import android.support.annotation.NonNull;
+import android.text.Html;
+import android.text.Spanned;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * HTML标签的相关操作
+ * @author from open source
+ * @see #formatHtml(String, String...) formatHtml
+ * @see #delTag(String) delTag
+ * @see #filterHtml(String) filterHtml
+ * @see #filterHtmlTag(String, String) filterHtmlTag
+ * @see #hasSpecialChars(String) hasSpecialChars
+ * @see #htmlEncode(String) htmlEncode
+ * @see #replaceHtmlTag(String, String, String, String, String) replaceHtmlTag
+ */
 public class HtmlUtil {
 	private static final String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; // 定义script的正则表达式
 	private static final String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>"; // 定义style的正则表达式
@@ -14,6 +27,22 @@ public class HtmlUtil {
 	private HtmlUtil() {
 		throw new UnsupportedOperationException("Cannot be instantiated");
 	}
+
+    /**
+     * 使用HTML标签格式化文本
+     *
+     * @param format 带有占位符的文本
+     * @param args 需要增强显示的文本
+     * @return Spanned
+     */
+    public static Spanned formatHtml(String format, String... args) {
+        String font = "<font color='#ff0000'>%s</font>";
+        Object[] formatArray = new Object[args.length];
+        for (int i = 0; i < formatArray.length; i++) {
+            formatArray[i] = String.format(font, args[i]);
+        }
+        return Html.fromHtml(String.format(format, formatArray));
+    }
 
 	/**
 	 * 删除所有标签

@@ -15,6 +15,7 @@ import java.util.List;
 
 import cn.lzh.common.R;
 import cn.lzh.common.adapter.ActivityBeanAdapter;
+import cn.lzh.common.base.BaseActivity;
 import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.common.bean.ActvityBean;
 
@@ -23,7 +24,7 @@ import cn.lzh.common.bean.ActvityBean;
  *
  * @author lzh
  */
-public class DemoMainActivity extends BaseWatermarkActivity {
+public class DemoMainActivity extends BaseActivity {
 
     private static final String TAG = "DemoMainActivity";
     private Context mContext;

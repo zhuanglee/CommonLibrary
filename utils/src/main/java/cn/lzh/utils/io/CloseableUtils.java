@@ -4,15 +4,14 @@ import java.io.Closeable;
 import java.io.IOException;
 
 /**
- * IO utils
+ * CloseableUtils
  *
- * @author Vladislav Bauer
+ * @author from open source
  */
-
-public class CloseableUtils {
+public final class CloseableUtils {
 
     private CloseableUtils() {
-        throw new AssertionError();
+        throw new UnsupportedOperationException("Cannot be instantiated");
     }
 
 

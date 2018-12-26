@@ -31,8 +31,6 @@ public class CollectionUtil {
      * isBlank({1})    =   false;
      * </pre>
      *
-     * @param <V>
-     * @param c
      * @return if collection is null or its size is 0, return true, else return false.
      */
     public static <V> boolean isEmpty(Collection<V> c) {
@@ -48,9 +46,9 @@ public class CollectionUtil {
      * join({a,b})     =   "a,b";
      * </pre>
      *
-     * @param collection
-     * @return join collection to string, separator is {@link #DEFAULT_JOIN_SEPARATOR}. if collection is empty, return
-     * ""
+     * @param collection Iterable
+     * @return join collection to string, separator is {@link #DEFAULT_JOIN_SEPARATOR}. <br/>
+     * if collection is empty, return ""
      */
     public static String join(Iterable collection) {
         return collection == null ? "" : TextUtils.join(DEFAULT_JOIN_SEPARATOR, collection);

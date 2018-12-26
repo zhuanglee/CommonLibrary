@@ -1,11 +1,13 @@
 package cn.lzh.ui.widget;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 
-import cn.lzh.ui.FlowLayoutHelper;
-import cn.lzh.utils.DeviceUtil;
+import cn.lzh.ui.helper.FlowLayoutHelper;
+
+import static cn.lzh.ui.widget.Util.dip2px;
 
 /**
  * 自定义流式布局
@@ -33,7 +35,7 @@ public class FlowLayout extends ViewGroup {
 				FlowLayout.this.setMeasuredDimension(measuredWidth, measuredHeight);
 			}
 		});
-		int space = DeviceUtil.dip2px(context, 8);
+		int space = dip2px(context, 8);
 		setPadding(space, space, space, space);
 	}
 	
@@ -77,5 +79,5 @@ public class FlowLayout extends ViewGroup {
 		}
 		mFlowLayoutHelper.onLayout(changed, l, t, r, b);
 	}
-	
+
 }

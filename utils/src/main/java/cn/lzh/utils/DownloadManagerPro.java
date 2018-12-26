@@ -58,6 +58,7 @@ import java.util.Map;
  *
  * @author jingle1267@163.com
  */
+@Deprecated
 @SuppressLint("InlinedApi")
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class DownloadManagerPro {

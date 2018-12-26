@@ -1,5 +1,6 @@
 package cn.lzh.common.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -26,7 +27,7 @@ import cn.lzh.ui.dialog.WaitingDialog;
 /**
  * 1.封装初始化Toolbar的方法；<br/>
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends BaseWatermarkActivity {
 
     protected WaitingDialog mWaitingDialog;
 
@@ -34,6 +35,14 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 是否使用转场动画
      */
     protected boolean mUseTransitionAnimation = true;
+
+    protected Activity mContext;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mContext = this;
+    }
 
     /**
      * 全屏<br/>
@@ -53,7 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected final Toolbar initToolbar(CharSequence title) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar == null) {
             throw new IllegalStateException("not found R.id.toolbar");
         }
@@ -102,7 +111,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.setTitle(title);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
-            TextView tvTitle = (TextView) findViewById(R.id.tv_title);
+            TextView tvTitle = findViewById(R.id.tv_title);
             if(tvTitle == null){
                 actionBar.setTitle(title);
             }else{

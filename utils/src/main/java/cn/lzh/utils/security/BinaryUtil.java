@@ -1,109 +1,105 @@
-/**
- * Copyright (C) Alibaba Cloud Computing, 2015
- * All rights reserved.
- * <p>
- * 版权所有 （C）阿里巴巴云计算，2015
- */
-
 package cn.lzh.utils.security;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Base64;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @author from open source
+ */
 public class BinaryUtil {
 
-    public static String toBase64String(String text){
-        return toBase64String(text.getBytes());
+    private static final String MD5 = "MD5";
+    private static final String UTF_8 = "utf-8";
+
+    public static String encodeBase64(String text) {
+        try {
+            return new String(encodeBase64(text.getBytes()), UTF_8);
+        } catch (UnsupportedEncodingException e) {
+            throw new AssertionError(e);
+        }
     }
 
-    public static String toBase64String(byte[] binaryData) {
-        //    org.apache.commons.codec.binary.Base64
-        return Base64.encodeToString(binaryData, Base64.DEFAULT);
+    public static byte[] encodeBase64(byte[] binaryData) {
+        return Base64.encode(binaryData, Base64.DEFAULT);
     }
 
     /**
-     * 反解base64编码的字符串
+     * 解码base64编码的字符串
+     * @param text base64编码的字符串
+     * @return 解码后的字符串
      */
-    public static byte[] fromBase64String(String base64String) {
-        return Base64.decode(base64String.getBytes(), Base64.DEFAULT);
+    public static String decodeBase64(String text) {
+        try {
+            return new String(decodeBase64(text.getBytes()), UTF_8);
+        } catch (UnsupportedEncodingException e) {
+            throw new AssertionError(e);
+        }
+    }
+    /**
+     * 解码base64编码的字符串
+     * @param bytes base64编码的字节数组
+     * @return 字节数组
+     */
+    public static byte[] decodeBase64(byte[] bytes) {
+        return Base64.decode(bytes, Base64.DEFAULT);
     }
 
     /**
      * 计算byte数组的Md5
+     * @param bytes 字节数组
+     * @return md5字节数组
      */
-    public static byte[] calculateMd5(byte[] binaryData) {
-        MessageDigest messageDigest = null;
+    public static byte[] md5(byte[] bytes) {
         try {
-            messageDigest = MessageDigest.getInstance("MD5");
+            MessageDigest md = MessageDigest.getInstance(MD5);
+            md.update(bytes);
+            return md.digest();
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("MD5 algorithm not found.");
+            throw new AssertionError(e);
         }
-        messageDigest.update(binaryData);
-        return messageDigest.digest();
-
     }
 
     /**
      * 计算本地文件的MD5
+     * @param filePath 文件路径
+     * @return md5字节数组
      */
-    public static byte[] calculateMd5(String filePath) throws IOException {
-        MessageDigest digest;
-        try {
-            digest = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("MD5 algorithm not found.");
-        }
-        byte[] buffer = new byte[4 * 1024];
-        InputStream is = null;
-        try {
-            is = new FileInputStream(new File(filePath));
+    @Nullable
+    public static byte[] md5(@NonNull String filePath) {
+        File file = new File(filePath);
+        return md5(file);
+    }
+
+    /**
+     * 计算本地文件的MD5
+     * @param file 文件
+     * @return md5字节数组
+     */
+    @Nullable
+    public static byte[] md5(File file) {
+        try (InputStream is = new FileInputStream(file)) {
             int lent;
+            byte[] buffer = new byte[4 * 1024];
+            MessageDigest md = MessageDigest.getInstance(MD5);
             while ((lent = is.read(buffer)) != -1) {
-                digest.update(buffer, 0, lent);
+                md.update(buffer, 0, lent);
             }
-            return digest.digest();
+            return md.digest();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if(is != null){
-                is.close();
-            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
         return null;
-    }
-
-    /**
-     * 计算byte数组的Md5，返回Md5字符串
-     */
-    public static String calculateMd5Str(byte[] binaryData) {
-        return getMd5StrFromBytes(calculateMd5(binaryData));
-    }
-
-    /**
-     * 计算本地文件的Md5，返回Md5字符串
-     */
-    public static String calculateMd5Str(String filePath) throws IOException {
-        return getMd5StrFromBytes(calculateMd5(filePath));
-    }
-
-    /**
-     * 计算byte数组的Md5，返回base64加密后的字符串
-     */
-    public static String calculateBase64Md5(byte[] binaryData) {
-        return toBase64String(calculateMd5(binaryData));
-    }
-
-    /**
-     * 计算本地文件的Md5，返回base64加密后的字符串
-     */
-    public static String calculateBase64Md5(String filePath) throws IOException {
-        return toBase64String(calculateMd5(filePath));
     }
 
     /**
@@ -114,8 +110,8 @@ public class BinaryUtil {
             return "";
         }
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < md5bytes.length; i++) {
-            sb.append(String.format("%02x", md5bytes[i]));
+        for (byte md5byte : md5bytes) {
+            sb.append(String.format("%02x", md5byte));
         }
         return sb.toString();
     }

@@ -8,10 +8,19 @@ import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.WindowManager;
 
 /**
  * 设备工具类
+ * @author from open source
+ * @see #dip2px(Context, float) dip2px
+ * @see #getScreenHeight(Context) getScreenHeight
+ * @see #getScreenWidth(Context) getScreenWidth
+ * @see #getStatusBarHeight(Context) getStatusBarHeight
+ * @see #px2dip(Context, float) px2dip
+ * @see #px2sp(Context, float) px2sp
+ * @see #snapShotWithoutStatusBar(Activity) snapShotWithoutStatusBar
+ * @see #snapShotWithStatusBar(Activity) snapShotWithStatusBar
+ * @see #sp2px(Context, float) sp2px
  */
 public class DeviceUtil {
 	private DeviceUtil() {
@@ -55,8 +64,7 @@ public class DeviceUtil {
 	 * @param context Context
 	 */
 	public static int getStatusBarHeight(Context context) {
-
-		int statusHeight = -1;
+		int statusHeight = 0;
 		try {
 			Class<?> clazz = Class.forName("com.android.internal.R$dimen");
 			Object object = clazz.newInstance();

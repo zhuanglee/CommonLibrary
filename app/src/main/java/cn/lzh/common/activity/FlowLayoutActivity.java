@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cn.lzh.common.R;
+import cn.lzh.common.base.BaseActivity;
 import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.ui.widget.FlowLayout;
 import cn.lzh.utils.DrawableUtil;
@@ -22,25 +23,19 @@ import cn.lzh.utils.RandomUtil;
  *
  * @author lzh
  */
-public class FlowLayoutActivity extends BaseWatermarkActivity {
-
+public class FlowLayoutActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flow_layout);
         initToolbar(true);
-        final ArrayList<String> tags = new ArrayList<String>();
+        final ArrayList<String> tags = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             tags.add("标签" + i + RandomUtil.getRandomLetters(i));
         }
         final FlowLayout flowLayout = findViewById(R.id.flow_layout);
-        flowLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setupFlowLayout(flowLayout, tags);
-            }
-        }, 1000);
+        setupFlowLayout(flowLayout, tags);
     }
 
     private void setupFlowLayout(FlowLayout flowLayout, ArrayList<String> tags) {

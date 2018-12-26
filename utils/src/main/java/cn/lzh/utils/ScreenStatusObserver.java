@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
  * 监听屏幕ON和OFF PRESENT状态
  * 
  * @author http://blog.csdn.net/oracleot/article/details/20378453
- * 
+ * @deprecated
  */
 public class ScreenStatusObserver {
 	private static final String TAG = "ScreenStatusObserver";

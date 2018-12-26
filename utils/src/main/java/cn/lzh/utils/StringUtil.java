@@ -1,8 +1,12 @@
 package cn.lzh.utils;
 
 
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -10,10 +14,29 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * java判断字符串是否为数字或中文或字母
- * 
- * @author Administrator
- * 
+ * 字符串相关操作
+ *
+ * @author from open source
+ * @see #isBlank(String) isBlank
+ * @see #isChinese(char) isChinese
+ * @see #isChinese(String) isChinese
+ * @see #isEmail(String) isEmail
+ * @see #isEmpty(CharSequence) isEmpty
+ * @see #isImgUrl(String) isImgUrl
+ * @see #isNumeric(String) isNumeric
+ * @see #isPhone(String) isPhone
+ * @see #isUrl(String) isUrl
+ * @see #capitalizeFirstLetter(String) capitalizeFirstLetter
+ * @see #checkChinese(String) checkChinese
+ * @see #checkNickname(String) checkNickname
+ * @see #containsChinese(String) containsChinese
+ * @see #formatPhone(String) formatPhone
+ * @see #fullWidthToHalfWidth(String) fullWidthToHalfWidth
+ * @see #getSubString(String, int, int) getSubString
+ * @see #utf8Encode(String) utf8Encode
+ * @see #utf8Encode(String, String) utf8Encode
+ * @see #validateFirstChar(String) validateFirstChar
+ * @see #getColorfulText(String, int, int, int) getColorfulText
  */
 public class StringUtil {
 	private final static Pattern EMAIL_PATTERN = Pattern
@@ -286,7 +309,6 @@ public class StringUtil {
 	 *
 	 * @param str String
 	 * @throws UnsupportedEncodingException if an error occurs
-	 * @return
 	 */
 	public static String utf8Encode(String str) throws UnsupportedEncodingException {
 		if (!isBlank(str) && str.getBytes().length != str.length()) {
@@ -298,8 +320,8 @@ public class StringUtil {
 	/**
 	 * encoded in utf-8, if exception, return defaultReturn
 	 *
-	 * @param str
-	 * @param defaultReturn
+	 * @param str 待编码文本内容
+	 * @param defaultReturn 默认值
 	 * @return
 	 */
 	public static String utf8Encode(String str, String defaultReturn) {
@@ -376,4 +398,22 @@ public class StringUtil {
 		}
 		return new String(source);
 	}
+
+
+	/**
+	 * 获取颜色丰富的文本
+	 * @param text 原文本
+	 * @param start 开始位置
+	 * @param end 结束为止
+	 * @param color 特殊文本（start-end之间的文本）的颜色
+	 */
+	public static SpannableString getColorfulText(String text, int start, int end, @ColorInt int color){
+		SpannableString colorfulText = new SpannableString(text);
+		if (end <= text.length()) {
+			colorfulText.setSpan(new ForegroundColorSpan(color),
+					start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		}
+		return colorfulText;
+	}
+
 }

@@ -12,10 +12,10 @@ import java.io.ObjectOutputStream;
  * 
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2012-5-14
  */
-public class SerializeUtil {
+public final class SerializeUtil {
 
     private SerializeUtil() {
-        throw new AssertionError();
+        throw new UnsupportedOperationException("Cannot be instantiated");
     }
 
     /**
@@ -29,18 +29,15 @@ public class SerializeUtil {
         ObjectInputStream in = null;
         try {
             in = new ObjectInputStream(new FileInputStream(filePath));
-            Object o = in.readObject();
-            in.close();
-            return o;
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("FileNotFoundException occurred. ", e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("ClassNotFoundException occurred. ", e);
+            return in.readObject();
         } catch (IOException e) {
-            throw new RuntimeException("IOException occurred. ", e);
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         } finally {
             CloseableUtils.close(in);
         }
+        return null;
     }
 
     /**
@@ -55,11 +52,10 @@ public class SerializeUtil {
         try {
             out = new ObjectOutputStream(new FileOutputStream(filePath));
             out.writeObject(obj);
-            out.close();
         } catch (FileNotFoundException e) {
-            throw new RuntimeException("FileNotFoundException occurred. ", e);
+            e.printStackTrace();
         } catch (IOException e) {
-            throw new RuntimeException("IOException occurred. ", e);
+            e.printStackTrace();
         } finally {
             CloseableUtils.close(out);
         }

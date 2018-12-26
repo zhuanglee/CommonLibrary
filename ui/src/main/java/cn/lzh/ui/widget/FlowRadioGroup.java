@@ -4,8 +4,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RadioGroup;
 
-import cn.lzh.ui.FlowLayoutHelper;
-import cn.lzh.utils.DeviceUtil;
+import cn.lzh.ui.helper.FlowLayoutHelper;
+
+import static cn.lzh.ui.widget.Util.dip2px;
 
 /**
  * 自定义流式单选按钮组
@@ -28,10 +29,10 @@ public class FlowRadioGroup extends RadioGroup {
 				FlowRadioGroup.this.setMeasuredDimension(measuredWidth, measuredHeight);
 			}
 		});
-		int space = DeviceUtil.dip2px(context, 8);
+		int space = dip2px(context, 8);
 		setPadding(space, space, space, space);
 	}
-	
+
 	public int getHorizontalSpace() {
 		return mFlowLayoutHelper.getHorizontalSpace();
 	}

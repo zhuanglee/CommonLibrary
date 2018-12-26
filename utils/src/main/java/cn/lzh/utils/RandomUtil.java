@@ -1,5 +1,7 @@
 package cn.lzh.utils;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import java.util.Random;
@@ -50,8 +52,6 @@ public class RandomUtil {
     /**
      * get a fixed-length random string, its a mixture of uppercase, lowercase letters and numbers
      * 
-     * @param length
-     * @return
      * @see RandomUtil#getRandom(String source, int length)
      */
     public static String getRandomNumbersAndLetters(int length) {
@@ -61,8 +61,6 @@ public class RandomUtil {
     /**
      * get a fixed-length random string, its a mixture of numbers
      * 
-     * @param length
-     * @return
      * @see RandomUtil#getRandom(String source, int length)
      */
     public static String getRandomNumbers(int length) {
@@ -72,8 +70,6 @@ public class RandomUtil {
     /**
      * get a fixed-length random string, its a mixture of uppercase and lowercase letters
      * 
-     * @param length
-     * @return
      * @see RandomUtil#getRandom(String source, int length)
      */
     public static String getRandomLetters(int length) {
@@ -83,8 +79,6 @@ public class RandomUtil {
     /**
      * get a fixed-length random string, its a mixture of uppercase letters
      * 
-     * @param length
-     * @return
      * @see RandomUtil#getRandom(String source, int length)
      */
     public static String getRandomCapitalLetters(int length) {
@@ -94,8 +88,6 @@ public class RandomUtil {
     /**
      * get a fixed-length random string, its a mixture of lowercase letters
      * 
-     * @param length
-     * @return
      * @see RandomUtil#getRandom(String source, int length)
      */
     public static String getRandomLowerCaseLetters(int length) {
@@ -105,8 +97,8 @@ public class RandomUtil {
     /**
      * get a fixed-length random string, its a mixture of chars in source
      * 
-     * @param source
-     * @param length
+     * @param source String
+     * @param length int
      * @return <ul>
      *         <li>if source is null or empty, return null</li>
      *         <li>else see {@link RandomUtil#getRandom(char[] sourceChar, int length)}</li>
@@ -119,8 +111,8 @@ public class RandomUtil {
     /**
      * get a fixed-length random string, its a mixture of chars in sourceChar
      * 
-     * @param sourceChar
-     * @param length
+     * @param sourceChar char[]
+     * @param length int
      * @return <ul>
      *         <li>if sourceChar is null or empty, return null</li>
      *         <li>if length less than 0, return null</li>
@@ -142,7 +134,7 @@ public class RandomUtil {
     /**
      * get random int between 0 and max
      * 
-     * @param max
+     * @param max int
      * @return <ul>
      *         <li>if max <= 0, return 0</li>
      *         <li>else return random int between 0 and max</li>
@@ -155,8 +147,8 @@ public class RandomUtil {
     /**
      * get random int between min and max
      * 
-     * @param min
-     * @param max
+     * @param min int
+     * @param max int
      * @return <ul>
      *         <li>if min > max, return 0</li>
      *         <li>if min == max, return min</li>
@@ -176,30 +168,25 @@ public class RandomUtil {
     /**
      * Shuffling algorithm, Randomly permutes the specified array using a default source of randomness
      * 
-     * @param objArray
+     * @param objArray Object[]
      * @return
      */
-    public static boolean shuffle(Object[] objArray) {
-        if (objArray == null) {
-            return false;
-        }
-
+    public static boolean shuffle(@NonNull Object[] objArray) {
         return shuffle(objArray, getRandom(objArray.length));
     }
 
     /**
      * Shuffling algorithm, Randomly permutes the specified array
      * 
-     * @param objArray
-     * @param shuffleCount
+     * @param objArray Object[]
+     * @param shuffleCount int
      * @return
      */
-    public static boolean shuffle(Object[] objArray, int shuffleCount) {
-        int length;
-        if (objArray == null || shuffleCount < 0 || (length = objArray.length) < shuffleCount) {
+    public static boolean shuffle(@NonNull Object[] objArray, int shuffleCount) {
+        int length = objArray.length;
+        if (shuffleCount < 0 || shuffleCount > length) {
             return false;
         }
-
         for (int i = 1; i <= shuffleCount; i++) {
             int random = getRandom(length - i);
             Object temp = objArray[length - i];
@@ -212,30 +199,24 @@ public class RandomUtil {
     /**
      * Shuffling algorithm, Randomly permutes the specified int array using a default source of randomness
      * 
-     * @param intArray
-     * @return
+     * @param intArray int[]
      */
-    public static int[] shuffle(int[] intArray) {
-        if (intArray == null) {
-            return null;
-        }
-
+    public static int[] shuffle(@NonNull int[] intArray) {
         return shuffle(intArray, getRandom(intArray.length));
     }
 
     /**
      * Shuffling algorithm, Randomly permutes the specified int array
      * 
-     * @param intArray
-     * @param shuffleCount
-     * @return
+     * @param intArray int[]
+     * @param shuffleCount int
      */
-    public static int[] shuffle(int[] intArray, int shuffleCount) {
-        int length;
-        if (intArray == null || shuffleCount < 0 || (length = intArray.length) < shuffleCount) {
+    @Nullable
+    public static int[] shuffle(@NonNull int[] intArray, int shuffleCount) {
+        int length = intArray.length;
+        if (shuffleCount < 0 || shuffleCount > length) {
             return null;
         }
-
         int[] out = new int[shuffleCount];
         for (int i = 1; i <= shuffleCount; i++) {
             int random = getRandom(length - i);

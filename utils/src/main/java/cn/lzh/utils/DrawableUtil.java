@@ -15,6 +15,19 @@ import android.support.annotation.NonNull;
 
 import java.util.Random;
 
+/**
+ * @author from open source
+ * @see #getColorDrawable(int, float) getColorDrawable
+ * @see #getGradientColor(int, int, float) getGradientColor
+ * @see #getGradientDrawable(int[], float) getGradientDrawable
+ * @see #getPressedDrawable(BitmapDrawable) getPressedDrawable
+ * @see #getRandomColor() getRandomColor
+ * @see #getRandomColorDrawable(float) getRandomColorDrawable
+ * @see #getRandomColorSelector(float) getRandomColorSelector
+ * @see #getRandomGradientDrawable(float) getRandomGradientDrawable
+ * @see #getSelector(BitmapDrawable) 增加点击变暗的效果
+ * @see #getSelector(Drawable, Drawable) getSelector
+ */
 public final class DrawableUtil {
 
 	private DrawableUtil() {

@@ -24,6 +24,7 @@ import java.util.List;
  * 
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2013-5-16
  */
+@Deprecated
 public class ShellUtil {
 
     public static final String COMMAND_SU       = "su";

@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
  * Created by lzh on 2017/9/18.<br/>
  * 字节数组与十六进制字符串之间的转换工具
  */
-
 public final class ByteUtil {
 
     private ByteUtil() {
@@ -19,7 +18,7 @@ public final class ByteUtil {
      * @param bytes 字节数组
      * @return String
      */
-    public static String toHexString(@NonNull byte[] bytes) {
+    public static String bytes2hex(@NonNull byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         String hexStr;
         for (byte b : bytes) {
@@ -37,7 +36,7 @@ public final class ByteUtil {
      * @param hexStr 十六进制字符串
      * @return byte[]
      */
-    public static byte[] hex2byte(String hexStr) {
+    public static byte[] hex2bytes(String hexStr) {
         byte[] hexBytes = hexStr.getBytes();
         if ((hexBytes.length % 2) != 0)
             throw new IllegalArgumentException();

@@ -20,12 +20,14 @@ import javax.security.auth.x500.X500Principal;
 
 /**
  * AppUtil
- * @author open source
+ * @author from open source
+ * @see #getActivities(Context)
+ * @see #getMetaValue(Context, String)
+ * @see #getPackageInfo(Context)
+ * @see #getVersionCode(Context)
+ * @see #getVersionName(Context)
  */
 public final class AppUtil {
-
-    private final static X500Principal DEBUG_DN = new X500Principal(
-            "CN=Android Debug,O=Android,C=US");
 
     private AppUtil() {
         throw new UnsupportedOperationException("Cannot be instantiated");
@@ -34,37 +36,30 @@ public final class AppUtil {
     /**
      * 获取清单文件中的常量
      *
-     * @param context
-     * @param metaKey
-     * @return
+     * @param context Context
+     * @param metaKey metaKey
      */
-    public static String getMetaValue(Context context, String metaKey) {
-        Bundle metaData = null;
-        String apiKey = null;
-        if (context == null || metaKey == null) {
-            return null;
-        }
+    public static String getMetaValue(@NonNull Context context,@NonNull String metaKey) {
         try {
             ApplicationInfo ai = context.getPackageManager()
                     .getApplicationInfo(context.getPackageName(),
                             PackageManager.GET_META_DATA);
             if (null != ai) {
-                metaData = ai.metaData;
-            }
-            if (null != metaData) {
-                apiKey = metaData.getString(metaKey);
+                Bundle metaData = ai.metaData;
+                if (null != metaData) {
+                    return metaData.getString(metaKey);
+                }
             }
         } catch (PackageManager.NameNotFoundException e) {
-
+            e.printStackTrace();
         }
-        return apiKey;
+        return null;
     }
 
     /**
      * 获取应用程序的所有Activity
      *
-     * @param context
-     * @return
+     * @param context Context
      */
     public static ArrayList<String> getActivities(Context context) {
         ArrayList<String> result = new ArrayList<String>();
@@ -112,33 +107,6 @@ public final class AppUtil {
             return null;
         }
         return packageInfo.versionName;
-    }
-
-
-    /**
-     * 检测当前应用是否为Debug版本
-     *
-     * @param ctx Context
-     */
-    public static boolean isDebuggable(@NonNull Context ctx) {
-        boolean debuggable = false;
-        try {
-            PackageInfo info = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), PackageManager.GET_SIGNATURES);
-            Signature signatures[] = info.signatures;
-            for (Signature signature : signatures) {
-                CertificateFactory cf = CertificateFactory.getInstance("X.509");
-                ByteArrayInputStream stream = new ByteArrayInputStream(signature.toByteArray());
-                X509Certificate cert = (X509Certificate) cf
-                        .generateCertificate(stream);
-                debuggable = cert.getSubjectX500Principal().equals(DEBUG_DN);
-                if (debuggable)
-                    break;
-            }
-
-        } catch (PackageManager.NameNotFoundException e) {
-        } catch (CertificateException e) {
-        }
-        return debuggable;
     }
 
 }

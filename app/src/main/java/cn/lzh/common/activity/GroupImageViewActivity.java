@@ -15,6 +15,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import cn.lzh.common.R;
+import cn.lzh.common.base.BaseActivity;
 import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.common.utils.BitmapCache;
 import cn.lzh.common.view.GroupImageView;
@@ -24,7 +25,7 @@ import cn.lzh.utils.BitmapUtil;
 /**
  * 群组头像控件演示界面
  */
-public class GroupImageViewActivity extends BaseWatermarkActivity {
+public class GroupImageViewActivity extends BaseActivity {
 
 	private static final int SLEEP_TIME = 1500;
 

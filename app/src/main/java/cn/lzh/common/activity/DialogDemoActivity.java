@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import java.util.Calendar;
 
 import cn.lzh.common.R;
+import cn.lzh.common.base.BaseActivity;
 import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.ui.dialog.BottomDialog;
 import cn.lzh.ui.dialog.ContextDialog;
@@ -25,7 +26,7 @@ import cn.lzh.utils.DateUtil;
  * Created by lzh on 2018/2/26.<br/>
  * 对话框效果演示
  */
-public class DialogDemoActivity extends BaseWatermarkActivity implements View.OnClickListener{
+public class DialogDemoActivity extends BaseActivity implements View.OnClickListener{
 
     private SmartPopupWindow popupWindow;
 

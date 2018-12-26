@@ -7,10 +7,11 @@ import android.view.View;
 import android.widget.Button;
 
 import cn.lzh.common.R;
+import cn.lzh.common.base.BaseActivity;
 import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.common.view.RingProgressBar;
 
-public class RingProgressBarActivity extends BaseWatermarkActivity {
+public class RingProgressBarActivity extends BaseActivity {
     private RingProgressBar mRoundProgressBar1;
     private RingProgressBar mRoundProgressBar2;
     private boolean mIsRunning;
