@@ -53,8 +53,8 @@ public final class DateUtil {
      * @param time 时间毫秒值{@link Calendar#getTimeInMillis()}
      * @return 当指定时间的Unix时间戳
      */
-    public static int getUnixTimestamp(Long time) {
-        return time == null ? 0 : (int) (time / 1000);
+    public static int getUnixTimestamp(long time) {
+        return (int) (time / 1000);
     }
 
     /**
@@ -79,56 +79,50 @@ public final class DateUtil {
     /**
      * 获取日历
      *
-     * @param time        毫秒数 或 unix时间戳
-     * @param isTimestamp 是否为unix时间戳
+     * @param timestamp  unix时间戳
      */
-    public static Calendar getCalendar(@NonNull Long time, boolean isTimestamp) {
+    public static Calendar getCalendar(@NonNull Integer timestamp) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(isTimestamp ? time * 1000 : time);
+        calendar.setTimeInMillis(timestamp * 1000L);
         return calendar;
     }
 
     /**
      * 格式化日期时间
      *
-     * @param time        毫秒数 或 unix时间戳
-     * @param isTimestamp 是否为unix时间戳
+     * @param timestamp  unix时间戳
      */
     @Nullable
-    public static String formatDateTime(@Nullable Long time, boolean isTimestamp) {
-        return time == null ? null : formatDateTime(getCalendar(time, isTimestamp));
+    public static String formatDateTime(@Nullable Integer timestamp) {
+        return timestamp == null ? null : formatDateTime(getCalendar(timestamp));
     }
 
     /**
      * 格式化日期到天
      *
-     * @param time        毫秒数 或 unix时间戳
-     * @param isTimestamp 是否为unix时间戳
+     * @param timestamp  unix时间戳
      */
     @Nullable
-    public static String formatDate(@Nullable Long time, boolean isTimestamp) {
-        return time == null ? null : formatDate(getCalendar(time, isTimestamp));
+    public static String formatDate(@Nullable Integer timestamp) {
+        return timestamp == null ? null : formatDate(getCalendar(timestamp));
     }
-
 
     /**
      * 格式化日期到月份
      *
-     * @param time        毫秒数 或 unix时间戳
-     * @param isTimestamp 是否为unix时间戳
+     * @param timestamp  unix时间戳
      */
-    public static String formatDateShort(@Nullable Long time, boolean isTimestamp) {
-        return time == null ? null : formatDateShort(getCalendar(time, isTimestamp));
+    public static String formatDateShort(@Nullable Integer timestamp) {
+        return timestamp == null ? null : formatDateShort(getCalendar(timestamp));
     }
 
     /**
      * 格式化时间
      *
-     * @param time        毫秒数 或 unix时间戳
-     * @param isTimestamp 是否为unix时间戳
+     * @param timestamp  unix时间戳
      */
-    public static String formatTime(@Nullable Long time, boolean isTimestamp) {
-        return time == null ? null : formatTime(getCalendar(time, isTimestamp));
+    public static String formatTime(@Nullable Integer timestamp) {
+        return timestamp == null ? null : formatTime(getCalendar(timestamp));
     }
 
     /**
