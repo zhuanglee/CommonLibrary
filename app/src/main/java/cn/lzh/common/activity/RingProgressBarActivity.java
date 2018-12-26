@@ -14,31 +14,30 @@ import cn.lzh.common.view.RingProgressBar;
 public class RingProgressBarActivity extends BaseActivity {
     private RingProgressBar mRoundProgressBar1;
     private RingProgressBar mRoundProgressBar2;
+    private Button mBtnStart;
     private boolean mIsRunning;
     private int progress;
     private boolean mIsIncrement = true;
+
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            if (mIsRunning) {
-                if (mIsIncrement) {
-                    progress++;
-                } else {
-                    progress--;
-                }
-                if (progress == 100) {
-                    mIsIncrement = false;
-                } else if (progress == 0) {
-                    mIsIncrement = true;
-                }
-                mRoundProgressBar1.setProgress(progress);
-                mRoundProgressBar2.setProgress(progress);
-                handler.sendMessageDelayed(handler.obtainMessage(0), 100);
+            if (mIsIncrement) {
+                progress++;
+            } else {
+                progress--;
             }
+            if (progress == 100) {
+                mIsIncrement = false;
+            } else if (progress == 0) {
+                mIsIncrement = true;
+            }
+            mRoundProgressBar1.setProgress(progress);
+            mRoundProgressBar2.setProgress(progress);
+            handler.sendMessageDelayed(handler.obtainMessage(0), 100);
             return true;
         }
     });
-    private Button mBtnStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +61,24 @@ public class RingProgressBarActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(mIsRunning){
+            handler.sendEmptyMessage(0);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mIsRunning){
+            handler.removeCallbacksAndMessages(null);
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         mIsRunning = false;
-        handler.removeCallbacksAndMessages(null);
         handler = null;
         super.onDestroy();
     }

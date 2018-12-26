@@ -43,10 +43,10 @@ public class YearMonthPickerDialog extends DatePickerDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LinearLayout mSpinners = (LinearLayout) findViewById(getContext().getResources().getIdentifier("android:id/pickers", null, null));
+        LinearLayout mSpinners = findViewById(getContext().getResources().getIdentifier("android:id/pickers", null, null));
         if (mSpinners != null) {
-            NumberPicker mYearSpinner = (NumberPicker) findViewById(getContext().getResources().getIdentifier("android:id/year", null, null));
-            NumberPicker mMonthSpinner = (NumberPicker) findViewById(getContext().getResources().getIdentifier("android:id/month", null, null));
+            NumberPicker mYearSpinner = findViewById(getContext().getResources().getIdentifier("android:id/year", null, null));
+            NumberPicker mMonthSpinner = findViewById(getContext().getResources().getIdentifier("android:id/month", null, null));
             mSpinners.removeAllViews();
             if (mYearSpinner != null) {
                 mSpinners.addView(mYearSpinner);
@@ -72,16 +72,18 @@ public class YearMonthPickerDialog extends DatePickerDialog {
      * 设置固定的标题
      * @param text
      */
-    public void setFixTitle(String text){
+    public YearMonthPickerDialog setFixTitle(String text){
         mFixTitle = text;
+        return this;
     }
 
     /**
      * 设置固定的标题
      * @param resId
      */
-    public void setFixTitle(@StringRes int resId){
+    public YearMonthPickerDialog setFixTitle(@StringRes int resId){
         mFixTitle = getContext().getString(resId);
+        return this;
     }
 
 

@@ -14,7 +14,7 @@ import java.util.Locale;
 import cn.lzh.common.R;
 import cn.lzh.common.base.BaseActivity;
 import cn.lzh.common.databinding.ActivityUtilBinding;
-import cn.lzh.common.receiver.NetworkStateReceiver;
+import cn.lzh.utils.recevier.NetworkStateReceiver;
 import cn.lzh.utils.DeviceUtil;
 import cn.lzh.utils.DrawableUtil;
 import cn.lzh.utils.IntentUtil;

@@ -43,7 +43,7 @@
             android:name="cn.lzh.common.activity.UtilActivity"
             android:launchMode="singleTop" />
 
-        <receiver android:name=".receiver.NetworkStateReceiver"/>
+        <receiver android:name="cn.lzh.utils.recevier.NetworkStateReceiver"/>
     </application>
 
 </manifest>

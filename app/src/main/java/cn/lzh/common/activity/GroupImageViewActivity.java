@@ -1,6 +1,7 @@
 package cn.lzh.common.activity;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -94,24 +95,15 @@ public class GroupImageViewActivity extends BaseActivity {
 				for (int resId : resIds) {
 					bitmap = mBitmapCache.get("" + resId);
 					if (bitmap == null || bitmap.isRecycled()) {
-						bitmap = BitmapUtil.getBitmap(
-								GroupImageViewActivity.this, resId);
+						bitmap = BitmapFactory.decodeResource(getResources(), resId);
 						mBitmapCache.put("" + resId, bitmap);
 					}
 					mBitmaps.add(bitmap);
-					runOnUiThread(new Runnable() {
-						public void run() {
-							mGroupImageView1.setImageBitmaps(mBitmaps);
-						}
-					});
+					runOnUiThread(() -> mGroupImageView1.setImageBitmaps(mBitmaps));
 					SystemClock.sleep(SLEEP_TIME);
 				}
 				mBitmaps.clear();
-				runOnUiThread(new Runnable() {
-					public void run() {
-						mGroupImageView1.setBackgroundColor(Color.RED);
-					}
-				});
+				runOnUiThread(() -> mGroupImageView1.setBackgroundColor(Color.RED));
 				SystemClock.sleep(SLEEP_TIME);
 			}
 		}
