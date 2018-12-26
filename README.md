@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.zhuanglee.CommonLibrary:utils:v0.5.7'
-    implementation 'com.github.zhuanglee.CommonLibrary:ui:v0.5.7'
+    implementation 'com.github.zhuanglee.CommonLibrary:utils:1.0.0'
+    implementation 'com.github.zhuanglee.CommonLibrary:ui:1.0.0'
 }
 ```
