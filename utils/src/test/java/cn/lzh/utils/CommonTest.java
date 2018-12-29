@@ -2,9 +2,9 @@ package cn.lzh.utils;
 
 import org.junit.Test;
 
-import cn.lzh.utils.security.BinaryUtil;
 import cn.lzh.utils.security.ByteUtil;
 import cn.lzh.utils.security.DES;
+import cn.lzh.utils.security.MD5Util;
 
 /**
  * Created by lzh on 2017/9/18.<br/>
@@ -30,7 +30,7 @@ public class CommonTest {
     @Test
     public void testMD5() {
         String text = "测试MD5加密";
-        String md5 = BinaryUtil.getMd5StrFromBytes(BinaryUtil.md5(text.getBytes()));
+        String md5 = MD5Util.getMd5(text);
         System.out.println("md5=" + md5);
         assert "7b78acb12c955bfe233469aa4bfa7fe0".equals(md5);
     }

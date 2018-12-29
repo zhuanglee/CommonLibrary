@@ -10,7 +10,7 @@ import android.util.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import cn.lzh.utils.security.BinaryUtil;
+import cn.lzh.utils.security.Base64Util;
 
 /**
  * Created by lzh on 2017/9/18.<br/>
@@ -30,9 +30,9 @@ public class CommonAndroidTest {
     @Test
     public void testBase64() {
         String text = "测试Base64加密";
-        String base64 = BinaryUtil.encodeBase64(text);
+        String base64 = Base64Util.encodeBase64(text);
         log("base64=" + base64);
-        assert text.equals(BinaryUtil.decodeBase64(base64));
+        assert text.equals(Base64Util.decodeBase64(base64));
     }
 
     @Test
