@@ -201,17 +201,9 @@ public final class PathUtils {
         if (pathFrom.equalsIgnoreCase(pathTo)) {
             return;
         }
-
-        FileChannel outputChannel = null;
-        FileChannel inputChannel = null;
-        try {
-            inputChannel = new FileInputStream(new File(pathFrom)).getChannel();
-            outputChannel = new FileOutputStream(new File(pathTo)).getChannel();
+        try (FileChannel outputChannel = new FileOutputStream(new File(pathTo)).getChannel();
+             FileChannel inputChannel = new FileInputStream(new File(pathFrom)).getChannel()) {
             inputChannel.transferTo(0, inputChannel.size(), outputChannel);
-            inputChannel.close();
-        } finally {
-            if (inputChannel != null) inputChannel.close();
-            if (outputChannel != null) outputChannel.close();
         }
     }
 
