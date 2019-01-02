@@ -17,18 +17,12 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-
-import androidx.exifinterface.media.ExifInterface;
-import cn.lzh.utils.io.CloseableUtils;
-
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
-import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -38,6 +32,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import cn.lzh.utils.io.CloseableUtils;
 
 /**
  * 图片处理工具类
@@ -104,21 +100,34 @@ public class BitmapUtil {
      */
     @Nullable
     public static Bitmap getBitmap(File file, int width, int height) {
+        return getBitmap(file.getPath(), width, height);
+    }
+
+    /**
+     * 获取本地图片
+     *
+     * @param path   图片文件
+     * @param width  目标宽度
+     * @param height 目标高度
+     * @return Bitmap
+     */
+    @Nullable
+    public static Bitmap getBitmap(String path, int width, int height) {
         Options opts = new Options();
         if (width > 0 && height > 0) {
             opts.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(file.toString(), opts);
+            BitmapFactory.decodeFile(path, opts);
             opts.inSampleSize = computeSampleSize(opts, width, height);
             opts.inJustDecodeBounds = false;
         }
-        return BitmapFactory.decodeFile(file.toString(), opts);
+        return BitmapFactory.decodeFile(path, opts);
     }
 
     /**
      * 加载本地图片
      *
      * @param context  Context
-     * @param localUri Uri
+     * @param localUri Uri {@link android.content.ContentResolver#openInputStream(Uri)}
      * @return Bitmap
      */
     @Nullable
@@ -281,40 +290,6 @@ public class BitmapUtil {
     public static boolean saveImage(@NonNull Bitmap bitmap, @NonNull String filePath,
                                     @NonNull CompressFormat format) {
         return saveImage(bitmap, new File(filePath), format);
-    }
-
-    /**
-     * 读取旋转角度
-     *
-     * @param path 图片路径
-     * @return Bitmap
-     */
-    @Deprecated
-    public static int readPictureDegree(@NonNull String path) {
-        int degree = 0;
-        try {
-            ExifInterface exifInterface = new ExifInterface(path);
-            int orientation = exifInterface.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION, -1);
-            switch (orientation) {
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    degree = 90;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    degree = 180;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    degree = 270;
-                    break;
-                case ExifInterface.ORIENTATION_NORMAL:
-                case ExifInterface.ORIENTATION_UNDEFINED:
-                case -1:
-                    break;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return degree;
     }
 
     /**

@@ -39,5 +39,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     // Android Support Library
     implementation rootProject.ext.dependencies['appcompat-v7']
-    implementation 'androidx.exifinterface:exifinterface:1.0.0'
 }
