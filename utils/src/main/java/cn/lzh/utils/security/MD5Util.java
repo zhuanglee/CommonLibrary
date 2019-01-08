@@ -17,7 +17,7 @@ import cn.lzh.utils.io.CloseableUtils;
 /**
  * Created by lzh on 2018/12/29.<br/>
  */
-public class MD5Util {
+public final class MD5Util {
 
     private static final String MD5 = "MD5";
 

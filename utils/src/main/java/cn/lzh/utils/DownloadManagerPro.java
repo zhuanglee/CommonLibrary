@@ -58,7 +58,6 @@ import java.util.Map;
  *
  * @author jingle1267@163.com
  */
-@Deprecated
 @SuppressLint("InlinedApi")
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class DownloadManagerPro {
@@ -245,10 +244,11 @@ public class DownloadManagerPro {
      * @param downloadId
      * @return
      */
-    public String getFileName(long downloadId) {
+    public String getFileName(long downloadId) throws Exception{
         String fileName;
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            fileName = Uri.parse(getString(downloadId, DownloadManager.COLUMN_LOCAL_URI)).getPath();
+            String localUri = getString(downloadId, DownloadManager.COLUMN_LOCAL_URI);
+            fileName = localUri == null ? null : Uri.parse(localUri).getPath();
         }else{
             //DownloadManager.COLUMN_LOCAL_FILENAME Android7.0 会报异常
             fileName = getString(downloadId, DownloadManager.COLUMN_LOCAL_FILENAME);
