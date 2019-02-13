@@ -88,6 +88,17 @@ public final class DateUtil {
     }
 
     /**
+     * 获取日历
+     *
+     * @param timestamp  unix时间戳
+     */
+    public static Calendar getCalendar(long timestamp) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestamp);
+        return calendar;
+    }
+
+    /**
      * 格式化日期时间
      *
      * @param timestamp  unix时间戳
