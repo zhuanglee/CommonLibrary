@@ -214,8 +214,6 @@ public abstract class BaseActivity extends BaseWatermarkActivity {
         WaitingDialog.dismissAndRelease(mWaitingDialog);
         mWaitingDialog = null;
         super.onDestroy();
-//        fixHuaWeiMemoryLeak();
-//        fixInputMethodManagerLeak(this);
     }
 
 
@@ -225,69 +223,6 @@ public abstract class BaseActivity extends BaseWatermarkActivity {
     protected void hideSoftInput() {
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
-    }
-
-    /**
-     * 修复华为手机内存的泄露
-     */
-    public void fixHuaWeiMemoryLeak(){
-        //测试
-        try {
-            Class<?> GestureBoostManagerClass = Class.forName("android.gestureboost.GestureBoostManager");
-            Field sGestureBoostManagerField = GestureBoostManagerClass.getDeclaredField("sGestureBoostManager");
-            sGestureBoostManagerField.setAccessible(true);
-            Object gestureBoostManager = sGestureBoostManagerField.get(GestureBoostManagerClass);
-            Field contextField = GestureBoostManagerClass.getDeclaredField("mContext");
-            contextField.setAccessible(true);
-            if (contextField.get(gestureBoostManager)==this) {
-                contextField.set(gestureBoostManager, null);
-            }
-        }  catch (Throwable t) {
-//            t.printStackTrace();
-            // 忽略该异常
-        }
-
-    }
-
-    /**
-     * 修复InputMethodManager导致Activity的内存泄露<br/>
-     * 问题链接：http://blog.csdn.net/sodino/article/details/32188809
-     * @param destContext
-     */
-    private void fixInputMethodManagerLeak(Context destContext) {
-        if (destContext == null) {
-            return;
-        }
-
-        InputMethodManager imm = (InputMethodManager) destContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm == null) {
-            return;
-        }
-
-        String[] arr = new String[]{"mLastSrvView","mCurRootView", "mServedView", "mNextServedView"};
-        Field f = null;
-        Object obj_get = null;
-        for (int i = 0; i < arr.length; i++) {
-            String param = arr[i];
-            try {
-                f = imm.getClass().getDeclaredField(param);
-                if (!f.isAccessible()) {
-                    f.setAccessible(true);
-                }
-                obj_get = f.get(imm);
-                if (obj_get != null && obj_get instanceof View) {
-                    View v_get = (View) obj_get;
-                    if (v_get.getContext() == destContext) { // 被InputMethodManager持有引用的context是想要目标销毁的
-                        f.set(imm, null); // 置空，破坏掉path to gc节点
-                    } else {
-                        // 不是想要目标销毁的，即为又进了另一层界面了，不要处理，避免影响原逻辑,也就不用继续for循环了
-                        break;
-                    }
-                }
-            } catch (Throwable t) {
-//                t.printStackTrace();
-            }
-        }
     }
 
 }
