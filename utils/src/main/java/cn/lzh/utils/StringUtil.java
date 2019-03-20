@@ -408,11 +408,15 @@ public class StringUtil {
 	 * @param color 特殊文本（start-end之间的文本）的颜色
 	 */
 	public static SpannableString getColorfulText(String text, int start, int end, @ColorInt int color){
-		SpannableString colorfulText = new SpannableString(text);
-		if (end <= text.length()) {
-			colorfulText.setSpan(new ForegroundColorSpan(color),
-					start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		if(start > end){
+			throw new IllegalArgumentException("start > end");
 		}
+		if (end > text.length()) {
+			end = text.length();
+		}
+		SpannableString colorfulText = new SpannableString(text);
+		colorfulText.setSpan(new ForegroundColorSpan(color),
+				start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		return colorfulText;
 	}
 
