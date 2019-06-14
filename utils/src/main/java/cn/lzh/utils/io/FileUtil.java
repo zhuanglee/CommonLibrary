@@ -62,7 +62,7 @@ public class FileUtil {
         try {
             InputStreamReader is = new InputStreamReader(new FileInputStream(file), charsetName);
             reader = new BufferedReader(is);
-            String line = null;
+            String line;
             while ((line = reader.readLine()) != null) {
                 if (!fileContent.toString().equals("")) {
                     fileContent.append("\r\n");
