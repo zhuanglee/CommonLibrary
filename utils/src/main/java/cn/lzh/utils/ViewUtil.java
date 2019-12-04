@@ -29,7 +29,7 @@ public class ViewUtil {
      */
     public static String getText(EditText et){
         CharSequence hint = et.getHint();
-        return getText(et, hint == null ? null :hint.toString());
+        return getText(et, hint == null ? null : hint.toString());
     }
 
     /**

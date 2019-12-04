@@ -1,6 +1,8 @@
 package cn.lzh.utils;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.annotation.UiThread;
@@ -18,8 +20,9 @@ import android.widget.Toast;
  * @author from open source
  */
 public final class ToastUtil {
-    private static Toast mToast;
-    private static Context mAppContext;
+    private static Toast sToast;
+    private static Context sAppContext;
+    private static Handler sHandler = new Handler(Looper.getMainLooper());
 
     private ToastUtil() {
         throw new UnsupportedOperationException("Cannot be instantiated");
@@ -27,42 +30,40 @@ public final class ToastUtil {
 
     @UiThread
     public static void init(@NonNull Context context){
-        mAppContext = context.getApplicationContext();
-        mToast = new Toast(mAppContext);
-        mToast.setView(LayoutInflater.from(context).inflate(R.layout.transient_notification, null));
+        sAppContext = context.getApplicationContext();
+        sToast = new Toast(sAppContext);
+        sToast.setView(LayoutInflater.from(context).inflate(R.layout.transient_notification, null));
     }
 
-    public static void setView(View view){
-        if(mToast == null){
-            throw new IllegalStateException("mToast is null, must be invoke init method");
+    public static void setView(@NonNull View view){
+        if(sToast == null){
+            throw new IllegalStateException("sToast is null, must be invoke init method");
         }
-        mToast.setView(view);
+        sHandler.post(()-> sToast.setView(view));
     }
 
-    @UiThread
     public static void show(@NonNull String text, int duration) {
-        if(mToast == null){
-            throw new IllegalStateException("mToast is null, must be invoke init method");
+        if(sToast == null){
+            throw new IllegalStateException("sToast is null, must be invoke init method");
         }
-        mToast.setText(text);
-        mToast.setDuration(duration);
-        mToast.show();
+        sHandler.post(()->{
+            sToast.setText(text);
+            sToast.setDuration(duration);
+            sToast.show();
+        });
     }
 
-    @UiThread
     public static void show(@StringRes int text, int duration) {
-        if(mAppContext == null){
-            throw new IllegalStateException("mAppContext is null, must be invoke init method");
+        if(sAppContext == null){
+            throw new IllegalStateException("sAppContext is null, must be invoke init method");
         }
-        show(mAppContext.getString(text), duration);
+        show(sAppContext.getString(text), duration);
     }
 
-    @UiThread
     public static void show(@NonNull String text) {
         show(text, Toast.LENGTH_SHORT);
     }
 
-    @UiThread
     public static void show(@StringRes int text) {
         show(text, Toast.LENGTH_SHORT);
     }

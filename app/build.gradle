@@ -7,8 +7,8 @@ android {
         minSdkVersion rootProject.ext.version.minSdk
         targetSdkVersion rootProject.ext.version.targetSdk
         applicationId "cn.lzh.commonlibrary"
-        versionCode rootProject.ext.version.code
-        versionName rootProject.ext.version.name
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         dataBinding {
             enabled = true

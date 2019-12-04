@@ -82,12 +82,7 @@ public final class SystemUtil {
     public static int getCpuCoreNumber() {
         try {
             File dir = new File("/sys/devices/system/cpu/");
-            File[] files = dir.listFiles(new FileFilter() {
-                @Override
-                public boolean accept(File pathname) {
-                    return Pattern.matches("cpu[0-9]", pathname.getName());
-                }
-            });
+            File[] files = dir.listFiles(pathname -> Pattern.matches("cpu[0-9]", pathname.getName()));
             return files.length;
         } catch (Exception e) {
             return 1;
@@ -147,7 +142,7 @@ public final class SystemUtil {
      * MEID（Mobile Equipment Identifier）移动设备识别码，是CDMA手机的身份识别码<br/>
      *
      * @param context Context
-     * @deprecated 不准确，且需要READ_PHONE_STATE权限
+     * @deprecated 不准确，且需要 READ_PHONE_STATE 权限
      * @return 设备ID
      */
     @Deprecated
@@ -424,7 +419,7 @@ public final class SystemUtil {
      */
     public static boolean isART() {
         String currentRuntime = getCurrentRuntimeValue();
-        return "ART".equals(currentRuntime) || "ART debug build".equals(currentRuntime);
+        return "ART".equals(currentRuntime) || "ART-DEBUG".equals(currentRuntime);
     }
 
     /**
@@ -448,41 +443,33 @@ public final class SystemUtil {
      *
      * @return 正常情况下可能取值Dalvik, ART, ART debug build;
      */
+    @Nullable
     public static String getCurrentRuntimeValue() {
         try {
             Class<?> systemProperties = Class.forName("android.os.SystemProperties");
-            try {
-                Method get = systemProperties.getMethod("get",
-                        String.class, String.class);
-                if (get == null) {
-                    return "WTF?!";
-                }
-                try {
-                    final String value = (String) get.invoke(
-                            systemProperties, "persist.sys.dalvik.vm.lib",
-                            /* Assuming default is */"Dalvik");
-                    if ("libdvm.so".equals(value)) {
-                        return "Dalvik";
-                    } else if ("libart.so".equals(value)) {
-                        return "ART";
-                    } else if ("libartd.so".equals(value)) {
-                        return "ART debug build";
-                    }
-
-                    return value;
-                } catch (IllegalAccessException e) {
-                    return "IllegalAccessException";
-                } catch (IllegalArgumentException e) {
-                    return "IllegalArgumentException";
-                } catch (InvocationTargetException e) {
-                    return "InvocationTargetException";
-                }
-            } catch (NoSuchMethodException e) {
-                return "SystemProperties.get(String key, String def) method is not found";
+            Method get = systemProperties.getMethod("get",
+                    String.class, String.class);
+            final String value = (String) get.invoke(
+                    systemProperties, "persist.sys.dalvik.vm.lib",
+                    /* Assuming default is */"Dalvik");
+            if ("libdvm.so".equals(value)) {
+                return "Dalvik";
+            } else if ("libart.so".equals(value)) {
+                return "ART";
+            } else if ("libartd.so".equals(value)) {
+                return "ART-DEBUG";
             }
+            return value;
         } catch (ClassNotFoundException e) {
-            return "SystemProperties class is not found";
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
 

@@ -2,6 +2,7 @@ package cn.lzh.utils;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 
 import java.text.ParseException;
@@ -34,7 +35,9 @@ public final class DateUtil {
      * @param datetime 格式："yyyy-MM-dd HH:mm:ss"
      * @return 日期时间
      */
-    public static Date parseDateTime(@NonNull String datetime) throws ParseException {
+    @Nullable
+    public static Date parseDateTime(@Nullable String datetime) throws ParseException {
+        if(TextUtils.isEmpty(datetime)) return null;
         return DATE_TIME_FORMAT.parse(datetime);
     }
 
@@ -44,7 +47,9 @@ public final class DateUtil {
      * @param datetime 格式："yyyy-MM-dd"
      * @return 日期
      */
-    public static Date parseDate(@NonNull String datetime) throws ParseException {
+    @Nullable
+    public static Date parseDate(@Nullable String datetime) throws ParseException {
+        if(TextUtils.isEmpty(datetime)) return null;
         return DATE_FORMAT.parse(datetime);
     }
 
@@ -61,19 +66,19 @@ public final class DateUtil {
      * 获取Unix时间戳
      *
      * @param calendar 日历实例
-     * @return calendar日期对应的 Unix时间戳
+     * @return Unix 时间戳
      */
     public static int getUnixTimestamp(Calendar calendar) {
         return getUnixTimestamp(calendar.getTimeInMillis());
     }
 
     /**
-     * 获取当前时间的Unix时间戳
+     * 获取当前时间的 Unix 时间戳
      *
      * @return 当前时间的Unix时间戳
      */
     public static int getUnixTimestamp() {
-        return getUnixTimestamp(System.currentTimeMillis());
+        return getUnixTimestamp(Calendar.getInstance().getTimeInMillis());
     }
 
     /**
@@ -123,6 +128,7 @@ public final class DateUtil {
      *
      * @param timestamp  unix时间戳
      */
+    @Nullable
     public static String formatDateShort(@Nullable Integer timestamp) {
         return timestamp == null ? null : formatDateShort(getCalendar(timestamp));
     }
@@ -132,6 +138,7 @@ public final class DateUtil {
      *
      * @param timestamp  unix时间戳
      */
+    @Nullable
     public static String formatTime(@Nullable Integer timestamp) {
         return timestamp == null ? null : formatTime(getCalendar(timestamp));
     }
@@ -141,16 +148,28 @@ public final class DateUtil {
      * @param format 格式
      * @param datetime 日期时间字符串
      */
-    public static String format(String format, String datetime) throws ParseException {
-        return DateFormat.format(format, parseDateTime(datetime)).toString();
+    @Nullable
+    public static String format(String format,@Nullable String datetime){
+        if(TextUtils.isEmpty(datetime)) return null;
+        try {
+            return DateFormat.format(format, parseDateTime(datetime)).toString();
+        } catch (ParseException e) {
+            return datetime;
+        }
     }
 
     /**
      * 格式化日期字符串
      * @param datetime 日期时间字符串
      */
-    public static String formatDate(@NonNull String datetime) throws ParseException {
-        return formatDate(parseDateTime(datetime));
+    @Nullable
+    public static String formatDate(@Nullable String datetime){
+        if(TextUtils.isEmpty(datetime)) return null;
+        try {
+            return DateFormat.format(FORMAT_DATE, parseDateTime(datetime)).toString();
+        } catch (ParseException e) {
+            return datetime;
+        }
     }
 
     public static String formatDateTime(@NonNull Calendar date) {

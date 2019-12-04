@@ -137,7 +137,7 @@ public class StringUtil {
 	 */
 	public static String formatPhone(String phone) {
 		if (TextUtils.isEmpty(phone)) {
-			return "号码为空";
+			return "";
 		}
 		if (phone.contains("-"))
 			phone = phone.replace("-", "");
@@ -294,7 +294,7 @@ public class StringUtil {
 		}
 
 		char c = str.charAt(0);
-		return (!Character.isLetter(c) || Character.isUpperCase(c)) ? str : String.valueOf(Character.toUpperCase(c)) + str.substring(1);
+		return (!Character.isLetter(c) || Character.isUpperCase(c)) ? str : Character.toUpperCase(c) + str.substring(1);
 	}
 
 	/**
@@ -308,13 +308,9 @@ public class StringUtil {
 	 * </pre>
 	 *
 	 * @param str String
-	 * @throws UnsupportedEncodingException if an error occurs
 	 */
-	public static String utf8Encode(String str) throws UnsupportedEncodingException {
-		if (!isBlank(str) && str.getBytes().length != str.length()) {
-			return URLEncoder.encode(str, "UTF-8");
-		}
-		return str;
+	public static String utf8Encode(String str) {
+		return utf8Encode(str, str);
 	}
 
 	/**
