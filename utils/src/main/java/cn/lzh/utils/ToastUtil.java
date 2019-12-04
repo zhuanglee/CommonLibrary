@@ -3,6 +3,7 @@ package cn.lzh.utils;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.annotation.UiThread;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 /**
  * 持有一个Toast实例，后一次的提示会覆盖前一次的提示
  * @see #init(Context)
+ * @see #setView(int)
  * @see #show(int)
  * @see #show(String)
  * @see #show(int, int)
@@ -32,19 +34,30 @@ public final class ToastUtil {
     public static void init(@NonNull Context context){
         sAppContext = context.getApplicationContext();
         sToast = new Toast(sAppContext);
-        sToast.setView(LayoutInflater.from(context).inflate(R.layout.transient_notification, null));
+        setView(R.layout.transient_notification);
+    }
+
+    /**
+     * 设置 Toast 布局
+     * @param layoutId 布局id
+     */
+    public static void setView(@LayoutRes int layoutId){
+        if(sAppContext == null || sToast == null){
+            throw new IllegalStateException("must be invoke init method");
+        }
+        sHandler.post(()-> sToast.setView(LayoutInflater.from(sAppContext).inflate(layoutId, null)));
     }
 
     public static void setView(@NonNull View view){
         if(sToast == null){
-            throw new IllegalStateException("sToast is null, must be invoke init method");
+            throw new IllegalStateException("must be invoke init method");
         }
         sHandler.post(()-> sToast.setView(view));
     }
 
     public static void show(@NonNull String text, int duration) {
         if(sToast == null){
-            throw new IllegalStateException("sToast is null, must be invoke init method");
+            throw new IllegalStateException("must be invoke init method");
         }
         sHandler.post(()->{
             sToast.setText(text);
@@ -55,7 +68,7 @@ public final class ToastUtil {
 
     public static void show(@StringRes int text, int duration) {
         if(sAppContext == null){
-            throw new IllegalStateException("sAppContext is null, must be invoke init method");
+            throw new IllegalStateException("must be invoke init method");
         }
         show(sAppContext.getString(text), duration);
     }

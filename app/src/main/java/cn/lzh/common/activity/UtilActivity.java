@@ -14,6 +14,7 @@ import java.util.Locale;
 import cn.lzh.common.R;
 import cn.lzh.common.base.BaseActivity;
 import cn.lzh.common.databinding.ActivityUtilBinding;
+import cn.lzh.utils.ToastUtil;
 import cn.lzh.utils.recevier.NetworkStateReceiver;
 import cn.lzh.utils.DeviceUtil;
 import cn.lzh.utils.DrawableUtil;
@@ -35,6 +36,7 @@ public class UtilActivity extends BaseActivity implements View.OnClickListener, 
         initToolbar(true);
         networkStateReceiver = new NetworkStateReceiver(this);
         mRadius = DeviceUtil.dip2px(this, 5);
+        new Thread(()-> ToastUtil.show("currentThread=" + Thread.currentThread().getName())).start();
     }
 
     @Override
