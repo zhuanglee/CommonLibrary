@@ -29,16 +29,4 @@
         <attr name="circleRadius" format="reference|dimension" />
     </declare-styleable>
 
-    <!-- 自定义组合头像控件 -->
-    <declare-styleable name="GroupImageView">
-        <!-- 背景颜色 -->
-        <attr name="colorBG" format="color|reference" />
-        <!-- 背景圆角 -->
-        <attr name="bgRoundRectRadius" format="dimension|reference" />
-        <!-- 水平间距 -->
-        <attr name="horizontalSpace" format="dimension|reference" />
-        <!-- 垂直间距 -->
-        <attr name="verticalSpace" format="dimension|reference" />
-    </declare-styleable>
-
 </resources>

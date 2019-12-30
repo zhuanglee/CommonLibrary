@@ -10,15 +10,15 @@ import cn.lzh.utils.AbstractLruCache;
 public class BitmapCache extends AbstractLruCache<Bitmap> {
     @Override
     protected int getSizeOf(Bitmap value) {
-        return value.getRowBytes()*value.getHeight();
+        return value.getRowBytes() * value.getHeight();
     }
 
     private static BitmapCache mInstance;
 
     public static BitmapCache getInstance() {
-        if(mInstance == null){
-            synchronized (BitmapCache.class){
-                if(mInstance == null){
+        if (mInstance == null) {
+            synchronized (BitmapCache.class) {
+                if (mInstance == null) {
                     mInstance = new BitmapCache();
                 }
             }
