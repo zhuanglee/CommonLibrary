@@ -8,7 +8,8 @@ import java.lang.reflect.Field;
 
 /**
  * 修复内存泄露的工具类
- * @author from open source
+ *
+ * @author open source
  */
 public final class FixMemoryLeakHelper {
 
@@ -20,7 +21,6 @@ public final class FixMemoryLeakHelper {
      * 修复华为手机内存的泄露
      */
     public static void fixHuaWeiMemoryLeak(Context context) {
-        //测试
         try {
             Class<?> clazz = Class.forName("android.gestureboost.GestureBoostManager");
             Field field = clazz.getDeclaredField("sGestureBoostManager");

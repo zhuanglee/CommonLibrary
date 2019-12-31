@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * ShellUtil
+ * @author open source
  * <ul>
  * <strong>Check root</strong>
  * <li>{@link ShellUtil#checkRootPermission()}</li>
@@ -21,10 +22,8 @@ import java.util.List;
  * <li>{@link ShellUtil#execCommand(String[], boolean)}</li>
  * <li>{@link ShellUtil#execCommand(String[], boolean, boolean)}</li>
  * </ul>
- * 
- * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2013-5-16
+ *
  */
-@Deprecated
 public class ShellUtil {
 
     public static final String COMMAND_SU       = "su";

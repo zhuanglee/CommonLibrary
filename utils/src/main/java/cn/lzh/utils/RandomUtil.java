@@ -8,6 +8,7 @@ import java.util.Random;
 
 /**
  * Random Utils
+ * @author open source
  * <ul>
  * Shuffling algorithm
  * <li>{@link #shuffle(Object[])} Shuffling algorithm, Randomly permutes the specified array using a default source of
@@ -34,8 +35,7 @@ import java.util.Random;
  * <li>{@link #getRandom(String, int)} get a fixed-length random string, its a mixture of chars in source</li>
  * <li>{@link #getRandom(char[], int)} get a fixed-length random string, its a mixture of chars in sourceChar</li>
  * </ul>
- * 
- * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2012-5-12
+ *
  */
 public class RandomUtil {
 

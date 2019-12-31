@@ -17,11 +17,9 @@ import android.support.annotation.RequiresPermission;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -30,12 +28,11 @@ import java.net.Inet4Address;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
  * SystemUtil
- * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2013-5-15
+ * @author open source
  * @see #isART() isART
  * @see #isApplicationInBackground(Context) isApplicationInBackground
  * @see #isDalvik() isDalvik
@@ -135,7 +132,7 @@ public final class SystemUtil {
     }
 
     /**
-     * 获取设备ID：
+     * 获取设备ID：<br/>
      * GSM（Global System for Mobile Communications）全球移动通讯系统<br/>
      * IMEI（International Mobile Equipment Identity）国际移动设备识别码，是GSM手机的身份识别码<br/>
      * CDMA（Code Division Multiple Access）码分多址<br/>
@@ -143,26 +140,23 @@ public final class SystemUtil {
      *
      * @param context Context
      * @deprecated 不准确，且需要 READ_PHONE_STATE 权限
-     * @return 设备ID
      */
     @Deprecated
     @Nullable
+    @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     public static String getDeviceId(Context context) {
-        String deviceId = null;
-        Context appContext = context.getApplicationContext();
-        if (ActivityCompat.checkSelfPermission(appContext, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-            TelephonyManager tm = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-            if(tm == null){
-                return null;
+        String deviceId;
+        TelephonyManager tm = (TelephonyManager) context.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+        if(tm == null){
+            return null;
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            deviceId = tm.getImei();
+            if(deviceId == null){
+                deviceId = tm.getMeid();
             }
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                deviceId = tm.getImei();
-                if(deviceId == null){
-                    deviceId = tm.getMeid();
-                }
-            }else{
-                deviceId = tm.getDeviceId();
-            }
+        }else{
+            deviceId = tm.getDeviceId();
         }
         return deviceId;
     }

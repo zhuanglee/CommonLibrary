@@ -29,6 +29,7 @@ import java.util.Map;
 
 /**
  * DownloadManagerPro
+ * @author open source
  * <ul>
  * <strong>Get download info</strong>
  * <li>{@link #getStatusById(long)} get download status</li>
@@ -56,7 +57,6 @@ import java.util.Map;
  * <li>{@link RequestPro#setNotiExtras(String)} set noti extras</li>
  * </ul>
  *
- * @author jingle1267@163.com
  */
 @SuppressLint("InlinedApi")
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)

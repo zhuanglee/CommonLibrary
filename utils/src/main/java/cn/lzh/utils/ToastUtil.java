@@ -19,7 +19,6 @@ import android.widget.Toast;
  * @see #show(String)
  * @see #show(int, int)
  * @see #show(String, int)
- * @author from open source
  */
 public final class ToastUtil {
     private static Toast sToast;

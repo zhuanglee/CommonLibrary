@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 /**
  * 字符串相关操作
  *
- * @author from open source
+ * @author open source
  * @see #isBlank(String) isBlank
  * @see #isChinese(char) isChinese
  * @see #isChinese(String) isChinese

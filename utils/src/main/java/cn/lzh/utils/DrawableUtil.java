@@ -16,7 +16,7 @@ import android.support.annotation.NonNull;
 import java.util.Random;
 
 /**
- * @author from open source
+ * @author open source
  * @see #getColorDrawable(int, float) getColorDrawable
  * @see #getGradientColor(int, int, float) getGradientColor
  * @see #getGradientDrawable(int[], float) getGradientDrawable
@@ -107,6 +107,7 @@ public final class DrawableUtil {
 	 * @param argb 颜色
 	 * @param radius 圆角
 	 */
+	@NonNull
 	public static Drawable getColorDrawable(@ColorInt int argb, float radius) {
 		GradientDrawable gd = new GradientDrawable();
 		gd.setShape(GradientDrawable.RECTANGLE);// 默认就是GradientDrawable.RECTANGLE
@@ -120,6 +121,7 @@ public final class DrawableUtil {
 	 *
 	 * @param radius 圆角
 	 */
+	@NonNull
 	public static Drawable getRandomColorDrawable(float radius) {
 		return getColorDrawable(getRandomColor(), radius);
 	}
@@ -129,14 +131,9 @@ public final class DrawableUtil {
 	 *
 	 * @param radius 圆角
 	 */
+	@NonNull
 	public static StateListDrawable getRandomColorSelector(float radius) {
-		StateListDrawable selector = new StateListDrawable();
-		// 添加Pressed状态下的Drawable
-		selector.addState(new int[] { android.R.attr.state_pressed },
-				getRandomColorDrawable(radius));
-		// 添加Normal状态下的Drawable(必须在Pressed后面设置)
-		selector.addState(new int[] {}, getRandomColorDrawable(radius));
-		return selector;
+		return getSelector(getRandomColorDrawable(radius), getRandomColorDrawable(radius));
 	}
 
 	/**
@@ -144,7 +141,8 @@ public final class DrawableUtil {
 	 * @param colors 渐变颜色的集合
 	 * @param radius 圆角
 	 */
-	public static GradientDrawable getGradientDrawable(@ColorInt int colors[], float radius) {
+	@NonNull
+	public static GradientDrawable getGradientDrawable(@ColorInt int[] colors, float radius) {
 		GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, colors);
 		drawable.setShape(GradientDrawable.RECTANGLE);//设置矩形
 		drawable.setCornerRadius(radius);//设置圆角半径
@@ -154,14 +152,26 @@ public final class DrawableUtil {
 	/**
 	 * 生成随机颜色的渐变图片
 	 */
+	@NonNull
 	public static GradientDrawable getRandomGradientDrawable(float radius) {
 		return getGradientDrawable(new int[]{getRandomColor(), getRandomColor()}, radius);
 	}
 
 	/**
+	 * 生成随机颜色的渐变图片选择器
+	 *
+	 * @param radius 圆角
+	 */
+	@NonNull
+	public static StateListDrawable getRandomGradientSelector(float radius) {
+		return getSelector(getRandomGradientDrawable(radius), getRandomGradientDrawable(radius));
+	}
+
+	/**
 	 * 动态生成Selector
 	 */
-	public static StateListDrawable getSelector(Drawable normal, Drawable pressed) {
+	@NonNull
+	public static StateListDrawable getSelector(@NonNull Drawable normal, @NonNull Drawable pressed) {
 		StateListDrawable drawable = new StateListDrawable();
 		drawable.addState(new int[]{android.R.attr.state_pressed}, pressed);//添加按下的图片
 		drawable.addState(new int[]{}, normal);
@@ -170,9 +180,18 @@ public final class DrawableUtil {
 
 	/**
 	 * 生成Selector，增加点击变暗的效果
+	 * @param bitmap Bitmap
+	 */
+	@NonNull
+	public static StateListDrawable getSelector(@NonNull Bitmap bitmap) {
+		return getSelector(new BitmapDrawable(bitmap));
+	}
+	/**
+	 * 生成Selector，增加点击变暗的效果
 	 * @param drawable Drawable
 	 */
-	public static StateListDrawable getSelector(BitmapDrawable drawable) {
+	@NonNull
+	public static StateListDrawable getSelector(@NonNull BitmapDrawable drawable) {
 		Drawable pressed = getPressedDrawable(drawable);
 		StateListDrawable bg = new StateListDrawable();
 		bg.addState(new int[] { android.R.attr.state_pressed, }, pressed);
@@ -184,10 +203,18 @@ public final class DrawableUtil {
 
 	/**
 	 * 获取给定图片的按下时变暗的效果
+	 * @param bitmap Bitmap
+	 */
+	@NonNull
+	public static Drawable getPressedDrawable(@NonNull Bitmap bitmap) {
+		return getPressedDrawable(new BitmapDrawable(bitmap));
+	}
+	/**
+	 * 获取给定图片的按下时变暗的效果
 	 * @param drawable Drawable
 	 */
 	@NonNull
-	public static Drawable getPressedDrawable(BitmapDrawable drawable) {
+	public static Drawable getPressedDrawable(@NonNull BitmapDrawable drawable) {
 		int brightness = 50 - 127;
 		ColorMatrix cMatrix = new ColorMatrix();
 		cMatrix.set(new float[] { 1, 0, 0, 0, brightness, 0, 1, 0, 0,
@@ -199,7 +226,8 @@ public final class DrawableUtil {
 		return createDrawable(drawable, paint);
 	}
 
-	private static Drawable createDrawable(BitmapDrawable bd, Paint p) {
+	@NonNull
+	private static Drawable createDrawable(@NonNull BitmapDrawable bd, Paint p) {
 		Bitmap b = bd.getBitmap();
 		Bitmap bitmap = Bitmap.createBitmap(b);
 		Canvas canvas = new Canvas(bitmap);

@@ -4,6 +4,10 @@ import java.security.Key;
 
 import javax.crypto.Cipher;
 
+/**
+ * DES
+ * @author open source
+ */
 public final class DES {
 	private static final String DEFAULT_KEY = "default";
 	private static final String DES = "DES";

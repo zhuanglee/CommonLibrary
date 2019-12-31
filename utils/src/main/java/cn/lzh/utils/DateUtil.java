@@ -13,7 +13,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * @author from open source
+ * @author open source
  */
 public final class DateUtil {
 

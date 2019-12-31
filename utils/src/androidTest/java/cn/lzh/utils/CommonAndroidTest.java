@@ -10,6 +10,7 @@ import android.util.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import cn.lzh.utils.io.FileUtil;
 import cn.lzh.utils.security.Base64Util;
 
 /**

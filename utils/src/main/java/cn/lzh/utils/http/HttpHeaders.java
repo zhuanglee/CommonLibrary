@@ -1,15 +1,10 @@
-/**
- * Copyright (C) Alibaba Cloud Computing, 2015
- * All rights reserved.
- * 
- * 版权所有 （C）阿里巴巴云计算，2015
- */
-
 package cn.lzh.utils.http;
 
 /**
  * Contains the common HTTP headers.
+ * @author open source
  */
+@Deprecated
 public interface HttpHeaders {
 
     String AUTHORIZATION = "Authorization";

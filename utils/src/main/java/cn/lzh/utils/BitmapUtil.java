@@ -38,7 +38,7 @@ import cn.lzh.utils.io.CloseableUtils;
 /**
  * 图片处理工具类
  *
- * @author from open source
+ * @author open source
  */
 public class BitmapUtil {
     public static final int LEFT = 0;

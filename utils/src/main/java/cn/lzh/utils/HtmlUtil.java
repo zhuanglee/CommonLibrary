@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 /**
  * HTML标签的相关操作
- * @author from open source
+ * @author open source
  * @see #formatHtml(String, String...) formatHtml
  * @see #delTag(String) delTag
  * @see #filterHtml(String) filterHtml

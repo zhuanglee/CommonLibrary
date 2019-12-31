@@ -1,45 +1,36 @@
-/**
- * Copyright (C) Alibaba Cloud Computing, 2015
- * All rights reserved.
- * 
- * 版权所有 （C）阿里巴巴云计算，2015
- */
-
 package cn.lzh.utils.http;
+
+import android.support.annotation.NonNull;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * http 工具类
+ * @author open source
+ */
+@Deprecated
 public class HttpUtil {
 
     /**
-     * percentageEncode：Encode a URL segment with special chars replaced.
-     * @param value
-     * @return
-     * @throws UnsupportedEncodingException
+     * Encode a URL segment with special chars replaced.
+     * @param value 文本内容
+     * @param charset 字符集
+     * @return String
      */
-    public static String urlEncode(String value, String encoding) {
-        if (value == null) {
-            return "";
-        }
-
-        try {
-            String encoded = URLEncoder.encode(value, encoding);
-            return encoded.replace("+", "%20").replace("*", "%2A")
-                    .replace("%7E", "~").replace("%2F", "/");
-        } catch (UnsupportedEncodingException e) {
-            throw new IllegalArgumentException("failed to encode url!", e);
-        }
+    public static String urlEncode(@NonNull String value, String charset) throws UnsupportedEncodingException {
+        String encoded = URLEncoder.encode(value, charset);
+        return encoded.replace("+", "%20").replace("*", "%2A")
+                .replace("%7E", "~").replace("%2F", "/");
     }
 
     /**
      * Encodes request parameters to a URL query.
-     * @param params
-     * @param charset
-     * @return
-     * @throws UnsupportedEncodingException
+     * @param params 参数
+     * @param charset 字符集
+     * @return String
      */
     public static String paramToQueryString(Map<String, String> params, String charset)
             throws UnsupportedEncodingException{

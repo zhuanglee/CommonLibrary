@@ -20,7 +20,7 @@ import javax.security.auth.x500.X500Principal;
 
 /**
  * AppUtil
- * @author from open source
+ * @author open source
  * @see #getActivities(Context)
  * @see #getMetaValue(Context, String)
  * @see #getPackageInfo(Context)

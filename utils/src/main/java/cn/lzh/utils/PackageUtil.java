@@ -22,6 +22,7 @@ import java.nio.charset.Charset;
 
 /**
  * PackageUtil
+ * @author open source
  * <ul>
  * <ul>
  * <strong>Is system application</strong>
@@ -45,10 +46,8 @@ import java.nio.charset.Charset;
  * <li>{@link PackageUtil#getInstallLocation()} get system install location</li>
  * <li>{@link PackageUtil#startInstalledAppDetails(Context, String)} start InstalledAppDetails Activity</li>
  * </ul>
- * 
- * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2013-5-15
+ *
  */
-@Deprecated
 public class PackageUtil {
 
     public static final String TAG = "PackageUtil";

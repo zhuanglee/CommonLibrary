@@ -19,6 +19,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * 拍照工具类
+ * @author open source
+ * @see #hasCameraFeature(Context)
+ * @see #createImageFile(Context)
+ * @see #getCaptureIntent(Context)
+ */
 public class MediaStoreCompat {
     private CaptureStrategy mCaptureStrategy;
     private Uri mCurrentPhotoUri;
@@ -37,11 +44,16 @@ public class MediaStoreCompat {
      * @param context a context to check for camera feature.
      * @return true if the device has a camera feature. false otherwise.
      */
-    public static boolean hasCameraFeature(Context context) {
+    public static boolean hasCameraFeature(@NonNull Context context) {
         PackageManager pm = context.getApplicationContext().getPackageManager();
         return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA);
     }
 
+    /**
+     * 获取拍照意图
+     * @param context Context
+     * @return Intent or null
+     */
     @Nullable
     public Intent getCaptureIntent(@NonNull Context context) {
         context = context.getApplicationContext();
@@ -74,7 +86,7 @@ public class MediaStoreCompat {
      * @param context Context
      * @return File
      */
-    private File createImageFile(Context context) {
+    private File createImageFile(@NonNull Context context) {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = String.format("JPEG_%s.jpg", timeStamp);
@@ -88,7 +100,7 @@ public class MediaStoreCompat {
      * @return File
      */
     @Nullable
-    public File getPictureDir(Context context) {
+    public File getPictureDir(@NonNull Context context) {
         File storageDir;
         if (mCaptureStrategy.isPublic) {
             storageDir = Environment.getExternalStoragePublicDirectory(

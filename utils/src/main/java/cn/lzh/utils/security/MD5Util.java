@@ -15,7 +15,8 @@ import java.security.NoSuchAlgorithmException;
 import cn.lzh.utils.io.CloseableUtils;
 
 /**
- * Created by lzh on 2018/12/29.<br/>
+ * MD5Util
+ * @author open source
  */
 public final class MD5Util {
 

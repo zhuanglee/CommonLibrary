@@ -1,5 +1,6 @@
 package cn.lzh.utils;
 
+import android.support.annotation.NonNull;
 import android.support.v4.util.LruCache;
 
 /**
@@ -13,10 +14,10 @@ public abstract class AbstractLruCache<T> {
 
 	protected AbstractLruCache() {
 		// use 1/8 of available heap size
-		mLruCache = new LruCache<String, T>((int) (Runtime.getRuntime()
-				.maxMemory() / 8)) {
+		int maxSize = (int) (Runtime.getRuntime().maxMemory() / 8);
+		mLruCache = new LruCache<String, T>(maxSize) {
 			@Override
-			protected int sizeOf(String key, T value) {
+			protected int sizeOf(@NonNull String key, @NonNull T value) {
 				return getSizeOf(value);
 			}
 		};

@@ -16,7 +16,7 @@ import java.util.Locale;
 
 /**
  * 通过Intent和系统进行交互
- * @author from open source
+ * @author open source
  * @see #getLaunch(Context, String) getLaunch
  * @see #installShortcut(String, ShortcutIconResource, String) installShortcut
  * @see #notifyMediaScannerScanFile(Context, File) notifyMediaScannerScanFile

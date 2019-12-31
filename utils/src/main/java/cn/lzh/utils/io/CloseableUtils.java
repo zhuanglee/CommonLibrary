@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  * CloseableUtils
  *
- * @author from open source
+ * @author open source
  */
 public final class CloseableUtils {
 

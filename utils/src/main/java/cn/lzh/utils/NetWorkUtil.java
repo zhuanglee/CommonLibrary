@@ -11,12 +11,12 @@ import static android.net.ConnectivityManager.TYPE_WIFI;
 
 /**
  * NetWork Utils
+ * @author open source
  * <ul>
  * <strong>Attentions</strong>
  * <li>You should add <strong>android.permission.ACCESS_NETWORK_STATE</strong> in manifest, to get network status.</li>
  * </ul>
  *
- * @author from open source
  * @see #isConnected(Context) isConnected
  * @see #isWifi(Context) isWifi
  * @see #isFastMobileNetwork(Context) isFastMobileNetwork

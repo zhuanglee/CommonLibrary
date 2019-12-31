@@ -9,7 +9,7 @@ import java.util.Collection;
 /**
  * CollectionUtil
  *
- * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2012-7-22
+ * @author open source
  */
 public class CollectionUtil {
 

@@ -9,8 +9,7 @@ import java.io.ObjectOutputStream;
 
 /**
  * Serialize Utils
- * 
- * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2012-5-14
+ * @author open source
  */
 public final class SerializeUtil {
 

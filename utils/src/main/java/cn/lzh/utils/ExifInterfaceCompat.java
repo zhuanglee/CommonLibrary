@@ -13,6 +13,7 @@ import java.util.TimeZone;
 
 /**
  * Bug fixture for ExifInterface constructor.
+ * @author open source
  */
 public final class ExifInterfaceCompat {
     private static final String TAG = ExifInterfaceCompat.class.getSimpleName();

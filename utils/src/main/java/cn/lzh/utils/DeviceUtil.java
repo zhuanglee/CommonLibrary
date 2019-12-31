@@ -11,7 +11,7 @@ import android.view.View;
 
 /**
  * 设备工具类
- * @author from open source
+ * @author open source
  * @see #dip2px(Context, float) dip2px
  * @see #getScreenHeight(Context) getScreenHeight
  * @see #getScreenWidth(Context) getScreenWidth

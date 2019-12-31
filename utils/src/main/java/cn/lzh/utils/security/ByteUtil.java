@@ -3,8 +3,8 @@ package cn.lzh.utils.security;
 import android.support.annotation.NonNull;
 
 /**
- * Created by lzh on 2017/9/18.<br/>
  * 字节数组与十六进制字符串之间的转换工具
+ * @author open source
  */
 public final class ByteUtil {
 

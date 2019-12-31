@@ -10,12 +10,17 @@ import android.content.IntentFilter;
  */
 public abstract class BaseDynamicReceiver extends BroadcastReceiver {
 
+    private boolean registered;
+
     /**
      * 注册
      * @param context Context
      */
     public void register(Context context){
-        context.registerReceiver(this, getIntentFilter());
+        if(!registered){
+            context.registerReceiver(this, getIntentFilter());
+            registered = true;
+        }
     }
 
     /**
@@ -23,7 +28,10 @@ public abstract class BaseDynamicReceiver extends BroadcastReceiver {
      * @param context Context
      */
     public void unregister(Context context){
-        context.unregisterReceiver(this);
+        if(registered){
+            context.unregisterReceiver(this);
+            registered = false;
+        }
     }
 
     /**
