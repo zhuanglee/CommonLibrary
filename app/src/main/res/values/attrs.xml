@@ -20,13 +20,4 @@
         </attr>
     </declare-styleable>
 
-    <!-- 输入身份证后6位的编辑框 -->
-    <declare-styleable name="InputIDCardEditText">
-        <attr name="isShowText" format="boolean" />
-        <attr name="textCount" format="integer" />
-        <attr name="strokeWidth" format="reference|dimension"/>
-        <attr name="strokeRadius" format="reference|dimension" />
-        <attr name="circleRadius" format="reference|dimension" />
-    </declare-styleable>
-
 </resources>

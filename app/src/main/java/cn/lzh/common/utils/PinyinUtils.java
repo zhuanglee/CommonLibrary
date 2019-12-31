@@ -6,6 +6,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 
+@Deprecated
 public final class PinyinUtils {
 
 	private static HanyuPinyinOutputFormat format;

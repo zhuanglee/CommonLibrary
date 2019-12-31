@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import cn.lzh.common.utils.WatermarkHelper;
 
+@Deprecated
 public abstract class BaseWatermarkFragment extends Fragment {
 
     private Drawable watermarkDrawable;
@@ -29,7 +30,6 @@ public abstract class BaseWatermarkFragment extends Fragment {
         return view;
     }
 
-    protected abstract View getContentView(LayoutInflater inflater,
-                                           ViewGroup container, Bundle savedInstanceState);
+    protected abstract View getContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
 }

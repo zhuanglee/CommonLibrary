@@ -1,5 +1,6 @@
 package cn.lzh.common.base;
 
+import android.support.annotation.CallSuper;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -14,8 +15,7 @@ public abstract class BaseWatermarkActivity extends AppCompatActivity {
 
     @Override
     public void setContentView(int layoutResID) {
-        View inflate = View.inflate(this, layoutResID, null);
-        this.setContentView(inflate);
+        this.setContentView(View.inflate(this, layoutResID, null));
     }
 
     @Override
@@ -25,4 +25,10 @@ public abstract class BaseWatermarkActivity extends AppCompatActivity {
         getWindow().getDecorView().setBackgroundDrawable(WatermarkHelper.getWatermarkDrawable(this));
     }
 
+    @CallSuper
+    @Override
+    public void setTitle(CharSequence title) {
+        super.setTitle(title);
+        getWindow().getDecorView().setBackgroundDrawable(WatermarkHelper.getWatermarkDrawable(this, title.toString()));
+    }
 }

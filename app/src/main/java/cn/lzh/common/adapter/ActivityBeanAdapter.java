@@ -1,6 +1,7 @@
 package cn.lzh.common.adapter;
 
-import android.content.Context;
+import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,15 +10,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import cn.lzh.common.R;
-import cn.lzh.common.bean.ActvityBean;
+import cn.lzh.common.bean.ActivityBean;
 
 public class ActivityBeanAdapter extends BaseAdapter {
-    private Context context;
-    private List<ActvityBean> mList = null;
+    private List<ActivityBean> mList;
 
-    public ActivityBeanAdapter(Context context, List<ActvityBean> mList) {
-        this.context = context;
-        this.mList = mList;
+    public ActivityBeanAdapter(@NonNull List<ActivityBean> list) {
+        this.mList = list;
     }
 
     @Override
@@ -40,17 +39,18 @@ public class ActivityBeanAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = View.inflate(context, R.layout.listitem_activity_bean, null);
-            holder.tv_activity_name = (TextView) convertView.findViewById(R.id.tv_activity_name);
+            convertView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_activity, parent, false);
+            holder.tvActivityTitle = convertView.findViewById(R.id.tv_activity_title);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tv_activity_name.setText(mList.get(position).getLabel());
+        holder.tvActivityTitle.setText(mList.get(position).getName());
         return convertView;
     }
 
     private class ViewHolder {
-        private TextView tv_activity_name;
+        private TextView tvActivityTitle;
     }
 }

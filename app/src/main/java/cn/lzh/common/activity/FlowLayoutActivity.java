@@ -4,19 +4,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import cn.lzh.common.R;
 import cn.lzh.common.base.BaseActivity;
-import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.ui.widget.FlowLayout;
 import cn.lzh.utils.DrawableUtil;
-import cn.lzh.utils.ToastUtil;
 import cn.lzh.utils.RandomUtil;
+import cn.lzh.utils.ToastUtil;
 
 /**
  * 流式布局
@@ -44,19 +41,14 @@ public class FlowLayoutActivity extends BaseActivity {
         float radius = getResources().getDimension(R.dimen.radius);
         //添加子控件
         for (final String string : tags) {
-            TextView tv = new TextView(mContext);
+            TextView tv = new TextView(this);
             tv.setText(string);
             tv.setTextColor(Color.WHITE);
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             tv.setPadding(textPaddingH, textPaddingV, textPaddingH, textPaddingV);
             tv.setGravity(Gravity.CENTER);
             tv.setBackgroundDrawable(DrawableUtil.getRandomColorSelector(radius));
-            tv.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ToastUtil.show(string);
-                }
-            });
+            tv.setOnClickListener(v -> ToastUtil.show(string));
             flowLayout.addView(tv);
         }
     }

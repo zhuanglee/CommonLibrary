@@ -1,5 +1,6 @@
-package cn.lzh.common.data;
+package cn.lzh.common.utils;
 
+@Deprecated
 public class Constants {
 
 	public static final String[] NAMES = new String[] { "宋江", "卢俊义", "吴用",

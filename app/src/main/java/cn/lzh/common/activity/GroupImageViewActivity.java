@@ -1,5 +1,6 @@
 package cn.lzh.common.activity;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -27,11 +28,10 @@ public class GroupImageViewActivity extends BaseActivity {
 
     private GroupImageView groupImageView;
 
-    private Runnable mLoadingLocalImage;
+    private LoadingLocalImage mLoadingLocalImage;
     private ExecutorService mExecutorService;
     private List<Future> mFutures;
 
-    private boolean isRunning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,13 @@ public class GroupImageViewActivity extends BaseActivity {
         setContentView(R.layout.activity_group_imageview);
         initToolbar(true);
         groupImageView = findViewById(R.id.groupImageView);
-        mLoadingLocalImage = new LoadingLocalImage();
+        mLoadingLocalImage = new LoadingLocalImage(this, mBitmaps -> runOnUiThread(() -> {
+            if (mBitmaps.size() == 1) {
+                groupImageView.setImageBitmap(mBitmaps.get(0));
+            } else {
+                groupImageView.setImageBitmaps(mBitmaps);
+            }
+        }));
         mExecutorService = Executors.newFixedThreadPool(1);
         mFutures = Collections.synchronizedList(new ArrayList<>());
     }
@@ -47,7 +53,7 @@ public class GroupImageViewActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        isRunning = true;
+        mLoadingLocalImage.isRunning = true;
         if (mFutures.isEmpty()) {
             mFutures.add(mExecutorService.submit(mLoadingLocalImage));
         }
@@ -56,7 +62,7 @@ public class GroupImageViewActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        isRunning = false;
+        mLoadingLocalImage.isRunning = false;
         boolean isCanceled = true;
         for (Future mFuture : mFutures) {
             isCanceled &= mFuture.cancel(true);
@@ -73,36 +79,44 @@ public class GroupImageViewActivity extends BaseActivity {
         super.onDestroy();
         mExecutorService.shutdownNow();
         mExecutorService = null;
+        mLoadingLocalImage = null;
     }
 
-    public class LoadingLocalImage implements Runnable {
+    private static class LoadingLocalImage implements Runnable {
         private List<Bitmap> mBitmaps = new ArrayList<>();
         private BitmapCache mBitmapCache = BitmapCache.getInstance();
+        private boolean isRunning;
+        private Context context;
+        private Callback callback;
+
+        LoadingLocalImage(Context context, Callback callback) {
+            this.context = context.getApplicationContext();
+            this.callback = callback;
+        }
 
         @Override
         public void run() {
             int resId = R.drawable.user;
             while (isRunning) {
                 for (int i = 0; i < 9; i++) {
+                    if(!isRunning) break;
                     String key = String.valueOf(resId);
                     Bitmap bitmap = mBitmapCache.get(key);
                     if (bitmap == null || bitmap.isRecycled()) {
-                        bitmap = BitmapFactory.decodeResource(getResources(), resId);
+                        bitmap = BitmapFactory.decodeResource(context.getResources(), resId);
                         mBitmapCache.put(key, bitmap);
                     }
                     mBitmaps.add(bitmap);
-                    runOnUiThread(() -> {
-                        if (mBitmaps.size() == 1) {
-                            groupImageView.setImageBitmap(mBitmaps.get(0));
-                        } else {
-                            groupImageView.setImageBitmaps(mBitmaps);
-                        }
-                    });
+                    callback.onImageLoaded(mBitmaps);
                     SystemClock.sleep(SLEEP_TIME);
                 }
                 mBitmaps.clear();
                 SystemClock.sleep(SLEEP_TIME);
             }
+        }
+
+        public interface Callback{
+            void onImageLoaded(List<Bitmap> mBitmaps);
         }
     }
 }

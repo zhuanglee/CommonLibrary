@@ -1,85 +1,50 @@
 package cn.lzh.common.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import cn.lzh.common.R;
 import cn.lzh.common.adapter.ActivityBeanAdapter;
 import cn.lzh.common.base.BaseActivity;
-import cn.lzh.common.base.BaseWatermarkActivity;
-import cn.lzh.common.bean.ActvityBean;
+import cn.lzh.common.bean.ActivityBean;
 
 /**
- * Demo主界面
+ * Demo 主界面
  *
  * @author lzh
  */
 public class DemoMainActivity extends BaseActivity {
 
-    private static final String TAG = "DemoMainActivity";
-    private Context mContext;
-    private List<ActvityBean> mActivityBeans;
-    private ListView mListView;
+    private List<ActivityBean> mActivityBeans = Arrays.asList(
+            new ActivityBean(UtilActivity.class),
+            new ActivityBean(GroupImageViewActivity.class),
+            new ActivityBean(DialogDemoActivity.class),
+            new ActivityBean(FlowLayoutActivity.class),
+            new ActivityBean(RingProgressBarActivity.class)
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = this;
         setContentView(R.layout.activity_demo_main);
         initToolbar(false);
-        initData();
         initView();
-        initListener();
     }
 
     private void initView() {
-        mListView = (ListView) findViewById(R.id.listView);
-        mListView.setAdapter(new ActivityBeanAdapter(this, mActivityBeans));
-    }
-
-    private void initData() {
-        mActivityBeans = new ArrayList<>();
-        mActivityBeans.add(new ActvityBean(DialogDemoActivity.class));
-        mActivityBeans.add(new ActvityBean(FlowLayoutActivity.class));
-        mActivityBeans.add(new ActvityBean(GroupImageViewActivity.class));
-        mActivityBeans.add(new ActvityBean(RingProgressBarActivity.class));
-        mActivityBeans.add(new ActvityBean(UtilActivity.class));
-    }
-
-    private void initListener() {
-        mListView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // 下标要减去列表中头布局个数
-                int index = position - mListView.getHeaderViewsCount();
-                if (index < 0 && index >= mActivityBeans.size()) {
-                    return;
-                }
-                String name = mActivityBeans.get(index).getName();
-                if (TextUtils.isEmpty(name)) {
-                    Log.i(TAG, "click "
-                            + mActivityBeans.get(position).getLabel());
-                } else {
-                    try {
-                        Class<?> activityClass = Class.forName(name);
-                        startActivity(new Intent(mContext, activityClass));
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                        Log.i(TAG, name + "不存在");
-                    }
-                }
-            }
+        Collections.sort(mActivityBeans);
+        ListView listView = findViewById(R.id.listView);
+        listView.setAdapter(new ActivityBeanAdapter(mActivityBeans));
+        listView.setOnItemClickListener((parent, view, position, id) ->
+        {
+            ActivityBean bean = mActivityBeans.get(position);
+            startActivity(new Intent(this, bean.getClazz())
+                    .putExtra("title", bean.getName()));
         });
     }
 

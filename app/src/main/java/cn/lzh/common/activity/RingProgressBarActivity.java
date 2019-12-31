@@ -8,7 +8,6 @@ import android.widget.Button;
 
 import cn.lzh.common.R;
 import cn.lzh.common.base.BaseActivity;
-import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.common.view.RingProgressBar;
 
 public class RingProgressBarActivity extends BaseActivity {
