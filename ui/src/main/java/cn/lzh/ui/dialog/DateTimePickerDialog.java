@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,32 +24,32 @@ import cn.lzh.ui.R;
 
 public class DateTimePickerDialog extends AlertDialog implements DialogInterface.OnClickListener, DatePicker.OnDateChangedListener, TimePicker.OnTimeChangedListener {
 
-    DatePicker mDatePicker;
-    TimePicker mTimePicker;
-    OnDateTimeChangeListener mOnDateTimeChangeListener;
-    Calendar mCalendar;
+    private DatePicker mDatePicker;
+    private TimePicker mTimePicker;
+    private OnDateTimeChangeListener mOnDateTimeChangeListener;
+    private Calendar mCalendar;
 
     /**
      * 创建选择时间对话框
-     * @param context
-     * @param calendar
-     * @param listener
-     * @return
+     * @param context Context
+     * @param calendar Calendar
+     * @param listener OnDateTimeChangeListener
+     * @return DateTimePickerDialog
      */
-    public static DateTimePickerDialog create(
-            Context context, Calendar calendar, DateTimePickerDialog.OnDateTimeChangeListener listener) {
+    public static DateTimePickerDialog create(Context context, Calendar calendar,
+            DateTimePickerDialog.OnDateTimeChangeListener listener) {
         return new DateTimePickerDialog(context, calendar, listener);
     }
 
     /**
      * 创建选择时间对话框
-     * @param context
-     * @param date
-     * @param listener
-     * @return
+     * @param context Context
+     * @param date Date
+     * @param listener OnDateTimeChangeListener
+     * @return DateTimePickerDialog
      */
-    public static DateTimePickerDialog create(
-            Context context, Date date, DateTimePickerDialog.OnDateTimeChangeListener listener) {
+    public static DateTimePickerDialog create(Context context, Date date,
+                                              DateTimePickerDialog.OnDateTimeChangeListener listener) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return new DateTimePickerDialog(context, calendar, listener);
@@ -60,7 +61,7 @@ public class DateTimePickerDialog extends AlertDialog implements DialogInterface
     }
 
     public DateTimePickerDialog(@NonNull Context context, int themeResId,
-                                Calendar calendar, OnDateTimeChangeListener listener) {
+                                 Calendar calendar, OnDateTimeChangeListener listener) {
         super(context, themeResId);
         if (calendar == null) {
             calendar = Calendar.getInstance();
@@ -72,9 +73,9 @@ public class DateTimePickerDialog extends AlertDialog implements DialogInterface
         int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_date_time_picker, null);
-        mDatePicker = (DatePicker) view.findViewById(R.id.datePicker);
+        mDatePicker = view.findViewById(R.id.datePicker);
         mDatePicker.init(year, monthOfYear, dayOfMonth, this);
-        mTimePicker = (TimePicker) view.findViewById(R.id.timePicker);
+        mTimePicker = view.findViewById(R.id.timePicker);
         mTimePicker.setIs24HourView(true);
         mTimePicker.setCurrentHour(hourOfDay);
         mTimePicker.setCurrentMinute(minute);
@@ -96,7 +97,7 @@ public class DateTimePickerDialog extends AlertDialog implements DialogInterface
      * 对日期选择器组件进行重新布局
      */
     private void relayoutDatePicker() {
-        LinearLayout spinners = (LinearLayout) findViewById(getContext().getResources().getIdentifier("android:id/pickers", null, null));
+        LinearLayout spinners = findViewById(getContext().getResources().getIdentifier("android:id/pickers", null, null));
         if (spinners != null) {
             View yearPickerView = findViewById(getContext().getResources().getIdentifier("android:id/year", null, null));
             View monthPickerView = findViewById(getContext().getResources().getIdentifier("android:id/month", null, null));
@@ -132,12 +133,10 @@ public class DateTimePickerDialog extends AlertDialog implements DialogInterface
         View hourPickerView = findViewById(getContext().getResources().getIdentifier("android:id/hour", null, null));
         View minutePickerView = findViewById(getContext().getResources().getIdentifier("android:id/minute", null, null));
         if (hourPickerView != null) {
-            int hourWidth = getContext().getResources().getDimensionPixelSize(R.dimen.hour_width);
-            hourPickerView.getLayoutParams().width = hourWidth;
+            hourPickerView.getLayoutParams().width = getContext().getResources().getDimensionPixelSize(R.dimen.hour_width);
         }
         if (minutePickerView != null) {
-            int minuteWidth = getContext().getResources().getDimensionPixelSize(R.dimen.minute_width);
-            minutePickerView.getLayoutParams().width = minuteWidth;
+            minutePickerView.getLayoutParams().width = getContext().getResources().getDimensionPixelSize(R.dimen.minute_width);
         }
     }
 
@@ -168,6 +167,26 @@ public class DateTimePickerDialog extends AlertDialog implements DialogInterface
 
     public DatePicker getDatePicker() {
         return mDatePicker;
+    }
+
+    /**
+     * 设置标题
+     * @param titleId 标题
+     * @return DateTimePickerDialog
+     */
+    public DateTimePickerDialog title(@StringRes int titleId){
+        super.setTitle(titleId);
+        return this;
+    }
+
+    /**
+     * 设置标题
+     * @param title 标题
+     * @return DateTimePickerDialog
+     */
+    public DateTimePickerDialog title(String title){
+        super.setTitle(title);
+        return this;
     }
 
     public interface OnDateTimeChangeListener {

@@ -47,17 +47,17 @@ public class RoundLinearLayout extends LinearLayout {
 		super(context, attrs, defStyle);
 		if (attrs != null) {
 			TypedArray ta = context.obtainStyledAttributes(attrs,
-					R.styleable.RoundLayout);
+					R.styleable.RoundLinearLayout);
 			mLayoutRadius = ta.getDimension(
-					R.styleable.RoundLayout_layoutRadius, 15);
+					R.styleable.RoundLinearLayout_layoutRadius, 15);
 			topLeftRadius = ta.getDimension(
-					R.styleable.RoundLayout_topLeftRadius, mLayoutRadius);
+					R.styleable.RoundLinearLayout_topLeftRadius, mLayoutRadius);
 			topRightRadius = ta.getDimension(
-					R.styleable.RoundLayout_topRightRadius, mLayoutRadius);
+					R.styleable.RoundLinearLayout_topRightRadius, mLayoutRadius);
 			bottomLeftRadius = ta.getDimension(
-					R.styleable.RoundLayout_bottomLeftRadius, mLayoutRadius);
+					R.styleable.RoundLinearLayout_bottomLeftRadius, mLayoutRadius);
 			bottomRightRadius = ta.getDimension(
-					R.styleable.RoundLayout_bottomRightRadius,mLayoutRadius);
+					R.styleable.RoundLinearLayout_bottomRightRadius,mLayoutRadius);
 			ta.recycle();
 		}
 		init();
@@ -150,7 +150,7 @@ public class RoundLinearLayout extends LinearLayout {
 
 	/**
 	 * 设置布局的圆角尺寸，并重绘
-	 * @param layoutRadius
+	 * @param layoutRadius float
 	 */
 	public void setLayoutRadius(float layoutRadius) {
 		this.mLayoutRadius = layoutRadius;

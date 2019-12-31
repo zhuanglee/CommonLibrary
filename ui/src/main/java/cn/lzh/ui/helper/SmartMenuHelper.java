@@ -1,15 +1,12 @@
 package cn.lzh.ui.helper;
 
 import android.app.Activity;
-import android.app.Instrumentation;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.view.KeyEvent;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,53 +19,22 @@ import java.util.List;
  * @see SmartMenuHelper.SmartMenuItem
  */
 public final class SmartMenuHelper {
-    /**
-     * Android内部隐藏的类，{@link Menu}接口的实现类
-     */
-    private static final String COM_ANDROID_INTERNAL_VIEW_MENU_MENU_BUILDER = "com.android.internal.view.menu.MenuBuilder";
 
     private SmartMenuHelper() {
         throw new UnsupportedOperationException("Cannot be instantiated");
     }
 
     /**
-     * 模拟点击菜单按键，用于触发加载菜单(异步操作)<br/>
-     *
-     * @Deprecated 偶尔会报java.lang.SecurityException:<br/>
-     * Injecting to another application requires INJECT_EVENTS permission<br/>
-     */
-    @Deprecated
-    public static void clickMenu() {
-        try {
-            Instrumentation inst = new Instrumentation();
-            inst.sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 预加载菜单项<br/>
-     *
-     * @param context       上下文
-     * @param menuResId     菜单资源id
-     * @param filterItemIds 过滤的菜单id列表
-     */
-    public static synchronized List<ISmartMenuItem> preLoadingMenu(Context context, int menuResId, int... filterItemIds) {
-        Menu menu = inflateMenu(context, menuResId);
-        return convert(menu, filterItemIds);
-    }
-
-    /**
      * 加载菜单<br/>
      *
-     * @param context Activity
+     * @param activity Activity
      * @param menuResId 菜单资源id
      * @param menu Menu
      * @param filterItemIds 过滤的菜单id列表
      */
-    public static synchronized List<ISmartMenuItem> inflateMenu(Activity context, int menuResId, Menu menu, int... filterItemIds) {
-        context.getMenuInflater().inflate(menuResId, menu);
+    public static List<ISmartMenuItem> inflateMenu(
+            Activity activity, int menuResId, Menu menu, int... filterItemIds) {
+        activity.getMenuInflater().inflate(menuResId, menu);
         return convert(menu, filterItemIds);
     }
 
@@ -80,7 +46,8 @@ public final class SmartMenuHelper {
      * @param menu Menu
      * @param filterItemIds 过滤的菜单id列表
      */
-    public static synchronized List<ISmartMenuItem> inflateMenu(MenuInflater inflater, int menuResId, Menu menu, int... filterItemIds) {
+    public static List<ISmartMenuItem> inflateMenu(
+            MenuInflater inflater, int menuResId, Menu menu, int... filterItemIds) {
         inflater.inflate(menuResId, menu);
         return convert(menu, filterItemIds);
     }
@@ -92,11 +59,9 @@ public final class SmartMenuHelper {
      * @param filterItemIds 过滤的菜单id列表
      */
     private static List<ISmartMenuItem> convert(Menu menu, int... filterItemIds) {
-        List<Integer> filter = new ArrayList<>();
-        if (filterItemIds != null && filterItemIds.length > 0) {
-            for(int i = filterItemIds.length - 1; i >= 0; i--){
-                filter.add(filterItemIds[i]);
-            }
+        SparseBooleanArray map = new SparseBooleanArray();
+        for (int itemId : filterItemIds) {
+            map.put(itemId, true);
         }
         List<ISmartMenuItem> items = new ArrayList<>();
         int size = menu.size();
@@ -104,7 +69,7 @@ public final class SmartMenuHelper {
         MenuItem item;
         for (int i = 0; i < size; i++) {
             item = menu.getItem(i);
-            if (item.isVisible() && !filter.contains(item.getItemId())) {
+            if (item.isVisible() && !map.get(item.getItemId())) {
                 workMenu = new SmartMenuItem(item);
                 items.add(workMenu);
             }
@@ -119,50 +84,17 @@ public final class SmartMenuHelper {
      * @param items 菜单项列表
      * @param itemId 菜单项的Id
      */
-    public static synchronized void filterById(List<ISmartMenuItem> items, int itemId) {
+    public static void filterById(List<ISmartMenuItem> items, int itemId) {
         ISmartMenuItem filterMenuItem = null;
         for (ISmartMenuItem item : items) {
             if (item.getItemId() == itemId) {
                 filterMenuItem = item;
+                break;
             }
         }
         if (filterMenuItem != null) {
             items.remove(filterMenuItem);
         }
-    }
-
-    /**
-     * 加载菜单，可随时调用，之前只能在用户点击（或代码模拟点击{@link Instrumentation#sendKeyDownUpSync(int)}）菜单按键时才能初始化菜单；<br/>
-     * 1、通过反射创建 {@link Menu}实例；<br/>
-     * 2、仍然使用{@link MenuInflater}加载菜单；<br/>
-     *
-     * @param ctx Context
-     * @param menuRes 菜单文件资源ID
-     * @return Menu
-     */
-    private static Menu inflateMenu(Context ctx, int menuRes) {
-        Menu menu = null;
-        try {
-            menu = createMenuBuilder(ctx);
-            MenuInflater menuInflater = new MenuInflater(ctx);
-            menuInflater.inflate(menuRes, menu);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return menu;
-    }
-
-    /**
-     * 通过反射创建 {@link Menu}实例（com.android.internal.view.menu.MenuBuilder）
-     *
-     * @param ctx Context
-     */
-    private static Menu createMenuBuilder(Context ctx)
-            throws Exception {
-        Class<?> menuBuilderClass = Class.forName(COM_ANDROID_INTERNAL_VIEW_MENU_MENU_BUILDER);
-        Class[] paramTypes = {Context.class};
-        Constructor con = menuBuilderClass.getConstructor(paramTypes);
-        return (Menu) con.newInstance(ctx);
     }
 
     /**
@@ -185,7 +117,7 @@ public final class SmartMenuHelper {
 
         /**
          * 根据MenuItem构造工作菜单项
-         * @param menuItem
+         * @param menuItem MenuItem
          */
         public SmartMenuItem(MenuItem menuItem) {
             this.itemId = menuItem.getItemId();

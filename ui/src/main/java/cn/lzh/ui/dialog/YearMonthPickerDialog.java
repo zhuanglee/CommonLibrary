@@ -63,26 +63,28 @@ public class YearMonthPickerDialog extends DatePickerDialog {
 
 
     @Override
-    public void onDateChanged(DatePicker view, int year, int month, int day) {
+    public void onDateChanged(@NonNull DatePicker view, int year, int month, int day) {
         super.onDateChanged(view, year, month, day);
         setTitle(mFixTitle);
     }
 
     /**
      * 设置固定的标题
-     * @param text
+     * @param text 标题
      */
     public YearMonthPickerDialog setFixTitle(String text){
         mFixTitle = text;
+        setTitle(mFixTitle);
         return this;
     }
 
     /**
      * 设置固定的标题
-     * @param resId
+     * @param resId 标题
      */
     public YearMonthPickerDialog setFixTitle(@StringRes int resId){
         mFixTitle = getContext().getString(resId);
+        setTitle(mFixTitle);
         return this;
     }
 

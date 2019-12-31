@@ -21,7 +21,7 @@
     </declare-styleable>
 
     <!-- 圆角矩形布局的属性 -->
-    <declare-styleable name="RoundLayout">
+    <declare-styleable name="RoundLinearLayout">
         <attr name="layoutRadius" format="dimension" />
         <attr name="topLeftRadius" format="dimension" />
         <attr name="topRightRadius" format="dimension" />

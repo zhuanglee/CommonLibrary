@@ -1,7 +1,6 @@
 package cn.lzh.ui.widget;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 
@@ -28,13 +27,7 @@ public class FlowLayout extends ViewGroup {
 
 	public FlowLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		mFlowLayoutHelper = new FlowLayoutHelper(this, new FlowLayoutHelper.OnMeasureCallback() {
-
-			@Override
-			public void setMeasuredDimension(int measuredWidth, int measuredHeight) {
-				FlowLayout.this.setMeasuredDimension(measuredWidth, measuredHeight);
-			}
-		});
+		mFlowLayoutHelper = new FlowLayoutHelper(this, this::setMeasuredDimension);
 		int space = dip2px(context, 8);
 		setPadding(space, space, space, space);
 	}

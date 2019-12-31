@@ -51,7 +51,7 @@ public class ListLinearLayout extends LinearLayout implements View.OnClickListen
 		removeAllViews();
 		if(mAdapter != null){
 			int count = mAdapter.getCount();
-			View view = null;
+			View view;
 			for (int i = 0; i < count; i++){
 				view = mAdapter.getView(i, null, this);
 				view.setOnClickListener(this);
