@@ -1,6 +1,6 @@
 package cn.lzh.utils.security;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * 字节数组与十六进制字符串之间的转换工具

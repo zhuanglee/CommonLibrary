@@ -2,9 +2,9 @@ package cn.lzh.common.base;
 
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.CallSuper;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.CallSuper;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;

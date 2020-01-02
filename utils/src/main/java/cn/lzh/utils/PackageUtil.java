@@ -3,14 +3,13 @@ package cn.lzh.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
+import androidx.annotation.NonNull;
+
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -195,18 +194,13 @@ public class PackageUtil {
      */
     public static void installApk(@NonNull Context context, String authorities, File file) {
         try {
-            Uri contentUri;
+            Uri contentUri = PathUtils.fileToUri(context, authorities, file);
             Intent install = new Intent(Intent.ACTION_VIEW);
             install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                contentUri = FileProvider.getUriForFile(context,
-                        authorities, file);
                 //添加这一句表示对目标应用临时授权该Uri所代表的文件
                 install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            } else {
-                contentUri = Uri.fromFile(file);
             }
-            Log.e(TAG, "installApk:contentUri=" + contentUri);
             install.setDataAndType(contentUri, "application/vnd.android.package-archive");
             context.startActivity(install);
         } catch (Exception e) {

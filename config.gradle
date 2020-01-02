@@ -1,24 +1,20 @@
 ext {
-    versionCode            = 16
-    versionName            = "1.0.4"
+    versionCode = 17
+    versionName = "1.0.5"
     version = [
             minSdk          : 15,
             targetSdk       : 28,
             compileSdk      : 28,
-            // Android Support Library
-            supportLibrary  : '28.0.0',
-            constraintLayout: '1.1.3',
+
+            // Androidx
+            appcompat       : "1.1.0",
+            core            : "1.1.0",
     ]
-    dependencies = [
-            // Android Support Library
-            "annotations"      : "com.android.support:support-annotations:${version["supportLibrary"]}",
-            "support-v4"       : "com.android.support:support-v4:${version["supportLibrary"]}",
-            "appcompat-v7"     : "com.android.support:appcompat-v7:${version["supportLibrary"]}",
-            "recyclerview-v7"  : "com.android.support:recyclerview-v7:${version["supportLibrary"]}",
-            "cardview-v7"      : "com.android.support:cardview-v7:${version["supportLibrary"]}",
-            "gridlayout-v7"    : "com.android.support:gridlayout-v7:${version["supportLibrary"]}",
-            "design"           : "com.android.support:design:${version["supportLibrary"]}",
-            "constraint-layout": "com.android.support.constraint:constraint-layout:${version["constraintLayout"]}",
+    depds = [
+            // AndroidX
+            androidx_annotation      : "androidx.annotation:annotation:1.1.0",
+            androidx_appcompat       : "androidx.appcompat:appcompat:${version['appcompat']}",
+            androidx_core            : "androidx.core:core:${version['core']}",
     ]
 
 }

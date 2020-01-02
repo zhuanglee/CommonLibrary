@@ -14,7 +14,7 @@ import java.util.List;
  * @author lzh
  * @see #setImageBitmaps(List)
  */
-public class GroupImageView extends android.support.v7.widget.AppCompatImageView {
+public class GroupImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     private GroupImageHelper helper = new GroupImageHelper();
 

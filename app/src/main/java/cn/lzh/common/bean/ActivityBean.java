@@ -1,7 +1,7 @@
 package cn.lzh.common.bean;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Activity 信息

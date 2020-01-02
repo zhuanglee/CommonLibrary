@@ -8,9 +8,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.text.TextUtils;
 
 import java.io.File;
@@ -62,7 +62,7 @@ public class MediaStoreCompat {
             File photoFile = createImageFile(context);
             if (photoFile != null) {
                 mCurrentPhotoPath = photoFile.getAbsolutePath();
-                mCurrentPhotoUri = FileProvider.getUriForFile(context,
+                mCurrentPhotoUri = PathUtils.fileToUri(context,
                         mCaptureStrategy.authority, photoFile);
                 captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mCurrentPhotoUri);
                 captureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);

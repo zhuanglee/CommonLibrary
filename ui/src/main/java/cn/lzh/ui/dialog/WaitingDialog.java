@@ -3,7 +3,7 @@ package cn.lzh.ui.dialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 import android.widget.TextView;
 
 

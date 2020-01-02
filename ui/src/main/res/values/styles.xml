@@ -6,13 +6,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="BottomDialog" parent="Theme.AppCompat.Light.Dialog.NoActionBar">
+    <style name="CustomDialog" parent="Theme.AppCompat.Light.Dialog.NoActionBar">
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <style name="BottomDialog.Animation" parent="Animation.AppCompat.Dialog">
-        <item name="android:windowEnterAnimation">@anim/slide_bottom_in</item>
-        <item name="android:windowExitAnimation">@anim/slide_bottom_out</item>
+    <style name="AlphaAnimation" parent="Animation.AppCompat.Dialog">
+        <item name="android:windowEnterAnimation">@anim/alpha_in</item>
+        <item name="android:windowExitAnimation">@anim/alpha_out</item>
     </style>
 
     <!-- Holo主题的对话框，用于日期选择对话框 -->

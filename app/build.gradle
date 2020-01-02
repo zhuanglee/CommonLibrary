@@ -11,7 +11,7 @@ android {
         versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         dataBinding {
-            enabled = true
+            enabled = false
         }
     }
     buildTypes {
@@ -37,8 +37,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation project(':utils')
     implementation project(':ui')
-    // Android Support Library
-    implementation rootProject.ext.dependencies['appcompat-v7']
-    implementation rootProject.ext.dependencies['recyclerview-v7']
-    implementation rootProject.ext.dependencies['design']
+    // androidx
+    implementation depds['androidx_appcompat']
 }

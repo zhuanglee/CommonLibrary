@@ -23,7 +23,7 @@ build/
 .gradle
 gradlew.bat
 build
-gradle.properties
+# gradle.properties
 gradle
 gradlew
 

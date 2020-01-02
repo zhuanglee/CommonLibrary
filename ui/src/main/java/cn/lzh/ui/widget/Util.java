@@ -1,7 +1,7 @@
 package cn.lzh.ui.widget;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Created by lzh on 2018/12/26.<br/>

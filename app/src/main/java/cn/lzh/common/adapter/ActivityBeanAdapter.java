@@ -1,6 +1,6 @@
 package cn.lzh.common.adapter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,16 +41,16 @@ public class ActivityBeanAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_activity, parent, false);
-            holder.tvActivityTitle = convertView.findViewById(R.id.tv_activity_title);
+            holder.tvTitle = convertView.findViewById(R.id.tv_title);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tvActivityTitle.setText(mList.get(position).getName());
+        holder.tvTitle.setText(mList.get(position).getName());
         return convertView;
     }
 
     private class ViewHolder {
-        private TextView tvActivityTitle;
+        private TextView tvTitle;
     }
 }

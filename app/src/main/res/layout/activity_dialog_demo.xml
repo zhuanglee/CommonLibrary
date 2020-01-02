@@ -6,7 +6,7 @@
 
     <include layout="@layout/toolbar"/>
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_bottom"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_padding"
@@ -15,7 +15,7 @@
         android:text="BottomDialog"
         android:onClick="onClick"/>
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_popup_window"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_padding"
@@ -24,7 +24,7 @@
         android:text="SmartPopupWindow"
         android:onClick="onClick"/>
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_context"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_padding"
@@ -33,7 +33,7 @@
         android:text="ContextDialog"
         android:onClick="onClick" />
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_waiting"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_padding"
@@ -42,7 +42,7 @@
         android:text="WaitingDialog"
         android:onClick="onClick" />
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_date_time_picker"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_padding"
@@ -51,7 +51,7 @@
         android:text="DateTimePickerDialog"
         android:onClick="onClick" />
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_year_moth_picker"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_padding"

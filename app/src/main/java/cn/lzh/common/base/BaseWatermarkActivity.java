@@ -1,7 +1,7 @@
 package cn.lzh.common.base;
 
-import android.support.annotation.CallSuper;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.CallSuper;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 import cn.lzh.common.utils.WatermarkHelper;

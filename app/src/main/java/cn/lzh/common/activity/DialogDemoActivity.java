@@ -1,7 +1,7 @@
 package cn.lzh.common.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 
 import java.util.Calendar;
@@ -15,7 +15,6 @@ import cn.lzh.ui.dialog.SmartPopupWindow;
 import cn.lzh.ui.dialog.WaitingDialog;
 import cn.lzh.ui.dialog.YearMonthPickerDialog;
 import cn.lzh.utils.DateUtil;
-import cn.lzh.utils.DeviceUtil;
 import cn.lzh.utils.ToastUtil;
 
 /**
@@ -24,7 +23,6 @@ import cn.lzh.utils.ToastUtil;
  */
 public class DialogDemoActivity extends BaseActivity implements View.OnClickListener{
 
-    private SmartPopupWindow popupWindow;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,12 +38,7 @@ public class DialogDemoActivity extends BaseActivity implements View.OnClickList
                 BottomDialog.create(this, R.layout.dialog_content_view, true).show();
                 break;
             case R.id.btn_popup_window:
-                if(popupWindow == null){
-                    popupWindow = new SmartPopupWindow(this, R.layout.dialog_content_view,
-                            DeviceUtil.getScreenWidth(this) - DeviceUtil.dip2px(this, 32),
-                            DeviceUtil.dip2px(this, 332));
-                }
-                popupWindow.showScreenCenter();
+                new SmartPopupWindow(this, R.layout.dialog_content_view).showScreenCenter();
                 break;
             case R.id.btn_context:
                 ContextDialog.create(this, "Title", "dialog message", true)
@@ -64,18 +57,10 @@ public class DialogDemoActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.btn_year_moth_picker:
                 YearMonthPickerDialog.create(this, Calendar.getInstance(),
-                        (view, year, month, dayOfMonth) -> ToastUtil.show(year + "年" + month + "月" + dayOfMonth + "日"))
+                        (view, year, month, dayOfMonth) -> ToastUtil.show(year + "年" + month + "月"))
                         .setFixTitle("选择年月")
                         .show();
                 break;
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if(popupWindow != null && popupWindow.isShowing()){
-            popupWindow.dismiss();
         }
     }
 }

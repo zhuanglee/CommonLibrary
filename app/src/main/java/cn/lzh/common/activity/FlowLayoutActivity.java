@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class FlowLayoutActivity extends BaseActivity {
     }
 
     private void setupFlowLayout(FlowLayout flowLayout, ArrayList<String> tags) {
+        View.OnClickListener listener = v -> ToastUtil.show(((TextView)v).getText().toString());
         int textPaddingH = (int) getResources().getDimension(R.dimen.text_horizontal_padding);
         int textPaddingV = (int) getResources().getDimension(R.dimen.text_vertical_padding);
         float radius = getResources().getDimension(R.dimen.radius);
@@ -48,7 +50,7 @@ public class FlowLayoutActivity extends BaseActivity {
             tv.setPadding(textPaddingH, textPaddingV, textPaddingH, textPaddingV);
             tv.setGravity(Gravity.CENTER);
             tv.setBackgroundDrawable(DrawableUtil.getRandomColorSelector(radius));
-            tv.setOnClickListener(v -> ToastUtil.show(string));
+            tv.setOnClickListener(listener);
             flowLayout.addView(tv);
         }
     }

@@ -1,6 +1,6 @@
 package cn.lzh.utils.http;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

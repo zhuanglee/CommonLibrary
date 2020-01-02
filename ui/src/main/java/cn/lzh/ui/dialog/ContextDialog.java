@@ -2,26 +2,25 @@ package cn.lzh.ui.dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * Created by lzh on 2017/8/4.
  * 上下文对话框
  */
-
 public class ContextDialog extends AlertDialog {
 
     /**
      * 创建对话框
-     * @param context
-     * @param title
-     * @param msg
-     * @param cancelable
-     * @return
+     * @param context Context
+     * @param title String
+     * @param msg String
+     * @param cancelable boolean
+     * @return ContextDialog
      */
     public static ContextDialog create(Context context, String title, String msg, boolean cancelable) {
         ContextDialog contextDialog = new ContextDialog(context);
@@ -33,13 +32,13 @@ public class ContextDialog extends AlertDialog {
 
     /**
      * 创建没有标题的对话框
-     * @param context
-     * @param msg
-     * @param cancelable
-     * @return
+     * @param context Context
+     * @param msg String
+     * @param cancelable boolean
+     * @return ContextDialog
      */
     public static ContextDialog create(Context context, String msg, boolean cancelable) {
-        return create(context, "", msg, cancelable);
+        return create(context, null, msg, cancelable);
     }
 
     public ContextDialog(@NonNull Context context) {
@@ -63,8 +62,8 @@ public class ContextDialog extends AlertDialog {
 
     /**
      * 设置否定按钮
-     * @param text
-     * @param listener
+     * @param text string id
+     * @param listener OnClickListener
      */
     public ContextDialog setNegativeButton(@StringRes int text, OnClickListener listener){
         return this.setNegativeButton(getContext().getString(text), listener);
@@ -72,17 +71,12 @@ public class ContextDialog extends AlertDialog {
 
     /**
      * 设置否定按钮
-     * @param text
-     * @param listener
+     * @param text CharSequence
+     * @param listener OnClickListener
      */
     public ContextDialog setNegativeButton(CharSequence text, OnClickListener listener){
         if(listener == null){
-            listener = new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            };
+            listener = (dialog, which) -> dialog.dismiss();
         }
         super.setButton(DialogInterface.BUTTON_NEGATIVE, text, listener);
         return this;
@@ -90,8 +84,8 @@ public class ContextDialog extends AlertDialog {
 
     /**
      * 设置肯定按钮
-     * @param text
-     * @param listener
+     * @param text string id
+     * @param listener OnClickListener
      */
     public ContextDialog setPositiveButton(@StringRes int text, OnClickListener listener){
         return this.setPositiveButton(getContext().getString(text), listener);
@@ -99,17 +93,12 @@ public class ContextDialog extends AlertDialog {
 
     /**
      * 设置肯定按钮
-     * @param text
-     * @param listener
+     * @param text CharSequence
+     * @param listener OnClickListener
      */
     public ContextDialog setPositiveButton(CharSequence text, OnClickListener listener){
         if(listener == null){
-            listener = new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            };
+            listener = (dialog, which) -> dialog.dismiss();
         }
         super.setButton(DialogInterface.BUTTON_POSITIVE, text, listener);
         return this;
