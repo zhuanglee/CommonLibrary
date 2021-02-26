@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!--允许读取网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!--允许读取wifi网络状态-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <application
@@ -16,8 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:allowBackup"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:allowBackup">
         <activity
             android:name="cn.lzh.common.activity.DemoMainActivity"
             android:label="@string/app_name">
@@ -28,7 +28,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="cn.lzh.common.activity.CalendarActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="cn.lzh.common.activity.DialogDemoActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name="cn.lzh.common.activity.FlowLayoutActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="cn.lzh.common.activity.GestureLockActivity"
             android:launchMode="singleTop" />
         <activity
             android:name="cn.lzh.common.activity.GroupImageViewActivity"
@@ -37,10 +46,10 @@
             android:name="cn.lzh.common.activity.RingProgressBarActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="cn.lzh.common.activity.DialogDemoActivity"
+            android:name="cn.lzh.common.activity.UtilActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="cn.lzh.common.activity.UtilActivity"
+            android:name="cn.lzh.common.activity.WatermarkImageViewActivity"
             android:launchMode="singleTop" />
 
     </application>

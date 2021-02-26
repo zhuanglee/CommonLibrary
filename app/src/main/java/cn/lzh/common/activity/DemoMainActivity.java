@@ -20,12 +20,15 @@ import cn.lzh.common.bean.ActivityBean;
  */
 public class DemoMainActivity extends BaseActivity {
 
-    private List<ActivityBean> mActivityBeans = Arrays.asList(
-            new ActivityBean(UtilActivity.class),
-            new ActivityBean(GroupImageViewActivity.class),
+    private final List<ActivityBean> activityBeans = Arrays.asList(
+            new ActivityBean(CalendarActivity.class),
             new ActivityBean(DialogDemoActivity.class),
             new ActivityBean(FlowLayoutActivity.class),
-            new ActivityBean(RingProgressBarActivity.class)
+            new ActivityBean(GestureLockActivity.class),
+            new ActivityBean(GroupImageViewActivity.class),
+            new ActivityBean(RingProgressBarActivity.class),
+            new ActivityBean(UtilActivity.class),
+            new ActivityBean(WatermarkImageViewActivity.class)
     );
 
     @Override
@@ -37,12 +40,12 @@ public class DemoMainActivity extends BaseActivity {
     }
 
     private void initView() {
-        Collections.sort(mActivityBeans);
+        Collections.sort(activityBeans);
         ListView listView = findViewById(R.id.listView);
-        listView.setAdapter(new ActivityBeanAdapter(mActivityBeans));
+        listView.setAdapter(new ActivityBeanAdapter(activityBeans));
         listView.setOnItemClickListener((parent, view, position, id) ->
         {
-            ActivityBean bean = mActivityBeans.get(position);
+            ActivityBean bean = activityBeans.get(position);
             startActivity(new Intent(this, bean.getClazz())
                     .putExtra("title", bean.getName()));
         });

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.lzh.interview">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="zhuanglee.github.io"
+                    android:pathPattern="/interview/main" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="cn.lzh.interview.DEEP_LINK" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:scheme="app"
+                    android:host="lzh.cn"
+                    android:pathPattern="/interview/main" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.DayDreamSettingActivity">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="zhuanglee.github.io"
+                    android:pathPattern="/interview/daydream" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="cn.lzh.interview.DEEP_LINK" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:scheme="app"
+                    android:host="lzh.cn"
+                    android:pathPattern="/interview/daydream" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.RouterActivity">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="zhuanglee.github.io"
+                    android:pathPattern="/interview/router" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="cn.lzh.interview.DEEP_LINK" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:scheme="app"
+                    android:host="lzh.cn"
+                    android:pathPattern="/interview/router" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".service.DownloadService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.lzh.services.download" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.DayDreamService"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_DREAM_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!-- Point to additional information for this dream (optional) -->
+            <meta-data
+                android:name="android.service.dream"
+                android:resource="@xml/day_dream" />
+        </service>
+        <service
+            android:name=".service.MusicService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.lzh.services.music" />
+            </intent-filter>
+        </service>
+        <service android:name=".service.LocationService" />
+    </application>
+
+</manifest>

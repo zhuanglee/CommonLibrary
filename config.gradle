@@ -1,20 +1,60 @@
 ext {
     versionCode = 17
     versionName = "1.0.5"
-    version = [
-            minSdk          : 15,
-            targetSdk       : 28,
-            compileSdk      : 28,
 
-            // Androidx
-            appcompat       : "1.1.0",
-            core            : "1.1.0",
-    ]
+    // sdk version
+    minSdk = 16
+    targetSdk = 29
+
+    // kotlin
+    kotlin_version = '1.4.30'
+
+    // test
+    junit_version = "4.13.1"
+    androidx_junit_version = "1.1.2"
+    androidx_espresso_core_version = "3.3.0"
+
+    // AndroidX version
+    androidx_annotation_version = "1.1.0"
+    androidx_appcompat_version = "1.2.0"
+    androidx_core_version = "1.1.0"
+    androidx_core_ktx_version = "1.3.2"
+    androidx_constraintlayout_version = "2.0.4"
+    androidx_recyclerview_version = "1.1.0"
+    androidx_swiperefreshlayout_version = "1.1.0"
+    androidx_lifecycle_version = "2.2.0"
+    androidx_fragment_ktx_version = "1.2.5"
+
+    // google
+    material_version = "1.2.1"
+
     depds = [
+
+            // test
+            junit                           : "junit:junit:$junit_version",
+            androidx_junit                  : "androidx.test.ext:junit:$androidx_junit_version",
+            androidx_espresso_core          : "androidx.test.espresso:espresso-core:$androidx_espresso_core_version",
+
+            // kotlin
+            kotlin_stdlib                   : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+
             // AndroidX
-            androidx_annotation      : "androidx.annotation:annotation:1.1.0",
-            androidx_appcompat       : "androidx.appcompat:appcompat:${version['appcompat']}",
-            androidx_core            : "androidx.core:core:${version['core']}",
+            androidx_annotation             : "androidx.annotation:annotation:$androidx_annotation_version",
+            androidx_appcompat              : "androidx.appcompat:appcompat:$androidx_appcompat_version",
+            androidx_core                   : "androidx.core:core:$androidx_core_version",
+            androidx_core_ktx               : "androidx.core:core-ktx:$androidx_core_ktx_version",
+            androidx_constraintlayout       : "androidx.constraintlayout:constraintlayout:$androidx_constraintlayout_version",
+            androidx_fragment_ktx           : "androidx.fragment:fragment-ktx:$androidx_fragment_ktx_version",
+            androidx_recyclerview           : "androidx.recyclerview:recyclerview:$androidx_recyclerview_version",
+            androidx_swiperefreshlayout     : "androidx.swiperefreshlayout:swiperefreshlayout:$androidx_swiperefreshlayout_version",
+            androidx_lifecycle_common_java8 : "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version",
+            androidx_lifecycle_extensions   : "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version",
+            androidx_lifecycle_runtime_ktx  : "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_version",
+            androidx_lifecycle_viewmodel_ktx: "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_version",
+
+            // google
+            material                        : "com.google.android.material:material:$material_version",
+
     ]
 
 }

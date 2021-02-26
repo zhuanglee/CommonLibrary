@@ -1,42 +1,51 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
 android {
-    compileSdkVersion rootProject.ext.version.compileSdk
+
+    compileSdkVersion rootProject.ext.targetSdk
 
     defaultConfig {
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
 
-        minSdkVersion rootProject.ext.version.minSdk
-        targetSdkVersion rootProject.ext.version.targetSdk
         applicationId "cn.lzh.commonlibrary"
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        dataBinding {
-            enabled = false
-        }
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-    packagingOptions {
-        exclude 'META-INF/proguard/androidx-annotations.pro'
+
+    buildFeatures {
+        viewBinding true
     }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testImplementation 'junit:junit:4.12'
+
+    // test
+    testImplementation depds.junit
+    androidTestImplementation depds.androidx_junit
+    androidTestImplementation depds.androidx_espresso_core
+
     implementation project(':utils')
     implementation project(':ui')
+    implementation project(':calendar')
     // androidx
     implementation depds['androidx_appcompat']
+    implementation depds['androidx_constraintlayout']
 }

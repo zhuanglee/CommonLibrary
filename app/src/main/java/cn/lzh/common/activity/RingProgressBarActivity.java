@@ -6,6 +6,8 @@ import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+
 import cn.lzh.common.R;
 import cn.lzh.common.base.BaseActivity;
 import cn.lzh.common.view.RingProgressBar;
@@ -20,7 +22,7 @@ public class RingProgressBarActivity extends BaseActivity {
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
-        public boolean handleMessage(Message msg) {
+        public boolean handleMessage(@NonNull Message msg) {
             if (mIsIncrement) {
                 progress++;
             } else {

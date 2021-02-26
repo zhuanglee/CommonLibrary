@@ -6,17 +6,16 @@ group='com.github.zhuanglee'
 
 android {
 
-    compileSdkVersion rootProject.ext.version.compileSdk
+    compileSdkVersion rootProject.ext.targetSdk
 
     defaultConfig {
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
 
-        minSdkVersion rootProject.ext.version.minSdk
-        targetSdkVersion rootProject.ext.version.targetSdk
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -35,11 +34,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testImplementation 'junit:junit:4.12'
+
+    // test
+    testImplementation depds.junit
+    androidTestImplementation depds.androidx_junit
+    androidTestImplementation depds.androidx_espresso_core
+
     // AndroidX
     implementation depds['androidx_appcompat']
-//    implementation depds['androidx_annotation']
 }
