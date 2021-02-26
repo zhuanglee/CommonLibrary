@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.wifi.WifiManager
-import com.shhh.base.receiver.ConnectivityReceiver
 
 /**
  * Created by lzh on 2019/10/22.

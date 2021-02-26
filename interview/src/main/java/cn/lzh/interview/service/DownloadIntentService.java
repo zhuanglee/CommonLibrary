@@ -9,11 +9,11 @@ import androidx.annotation.Nullable;
 /**
  * Created by lzh on 2018/9/3.<br/>
  */
-public class DownloadService extends IntentService {
+public class DownloadIntentService extends IntentService {
 
     private static final String TAG = "DownloadService";
 
-    public DownloadService() {
+    public DownloadIntentService() {
         super(TAG);
     }
 
@@ -22,7 +22,7 @@ public class DownloadService extends IntentService {
      *
      * @param name Used to name the worker thread, important only for debugging.
      */
-    public DownloadService(String name) {
+    public DownloadIntentService(String name) {
         super(name);
     }
 

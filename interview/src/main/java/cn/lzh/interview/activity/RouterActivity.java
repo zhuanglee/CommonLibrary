@@ -1,6 +1,7 @@
 package cn.lzh.interview.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -43,7 +44,7 @@ public class RouterActivity extends AppCompatActivity implements TextView.OnEdit
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if(actionId == EditorInfo.IME_ACTION_GO){
+        if (actionId == EditorInfo.IME_ACTION_GO) {
             go();
             return true;
         }
@@ -52,16 +53,16 @@ public class RouterActivity extends AppCompatActivity implements TextView.OnEdit
 
     public void go() {
         String trim = etContent.getText().toString().trim();
-        try {
-            startActivity(new Intent(ACTION_DEEP_LINK, Uri.parse(trim)));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "未匹配到Activity", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(ACTION_DEEP_LINK, Uri.parse(trim));
+        if (getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "未匹配到 Activity", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void onClick(View view) {
-        if(view.getId() == R.id.btn_go){
+        if (view.getId() == R.id.btn_go) {
             go();
         }
     }

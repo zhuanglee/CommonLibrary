@@ -81,7 +81,7 @@
         </activity>
 
         <service
-            android:name=".service.DownloadService"
+            android:name=".service.DownloadIntentService"
             android:exported="false">
             <intent-filter>
                 <action android:name="cn.lzh.services.download" />
@@ -111,6 +111,7 @@
             </intent-filter>
         </service>
         <service android:name=".service.LocationService" />
+        <service android:name=".service.MyJobIntentService"/>
     </application>
 
 </manifest>
