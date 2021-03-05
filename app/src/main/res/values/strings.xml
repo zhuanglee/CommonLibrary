@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">CommonLibrary</string>
+    <string name="activity_util_short_label">UtilActivity</string>
+    <string name="activity_util_long_label">CommonUtilActivity</string>
+    <string name="activity_util_disable_message">Shortcut disable</string>
 </resources>

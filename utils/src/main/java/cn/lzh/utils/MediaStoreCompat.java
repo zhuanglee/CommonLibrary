@@ -27,7 +27,7 @@ import java.util.Locale;
  * @see #getCaptureIntent(Context)
  */
 public class MediaStoreCompat {
-    private CaptureStrategy mCaptureStrategy;
+    private final CaptureStrategy mCaptureStrategy;
     private Uri mCurrentPhotoUri;
     private String mCurrentPhotoPath;
 

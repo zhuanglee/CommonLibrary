@@ -1,9 +1,12 @@
 package cn.lzh.utils;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.Intent.ShortcutIconResource;
 import android.content.pm.PackageManager;
+import android.content.pm.ShortcutManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -11,26 +14,35 @@ import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.text.TextUtils;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RequiresPermission;
+import androidx.core.content.pm.ShortcutInfoCompat;
+import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.core.graphics.drawable.IconCompat;
+
 import java.io.File;
+import java.util.Collections;
 import java.util.Locale;
 
 /**
- * 通过Intent和系统进行交互
+ * 通过 Intent 和系统进行交互
+ *
  * @author open source
- * @see #getLaunch(Context, String) getLaunch
- * @see #installShortcut(String, ShortcutIconResource, String) installShortcut
- * @see #notifyMediaScannerScanFile(Context, File) notifyMediaScannerScanFile
- * @see #openAppDetail(String) openAppDetail
- * @see #openBrowser(String) openBrowser
- * @see #openCall(String) openCall
- * @see #openContacts() openContacts
- * @see #openFile(String) openFile
- * @see #openHome() openHome
- * @see #openWifiSettings() openWifiSettings
- * @see #openWirelessSettings() openWirelessSettings
- * @see #sendEmail(String[]) sendEmail
- * @see #share(String, String, String) share
- * @see #unInstallShortcut(String, ShortcutIconResource, String) unInstallShortcut
+ * @see #getLaunchIntentForPackage(Context, String)
+ * @see #getNotifyMediaScanner(Context, File)
+ * @see #getOpenAppDetail(String)
+ * @see #getOpenBrowser(String)
+ * @see #getOpenCall(String)
+ * @see #getOpenContacts()
+ * @see #getOpenFile(String)
+ * @see #getOpenHome()
+ * @see #getOpenWifiSettings()
+ * @see #getOpenWirelessSettings()
+ * @see #getSendEmail(String[], String[], String[], String, String)
+ * @see #getSendSms(String, String)
+ * @see #getShareTextIntent(String, String, String)
+ * @see #installShortcut(Activity, String, int, Intent, int)
  */
 public class IntentUtil {
 
@@ -39,88 +51,86 @@ public class IntentUtil {
     }
 
     /**
-     * 通知媒体库扫描文件
+     * 添加快捷方式
      *
-     * @param context Context
-     * @param file    File
+     * @param iconResId 快捷方式图标
+     * @return {@code true} if the launcher supports this feature
      */
-    public static void notifyMediaScannerScanFile(Context context, File file) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Intent mediaScanIntent = new Intent(
-                    Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            mediaScanIntent.setData(Uri.fromFile(file));
-            context.sendBroadcast(mediaScanIntent);
-        } else {
-            context.sendBroadcast(new Intent(
-                    Intent.ACTION_MEDIA_MOUNTED,
-                    Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+    public static boolean installShortcut(
+            Activity activity,
+            String name,
+            @DrawableRes int iconResId,
+            Intent actionIntent,
+            int requestCode
+    ) {
+        // 对应的 Activity 会收到回调
+        PendingIntent pendingIntent = PendingIntent.getActivity(activity,
+                requestCode, actionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        ShortcutInfoCompat shortcutInfo = buildShortcutInfo(activity, name, iconResId, actionIntent);
+        boolean requestPinShortcut = ShortcutManagerCompat.requestPinShortcut(activity, shortcutInfo,
+                pendingIntent.getIntentSender());
+        if (!requestPinShortcut && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            // Android 7.0
+            addDynamicShortcuts(activity, name, iconResId, actionIntent);
+        }
+        return requestPinShortcut;
+    }
+
+    /**
+     * 添加动态的快捷方式
+     *
+     * @param iconResId 快捷方式图标
+     */
+    public static void addDynamicShortcuts(
+            Activity activity,
+            String name,
+            @DrawableRes int iconResId,
+            Intent actionIntent
+    ) {
+        ShortcutInfoCompat shortcutInfo = buildShortcutInfo(activity, name, iconResId, actionIntent);
+        ShortcutManagerCompat.addDynamicShortcuts(activity, Collections.singletonList(shortcutInfo));
+    }
+
+    /**
+     * 构建快捷方式信息
+     * @param context Context
+     * @param name 快捷方式的 id、名字
+     * @param iconResId 快捷方式的图标
+     * @param actionIntent 快捷方式的意图
+     * @return ShortcutInfo
+     */
+    private static ShortcutInfoCompat buildShortcutInfo(Context context, String name, @DrawableRes int iconResId, Intent actionIntent) {
+        return new ShortcutInfoCompat.Builder(context, name)
+                .setShortLabel(name)
+                .setLongLabel(name)
+                .setIcon(IconCompat.createWithResource(context, iconResId))
+                .setIntent(actionIntent)
+                .build();
+    }
+
+    /**
+     * 移除动态的快捷方式
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
+    public static void removeDynamicShortcuts(
+            Activity activity,
+            String name
+    ) {
+//        ShortcutManagerCompat.removeDynamicShortcuts(activity, Collections.singletonList(name));
+        ShortcutManager shortcutManager = (ShortcutManager) activity.getSystemService(Context.SHORTCUT_SERVICE);
+        if (shortcutManager != null) {
+            shortcutManager.removeDynamicShortcuts(Collections.singletonList(name));
         }
     }
 
     /**
-     * 打开Wireless设置界面
-     */
-    public static Intent openWirelessSettings() {
-        return new Intent(Settings.ACTION_WIRELESS_SETTINGS);
-    }
-
-    /**
-     * 打开WIFI设置界面
-     */
-    public static Intent openWifiSettings() {
-        return new Intent(Settings.ACTION_WIFI_SETTINGS);
-    }
-
-
-    /**
-     * 获取跳转到桌面的意图
-     */
-    public static Intent openHome() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        return intent;
-    }
-
-    /**
-     * 删除程序的快捷方式
-     *
-     * @param iconRes 快捷方式图标
-     */
-    public static Intent unInstallShortcut(String name,
-                                           ShortcutIconResource iconRes, String action) {
-        Intent install = new Intent(
-                "com.android.launcher.action.UNINSTALL_SHORTCUT");
-        install.putExtra("duplicate", true);// 不允许重复创建
-        install.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
-        install.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconRes);
-        install.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(action));
-        return install;
-    }
-
-    /**
-     * 获取添加快捷方式意图
-     *
-     * @param iconRes 快捷方式图标
-     */
-    public static Intent installShortcut(String name,
-                                         ShortcutIconResource iconRes, String action) {
-        Intent install = new Intent(
-                "com.android.launcher.action.INSTALL_SHORTCUT");
-        install.putExtra("duplicate", true);// 不允许重复创建
-        install.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
-        install.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconRes);
-        install.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(action));
-        return install;
-    }
-
-    /**
-     * 获取分享信息意图
+     * 分享文本
      *
      * @param subject 分享的主题
      * @param text    分享的文本
      * @param title   分享的标题
      */
-    public static Intent share(String subject, String text, String title) {
+    public static Intent getShareTextIntent(String subject, String text, String title) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         if (!TextUtils.isEmpty(subject)) {
@@ -137,42 +147,43 @@ public class IntentUtil {
     }
 
     /**
-     * 获取查看应用详情意图 {act=android.settings.APPLICATION_DETAILS_SETTINGS
-     * dat=package:com.xiaomi.shop
-     * cmp=com.android.settings/.applications.InstalledAppDetails}
+     * 查看应用详情
      */
-    public static Intent openAppDetail(String packageName) {
+    public static Intent getOpenAppDetail(String packageName) {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + packageName));
         return intent;
     }
 
     /**
-     * 获取打开系统联系人的意图
-     */
-    public static Intent openContacts() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
-        return intent;
-    }
-
-    /**
-     * 获取浏览意图
+     * 打开浏览器
      *
      * @param uri 网址
      */
-    public static Intent openBrowser(String uri) {
+    public static Intent getOpenBrowser(String uri) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         return Intent.createChooser(intent, "请选择浏览器");
     }
 
     /**
-     * 获取打电话意图
+     * 启动打电话界面
      *
      * @param tel 电话号码
      */
-    public static Intent openCall(String tel) {
+    public static Intent getOpenCall(String tel) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + tel));
+        return Intent.createChooser(intent, "请选择拨号器");
+    }
+
+    /**
+     * 打电话
+     *
+     * @param tel 电话号码
+     */
+    @RequiresPermission(Manifest.permission.CALL_PHONE)
+    public static Intent getCall(String tel) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_CALL);
         intent.setData(Uri.parse("tel:" + tel));
@@ -180,17 +191,78 @@ public class IntentUtil {
     }
 
     /**
-     * 获取发送邮件意图
+     * 打开通讯录
+     */
+    public static Intent getOpenContacts() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+        return intent;
+    }
+
+    /**
+     * 跳转到桌面
+     */
+    public static Intent getOpenHome() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        return intent;
+    }
+
+    /**
+     * 打开地图，并跳转到指定坐标
+     *
+     * @param latitude  纬度
+     * @param longitude 经度
+     */
+    public static Intent getOpenMap(float latitude, float longitude) {
+        Uri uri = Uri.parse("geo:" + latitude + "," + longitude);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        return Intent.createChooser(intent, "请选择地图");
+    }
+
+    /**
+     * 打开 Wireless 设置界面
+     */
+    public static Intent getOpenWirelessSettings() {
+        return new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+    }
+
+    /**
+     * 打开 WIFI 设置界面
+     */
+    public static Intent getOpenWifiSettings() {
+        return new Intent(Settings.ACTION_WIFI_SETTINGS);
+    }
+
+    /**
+     * 发短信
+     *
+     * @param tel 电话号码
+     */
+    public static Intent getSendSms(String tel, String body) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("smsto:" + tel));
+        // 设置消息体
+        intent.putExtra("sms_body", body);
+        return intent;
+    }
+
+    /**
+     * 发送邮件
      *
      * @param email 邮件地址
      */
-    public static Intent sendEmail(String[] email) {
+    public static Intent getSendEmail(String[] email, String[] ccEmail,
+                                      String[] bccEmail, String subject, String text) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("message/rfc882");
         intent.putExtra(Intent.EXTRA_EMAIL, email);
-        intent.putExtra(Intent.EXTRA_CC, "");
-        intent.putExtra(Intent.EXTRA_TEXT, "");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "");
+        intent.putExtra(Intent.EXTRA_CC, ccEmail);
+        intent.putExtra(Intent.EXTRA_BCC, bccEmail);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, text);
         return Intent.createChooser(intent, "发送邮件");
     }
 
@@ -200,17 +272,36 @@ public class IntentUtil {
      * @param context     Context
      * @param packageName 包名
      */
-    public static Intent getLaunch(Context context, String packageName) {
+    public static Intent getLaunchIntentForPackage(Context context, String packageName) {
         PackageManager pm = context.getPackageManager();
         return pm.getLaunchIntentForPackage(packageName);
     }
 
     /**
-     * 获取打开指定文件的Intent
+     * 通知媒体库扫描文件
+     *
+     * @param context Context
+     * @param file    File
+     */
+    public static void getNotifyMediaScanner(Context context, File file) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Intent mediaScanIntent = new Intent(
+                    Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            mediaScanIntent.setData(Uri.fromFile(file));
+            context.sendBroadcast(mediaScanIntent);
+        } else {
+            context.sendBroadcast(new Intent(
+                    Intent.ACTION_MEDIA_MOUNTED,
+                    Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+        }
+    }
+
+    /**
+     * 打开指定文件
      *
      * @param filePath 文件路径
      */
-    public static Intent openFile(String filePath) {
+    public static Intent getOpenFile(String filePath) {
         return OpenFileUtil.getOpenFileIntent(filePath);
     }
 
@@ -225,28 +316,33 @@ public class IntentUtil {
                 return null;
             // 取得后缀名，并转为小写
             String end = file.getName()
-                    .substring(file.getName().lastIndexOf(".") + 1,
-                            file.getName().length()).toLowerCase(Locale.CHINA);
+                    .substring(file.getName().lastIndexOf(".") + 1).toLowerCase(Locale.CHINA);
             // 根据后缀名设置intent
-            if (end.equals("mp3") || end.equals("mid") || end.equals("ogg")
-                    || end.equals("wav")) {
-                return getAudioFileIntent(filePath);
-            } else if (end.equals("mp4")) {
-                return getVideoFileIntent(filePath);
-            } else if (end.equals("jpg") || end.equals("gif")
-                    || end.equals("png") || end.equals("jpeg")
-                    || end.equals("bmp")) {
-                return getImageFileIntent(filePath);
-            } else if (end.equals("apk")) {
-                return getApkFileIntent(filePath);
-            } else if (end.equals("txt")) {
-                return getTextFileIntent(filePath);
-            } else if (end.equals("html") || end.equals("htm")) {
-                return getHtmlFileIntent(filePath);
-            } else if (end.equals("pdf")) {
-                return getPdfFileIntent(filePath);
-            } else {
-                return getAllIntent(filePath);
+            switch (end) {
+                case "mp3":
+                case "mid":
+                case "ogg":
+                case "wav":
+                    return getAudioFileIntent(filePath);
+                case "mp4":
+                    return getVideoFileIntent(filePath);
+                case "jpg":
+                case "gif":
+                case "png":
+                case "jpeg":
+                case "bmp":
+                    return getImageFileIntent(filePath);
+                case "apk":
+                    return getApkFileIntent(filePath);
+                case "txt":
+                    return getTextFileIntent(filePath);
+                case "html":
+                case "htm":
+                    return getHtmlFileIntent(filePath);
+                case "pdf":
+                    return getPdfFileIntent(filePath);
+                default:
+                    return getAllIntent(filePath);
             }
         }
 

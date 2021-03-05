@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">常用库</string>
+    <string name="activity_util_short_label">工具类</string>
+    <string name="activity_util_long_label">常用工具类</string>
+    <string name="activity_util_disable_message">快捷方式不可用</string>
+</resources>

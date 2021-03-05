@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="util"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/activity_util_short_label"
+        android:shortcutLongLabel="@string/activity_util_long_label"
+        android:shortcutDisabledMessage="@string/activity_util_disable_message">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="cn.lzh.common"
+            android:targetClass="cn.lzh.common.activity.UtilActivity" />
+        <categories android:name="android.shortcut.conversation"/>
+
+    </shortcut>
+</shortcuts>

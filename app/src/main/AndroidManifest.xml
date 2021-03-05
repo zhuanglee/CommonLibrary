@@ -2,12 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="cn.lzh.common">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <!--允许读取网络状态-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!--允许读取wifi网络状态-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--  快捷方式权限  -->
+    <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.UNINSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <!--  读写设置  -->
+    <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+
     <application
         android:name="cn.lzh.common.App"
         android:allowBackup="false"
@@ -26,6 +35,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts"/>
         </activity>
         <activity
             android:name="cn.lzh.common.activity.CalendarActivity"
@@ -47,7 +59,12 @@
             android:launchMode="singleTop" />
         <activity
             android:name="cn.lzh.common.activity.UtilActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="cn.lzh.common.UtilActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="cn.lzh.common.activity.WatermarkImageViewActivity"
             android:launchMode="singleTop" />
