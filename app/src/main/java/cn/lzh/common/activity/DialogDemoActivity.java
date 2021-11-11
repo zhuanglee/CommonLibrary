@@ -1,17 +1,13 @@
 package cn.lzh.common.activity;
 
-import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
-import android.widget.DatePicker;
 
 import java.util.Calendar;
 
 import cn.lzh.common.R;
 import cn.lzh.common.base.BaseActivity;
-import cn.lzh.common.base.BaseWatermarkActivity;
 import cn.lzh.ui.dialog.BottomDialog;
 import cn.lzh.ui.dialog.ContextDialog;
 import cn.lzh.ui.dialog.DateTimePickerDialog;

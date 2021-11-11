@@ -2,7 +2,7 @@ package cn.lzh.ui.widget;
 
 import android.content.Context;
 import android.database.DataSetObserver;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;

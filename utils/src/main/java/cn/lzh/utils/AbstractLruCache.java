@@ -1,6 +1,6 @@
 package cn.lzh.utils;
 
-import android.support.v4.util.LruCache;
+import androidx.collection.LruCache;
 
 /**
  * 缓存

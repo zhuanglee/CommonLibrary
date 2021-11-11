@@ -3,7 +3,7 @@ package cn.lzh.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.telephony.TelephonyManager;
 
 import static android.net.ConnectivityManager.TYPE_MOBILE;

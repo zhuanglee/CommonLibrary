@@ -1,8 +1,8 @@
 package cn.lzh.ui.dialog;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatDialog;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;

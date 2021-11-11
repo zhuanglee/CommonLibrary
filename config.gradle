@@ -13,11 +13,11 @@ ext {
             // Android Support Library
             "annotations"      : "com.android.support:support-annotations:${version["supportLibrary"]}",
             "support-v4"       : "com.android.support:support-v4:${version["supportLibrary"]}",
-            "appcompat-v7"     : "com.android.support:appcompat-v7:${version["supportLibrary"]}",
-            "recyclerview-v7"  : "com.android.support:recyclerview-v7:${version["supportLibrary"]}",
+            "appcompat-v7"     : 'androidx.appcompat:appcompat:1.0.0',
+            "recyclerview-v7"  : 'androidx.recyclerview:recyclerview:1.0.0',
             "cardview-v7"      : "com.android.support:cardview-v7:${version["supportLibrary"]}",
             "gridlayout-v7"    : "com.android.support:gridlayout-v7:${version["supportLibrary"]}",
-            "design"           : "com.android.support:design:${version["supportLibrary"]}",
+            "design"           : 'com.google.android.material:material:1.0.0',
             "constraint-layout": "com.android.support.constraint:constraint-layout:${version["constraintLayout"]}",
     ]
 

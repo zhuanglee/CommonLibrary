@@ -1,6 +1,6 @@
 package cn.lzh.utils.security;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Created by lzh on 2017/9/18.<br/>

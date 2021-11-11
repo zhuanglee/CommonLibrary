@@ -1,6 +1,6 @@
 package cn.lzh.utils;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.Html;
 import android.text.Spanned;
 
