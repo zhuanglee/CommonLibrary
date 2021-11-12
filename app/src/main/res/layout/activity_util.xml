@@ -19,6 +19,22 @@
                 android:orientation="vertical">
 
                 <Button
+                    android:id="@+id/btn_start_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_padding"
+                    android:onClick="onClick"
+                    android:text="Start Service" />
+
+                <Button
+                    android:id="@+id/btn_stop_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_padding"
+                    android:onClick="onClick"
+                    android:text="Stop Service" />
+
+                <Button
                     android:id="@+id/btn_open_wireless_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

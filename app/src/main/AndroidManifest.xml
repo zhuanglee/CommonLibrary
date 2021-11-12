@@ -44,6 +44,7 @@
             android:launchMode="singleTop" />
 
         <receiver android:name="cn.lzh.utils.recevier.NetworkStateReceiver"/>
+      <service android:name=".service.DemoService" />
     </application>
 
 </manifest>

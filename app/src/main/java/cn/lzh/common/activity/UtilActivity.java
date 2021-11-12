@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 import cn.lzh.common.R;
 import cn.lzh.common.base.BaseActivity;
 import cn.lzh.common.databinding.ActivityUtilBinding;
+import cn.lzh.common.service.DemoService;
 import cn.lzh.utils.DeviceUtil;
 import cn.lzh.utils.DrawableUtil;
 import cn.lzh.utils.FileUtil;
@@ -53,9 +54,21 @@ public class UtilActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
+    protected void onDestroy() {
+        stopService(new Intent(this, DemoService.class));
+        super.onDestroy();
+    }
+
+    @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btn_open_wireless_settings) {
+        if(id == R.id.btn_start_service){
+            startService(new Intent(this, DemoService.class));
+            updateMemoryInfo();
+        }else if(id == R.id.btn_stop_service){
+            SystemUtil.stopRunningService(this, DemoService.class.getName());
+            updateMemoryInfo();
+        }else if (id == R.id.btn_open_wireless_settings) {
             startActivity(IntentUtil.openWirelessSettings());
         } else if (id == R.id.btn_random) {
             mBinding.btnRandom.setBackgroundDrawable(DrawableUtil.getRandomColorSelector(mRadius));
@@ -110,7 +123,6 @@ public class UtilActivity extends BaseActivity implements View.OnClickListener, 
         log("getCurrentRuntimeValue=" + SystemUtil.getCurrentRuntimeValue());
         log("getDeviceId=" + SystemUtil.getDeviceId(appContext));
         log("getWifiIpAddress=" + SystemUtil.getWifiIpAddress(appContext));
-        log("getWifiIpAddress=" + SystemUtil.getWifiIpAddress(appContext));
         log("isApplicationInBackground=" + SystemUtil.isApplicationInBackground(appContext));
         log("getTopActivity=" + SystemUtil.getTopActivity(appContext));
         log("isMainProcess=" + SystemUtil.isMainProcess(appContext));
@@ -120,9 +132,7 @@ public class UtilActivity extends BaseActivity implements View.OnClickListener, 
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        String serviceClassName = "cn.lzh.interview.service.DayDreamService";
-        log("isRunningService=" + SystemUtil.isRunningService(appContext, serviceClassName));
-        log("stopRunningService=" + SystemUtil.stopRunningService(appContext, serviceClassName));
+        log("isRunningService=" + SystemUtil.isRunningService(appContext, DemoService.class.getName()));
         log("getDeviceUsableMemory=" + FileUtil.formatFileSize(this, SystemUtil.getDeviceUsableMemory(this)));
         log("getAllApps=" + SystemUtil.getAllApps(appContext));
         log("getSign=" + SystemUtil.getSign(appContext, appContext.getPackageName()));
