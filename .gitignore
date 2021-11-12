@@ -23,7 +23,6 @@ build/
 .gradle
 gradlew.bat
 build
-gradle.properties
 gradlew
 
 
