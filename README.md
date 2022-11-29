@@ -1,6 +1,6 @@
 # CommonLibrary
 
-This is a android common library.
+[Deprecated] This is a android common library.
  
 ## Download  
 
